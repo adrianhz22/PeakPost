@@ -20,7 +20,7 @@ class PostFactory extends Factory
             'title' => fake()->sentence(),
             'slug' => fake()->slug(),
             'body' => fake()->paragraph(5, true),
-            'image' => fake()->imageUrl(640, 480, 'posts', true),
+            'image' => "https://picsum.photos/800/600?random=" . rand(1, 1000),
         ];
     }
 }
