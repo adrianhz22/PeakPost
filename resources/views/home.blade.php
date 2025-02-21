@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     @vite(['resources/css/app.css'])
-    <x-navigation />
+</head>
+
+<body>
+<x-navigation/>
 
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold text-center mb-6">Página de Inicio</h1>
@@ -39,4 +42,4 @@
     <footer class="bg-gray-200 text-center p-4 mt-8">
         <p>©2025 Todos los derechos reservados PeakPost</p>
     </footer>
-
+</body>
