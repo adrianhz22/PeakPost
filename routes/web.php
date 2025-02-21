@@ -16,6 +16,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/edit/{post}', [PostController::class, 'edit'])->name('edit');
     Route::put('/update/{post}', [PostController::class, 'update'])->name('update');
     Route::delete('/destroy/{post}', [PostController::class, 'destroy'])->name('destroy');
+    Route::post('/upload-image', [PostController::class, 'uploadImage'])->name('upload.image');
 });
 
 Route::get('/dashboard', function () {

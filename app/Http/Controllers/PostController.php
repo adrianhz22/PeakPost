@@ -33,7 +33,7 @@ class PostController extends Controller
 
         Post::create([
             'title' => $request->title,
-            'slug' => Str::slug($request->name),
+            'slug' => Str::slug($request->title),
             'body' => $request->body,
             'image' => $request->image,
         ]);
@@ -69,5 +69,14 @@ class PostController extends Controller
         return redirect('home');
 
     }
+
+    public function uploadImage(Request $request)
+    {
+
+        $path = $request->file('file')->store('posts', 'public');
+
+        return response()->json(['path' => "/storage/$path"]);
+    }
+
 
 }
