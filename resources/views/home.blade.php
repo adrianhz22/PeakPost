@@ -33,7 +33,7 @@
                             {{ $post->title }}
                         </a>
                     </h2>
-                    <p class="mt-2 text-gray-700">{{ Str::limit($post->body, 100) }}</p>
+                    <p class="mt-2 text-gray-700">{!! Str::limit($post->body, 100) !!}</p>
                 </div>
             @endforeach
         </div>

@@ -38,7 +38,7 @@ class PostController extends Controller
             'image' => $request->image,
         ]);
 
-        return redirect('/');
+        return redirect('home');
 
     }
 
@@ -58,7 +58,7 @@ class PostController extends Controller
         $post->image = $request->image;
         $post->save();
 
-        return redirect('/');
+        return redirect('home');
 
     }
 
@@ -66,7 +66,7 @@ class PostController extends Controller
     {
         $post->delete();
 
-        return redirect('/');
+        return redirect('home');
 
     }
 
