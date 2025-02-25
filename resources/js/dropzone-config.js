@@ -15,6 +15,20 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         success: function (file, response) {
             document.querySelector("input[name='image']").value = response.path;
+        },
+        removedfile: function (file) {
+            document.querySelector("input[name='image']").value = "";
+            file.previewElement.remove();
         }
     });
+
+    let existingImage = document.querySelector("input[name='image']").value;
+
+    if (existingImage) {
+        let mockFile = { name: "Imagen actual", size: 12345, type: "image/jpeg" };
+
+        dropzone.emit("addedfile", mockFile);
+        dropzone.emit("thumbnail", mockFile, `/storage/posts/${existingImage}`);
+        dropzone.files.push(mockFile);
+    }
 });
