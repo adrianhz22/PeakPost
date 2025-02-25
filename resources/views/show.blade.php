@@ -1,32 +1,51 @@
 <!DOCTYPE html>
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Inicio</title>
+    <title>Post Detalle</title>
     @vite(['resources/css/app.css'])
 </head>
 
-<body>
+<body class="bg-gray-100">
 
-<a href="/edit/{{ $post->id }}">Editar</a>
+<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-10">
 
-<form action="/destroy/{{ $post->id }}" method="POST">
-    @csrf
-    @method('DELETE')
+    <img src="{{ $post->image }}" alt="Imagen del post"
+         class="w-full h-64 object-cover">
 
-    <button type="submit">
-        Eliminar
-    </button>
-</form>
+    <div class="p-6">
 
-<h1>Post en detalle</h1></br>
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $post->title }}</h1>
 
-<h2 class="text-2xl">{{ $post->title }}</h2>
-</br>
-<p>{{ $post->body }}</p>
+        <p class="text-gray-700 leading-relaxed">{!! $post->body !!}</p>
 
-<a href="{{ route('home') }}">Volver</a>
+        <div class="mt-6 flex space-x-4">
+            <a href="/edit/{{ $post->id }}"
+               class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+                Editar
+            </a>
+
+            <form action="/destroy/{{ $post->id }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit"
+                        class="bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 transition">
+                    Eliminar
+                </button>
+            </form>
+        </div>
+
+        <div class="mt-6 text-center">
+            <a href="{{ route('home') }}"
+               class="text-blue-500 hover:underline font-medium">
+                Volver al inicio
+            </a>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
+
