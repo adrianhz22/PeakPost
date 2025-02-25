@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -28,7 +29,7 @@ class PostController extends Controller
         return view('create');
     }
 
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
 
         Post::create([
@@ -49,7 +50,7 @@ class PostController extends Controller
 
     }
 
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
 
         $post->title = $request->title;
