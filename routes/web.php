@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,6 +19,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/destroy/{post}', [PostController::class, 'destroy'])->name('destroy');
     Route::post('/upload-image', [PostController::class, 'uploadImage'])->name('upload.image');
 });
+
+Route::get('/admin/dashboard', [UserController::class, 'index'])->name('admin.dashboard');
+Route::delete('/admin/destroy/{user}', [UserController::class, 'destroy'])->name('admin.destroy');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
