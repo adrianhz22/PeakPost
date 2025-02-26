@@ -1,21 +1,35 @@
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
 <nav class="bg-gray-800 p-4 text-white shadow-lg">
     <div class="container mx-auto flex justify-between items-center">
         <a href="{{ route('home') }}" class="text-lg font-semibold">PeakPost</a>
 
-        <ul class="flex space-x-4">
+        <ul class="flex space-x-4 items-center">
             <li><a href="{{ route('home') }}" class="hover:underline">Inicio</a></li>
 
             @auth
-                <li><a href="{{ route('dashboard') }}" class="hover:underline">Dashboard</a></li>
-                <li>
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="hover:underline">Cerrar sesión</button>
-                    </form>
+
+                <li x-data="{ open: false }" class="relative">
+                    <button @click="open = !open" class="flex items-center space-x-2">
+                        <span>{{ Auth::user()->name }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+
+                    <div x-show="open" @click.away="open = false"
+                         class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lg py-2">
+                        <a href="{{ route('profile.show') }}" class="block px-4 py-2 hover:bg-gray-200">Perfil</a>
+                        <a href="{{ route('user.posts') }}" class="block px-4 py-2 hover:bg-gray-200">Mis posts</a>
+                        @if(auth()->user()->hasRole('admin'))
+                            <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-200">Administración</a>
+                        @endif
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Cerrar sesión</button>
+                        </form>
+                    </div>
                 </li>
-            @else
-                <li><a href="{{ route('login') }}" class="hover:underline">Iniciar sesión</a></li>
-                <li><a href="{{ route('register') }}" class="hover:underline">Registrarse</a></li>
             @endauth
         </ul>
     </div>

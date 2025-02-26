@@ -19,6 +19,10 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/destroy/{post}', [PostController::class, 'destroy'])->name('destroy');
     Route::post('/upload-image', [PostController::class, 'uploadImage'])->name('upload.image');
     Route::get('/my-posts', [PostController::class, 'userPosts'])->name('user.posts');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::get('/admin/dashboard', [UserController::class, 'index'])->name('admin.dashboard');
@@ -28,10 +32,5 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
 require __DIR__.'/auth.php';
