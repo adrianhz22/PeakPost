@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -37,6 +38,7 @@ class PostController extends Controller
             'slug' => Str::slug($request->title),
             'body' => $request->body,
             'image' => $request->image,
+            'user_id' => auth()->id(),
         ]);
 
         return redirect('home');
@@ -79,5 +81,13 @@ class PostController extends Controller
         return response()->json(['path' => "/storage/$path"]);
     }
 
+    public function userPosts()
+    {
 
+        $user = Auth::user();
+        $posts = $user->posts;
+
+        return view('user-posts', compact('posts'));
+
+    }
 }

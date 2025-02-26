@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/update/{post}', [PostController::class, 'update'])->name('update');
     Route::delete('/destroy/{post}', [PostController::class, 'destroy'])->name('destroy');
     Route::post('/upload-image', [PostController::class, 'uploadImage'])->name('upload.image');
+    Route::get('/my-posts', [PostController::class, 'userPosts'])->name('user.posts');
 });
 
 Route::get('/admin/dashboard', [UserController::class, 'index'])->name('admin.dashboard');

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +22,7 @@ class PostFactory extends Factory
             'slug' => fake()->slug(),
             'body' => fake()->paragraph(5, true),
             'image' => "https://picsum.photos/800/600?random=" . rand(1, 1000),
+            'user_id' => User::inRandomorder()->first()->id,
         ];
     }
 }
