@@ -25,12 +25,13 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/admin/dashboard', [UserController::class, 'index'])->name('admin.dashboard');
-Route::delete('/admin/destroy/{user}', [UserController::class, 'destroy'])->name('admin.destroy');
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [UserController::class, 'index'])->name('admin.dashboard');
+    Route::delete('/admin/destroy/{user}', [UserController::class, 'destroy'])->name('admin.destroy');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 
 require __DIR__.'/auth.php';
