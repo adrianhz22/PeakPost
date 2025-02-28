@@ -35,6 +35,10 @@
                     Eliminar
                 </button>
             </form>
+            <a href="{{ route('post.pdf', $post->id) }}" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                Descargar PDF
+            </a>
+
         </div>
 
         <div class="mt-6 text-center">

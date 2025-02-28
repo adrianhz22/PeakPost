@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -89,5 +90,14 @@ class PostController extends Controller
 
         return view('user-posts', compact('posts'));
 
+    }
+
+    public function downloadPDF($id)
+    {
+        $post = Post::findOrFail($id);
+
+        $pdf = Pdf::loadView('pdf', compact('post'));
+
+        return $pdf->download('post_' . $post->id . '.pdf');
     }
 }
