@@ -65,4 +65,14 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function updatePhoto(Request $request)
+    {
+        if ($request->hasFile('profile_photo')) {
+            $path = $request->file('profile_photo')->store('profile_photos', 'public');
+            Auth::user()->update(['profile_photo' => $path]);
+        }
+
+        return back();
+    }
+
 }
