@@ -52,6 +52,22 @@
             </a>
         </div>
     </div>
+    <div>
+        <h2>Comentarios</h2>
+
+        <form action="{{ route('comments.store', $post) }}" method="POST">
+            @csrf
+            <textarea name="content" rows="3"></textarea>
+            <button type="submit">Comentar</button>
+        </form>
+
+        @foreach ($post->comments as $comment)
+            <div>
+                <p>{{ $comment->user->name }}</p>
+                <p>{{ $comment->content }}</p>
+            </div>
+        @endforeach
+    </div>
 </div>
 
 </body>

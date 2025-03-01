@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -25,6 +26,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.photo');
     Route::get('/post/{id}/pdf', [PostController::class, 'downloadPDF'])->name('post.pdf');
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
 });
 
