@@ -21,23 +21,24 @@
 
         <p class="text-gray-700 leading-relaxed">{!! $post->body !!}</p>
 
-        @if(Auth::id() === $post->user_id)
+        @can('update', $post)
             <div class="mt-6 flex space-x-4">
                 <a href="/edit/{{ $post->id }}"
                    class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition">
                     Editar
                 </a>
-
-                <form action="/destroy/{{ $post->id }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit"
-                            class="bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 transition">
-                        Eliminar
-                    </button>
-                </form>
+                @endcan
+                @can('delete', $post)
+                    <form action="/destroy/{{ $post->id }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                                class="bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 transition">
+                            Eliminar
+                        </button>
+                    </form>
             </div>
-        @endif
+        @endcan
 
         <div class="mt-6 flex justify-between items-center">
             <a href="{{ route('post.pdf', $post->id) }}"
