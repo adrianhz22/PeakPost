@@ -20,7 +20,7 @@
                     <div x-show="open" @click.away="open = false"
                          class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lg py-2">
                         <a href="{{ route('profile.show') }}" class="block px-4 py-2 hover:bg-gray-200">Perfil</a>
-                        <a href="{{ route('user.posts') }}" class="block px-4 py-2 hover:bg-gray-200">Mis posts</a>
+                        <a href="{{ route('posts.user-posts') }}" class="block px-4 py-2 hover:bg-gray-200">Mis posts</a>
                         @if(auth()->user()->hasRole('admin'))
                             <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-200">Administración</a>
                         @endif

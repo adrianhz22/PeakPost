@@ -24,7 +24,7 @@
 <div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6 mt-10">
     <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Crear Post</h1>
 
-    <form action="{{ route('store') }}" method="POST" class="space-y-4">
+    <form action="{{ route('posts.store') }}" method="POST" class="space-y-4">
         @csrf
 
         <div>

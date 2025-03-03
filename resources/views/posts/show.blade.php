@@ -23,13 +23,13 @@
 
         @can('update', $post)
             <div class="mt-6 flex space-x-4">
-                <a href="/edit/{{ $post->id }}"
+                <a href="{{ route('posts.edit', $post->id) }}"
                    class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition">
                     Editar
                 </a>
                 @endcan
                 @can('delete', $post)
-                    <form action="/destroy/{{ $post->id }}" method="POST">
+                    <form action={{ route('posts.destroy', $post->id) }} method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit"

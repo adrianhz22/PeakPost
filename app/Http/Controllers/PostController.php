@@ -25,13 +25,13 @@ class PostController extends Controller
     public function show(Post $post)
     {
 
-        return view('show', compact('post'));
+        return view('posts.show', compact('post'));
     }
 
     public function create()
     {
 
-        return view('create');
+        return view('posts.create');
     }
 
     public function store(PostRequest $request)
@@ -53,7 +53,7 @@ class PostController extends Controller
     {
 
         $this->authorize('update', $post);
-        return view('edit', compact('post'));
+        return view('posts.edit', compact('post'));
 
     }
 
@@ -94,7 +94,7 @@ class PostController extends Controller
         $user = Auth::user();
         $posts = $user->posts;
 
-        return view('user-posts', compact('posts'));
+        return view('posts.user-posts', compact('posts'));
 
     }
 
@@ -102,7 +102,7 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        $pdf = Pdf::loadView('pdf', compact('post'));
+        $pdf = Pdf::loadView('pdfs.post', compact('post'));
 
         return $pdf->download('post_' . $post->id . '.pdf');
     }

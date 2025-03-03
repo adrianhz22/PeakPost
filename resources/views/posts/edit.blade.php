@@ -21,7 +21,7 @@
 <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg mt-10">
     <h1 class="text-3xl font-bold mb-6 text-center">Editar Post</h1>
 
-    <form action="{{ route('update', $post->id) }}" method="POST">
+    <form action="{{ route('posts.update', $post->id) }}" method="POST">
         @csrf
         @method('PUT')
 

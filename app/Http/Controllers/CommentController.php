@@ -17,7 +17,7 @@ class CommentController extends Controller
             'content' => $request->input('content'),
         ]);
 
-        return redirect()->route('show', $post);
+        return redirect()->route('posts.show', $post);
 
     }
 }

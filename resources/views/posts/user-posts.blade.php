@@ -22,7 +22,7 @@
                     <div class="p-5">
                         <h2 class="text-xl font-semibold">{{ $post->title }}</h2>
                         <p class="text-gray-600 mt-2">{!! Str::limit(strip_tags($post->body, 100)) !!}</p>
-                        <a href="{{ route('show', $post->id) }}"
+                        <a href="{{ route('posts.show', $post->id) }}"
                            class="inline-block mt-3 text-blue-500 hover:underline">
                             Ver más
                         </a>
@@ -33,7 +33,7 @@
     @else
         <div class="text-center">
             <p class="text-gray-600 text-lg mb-4">Vaya... Parece que aún no has publicado nada. ¡Porque no comenzar ahora!</p>
-            <a href="{{ route('create') }}"
+            <a href="{{ route('posts.create') }}"
                class="bg-blue-500 text-white px-6 py-2 rounded-3xl hover:bg-blue-600">
                 +
             </a>
