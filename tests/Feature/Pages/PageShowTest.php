@@ -8,7 +8,7 @@ it('access successful to show page', function () {
     $user = User::factory()->create();
     $post = Post::factory()->create();
 
-    $response = $this->actingAs($user)->get(route('show', $post->id));
+    $response = $this->actingAs($user)->get(route('posts.show', $post->id));
 
     $response->assertStatus(200);
 });

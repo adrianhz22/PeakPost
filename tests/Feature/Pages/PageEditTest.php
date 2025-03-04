@@ -8,7 +8,7 @@ it('access successful to edit page', function () {
     $user = User::factory()->create();
     $post = Post::factory()->create();
 
-    $response = $this->actingAs($user)->get(route('edit', $post->id));
+    $response = $this->actingAs($user)->get(route('posts.edit', $post->id));
 
     $response->assertStatus(200);
 });

@@ -14,15 +14,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', [PostController::class, 'index'])->name('home');
 
-    Route::resource('posts', PostController::class)
-        ->names('posts')
-        ->parameters(['posts' => 'post']);
-
     Route::get('/posts/my-posts', [PostController::class, 'userPosts'])->name('posts.user-posts');
     Route::get('/post/{id}/pdf', [PostController::class, 'downloadPDF'])->name('post.pdf');
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::post('/upload-image', [PostController::class, 'uploadImage'])->name('upload.image');
     Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
+
+    Route::resource('posts', PostController::class)
+        ->names('posts')
+        ->parameters(['posts' => 'post']);
 
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
