@@ -106,4 +106,11 @@ class PostController extends Controller
 
         return $pdf->download('post_' . $post->id . '.pdf');
     }
+
+    public function like(Post $post)
+    {
+        $post->like(auth()->id());
+
+        return back();
+    }
 }

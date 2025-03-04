@@ -31,6 +31,12 @@
                     </a>
                 </h2>
                 <p class="mt-2 text-gray-700">{!! Str::limit(strip_tags($post->body, 100)) !!}</p>
+                <form action="{{ route('posts.like', $post->id) }}" method="POST">
+                    @csrf
+                    <button type="submit">
+                        Likes ({{ $post->likeCount }})
+                    </button>
+                </form>
             </div>
         @endforeach
     </div>

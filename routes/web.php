@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/post/{id}/pdf', [PostController::class, 'downloadPDF'])->name('post.pdf');
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::post('/upload-image', [PostController::class, 'uploadImage'])->name('upload.image');
+    Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
 
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
