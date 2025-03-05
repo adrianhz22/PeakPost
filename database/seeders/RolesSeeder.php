@@ -16,21 +16,31 @@ class RolesSeeder extends Seeder
     {
 
         $admin = Role::firstOrCreate(['name' => 'admin']);
+        $mod = Role::firstOrCreate(['name' => 'moderator']);
 
         $permissionAdmin = Permission::create(['name' => 'has all the permissions']);
+        $permissionMod = Permission::create(['name' => 'review posts']);
 
         $admin->givePermissionTo($permissionAdmin);
+        $mod->givePermissionTo($permissionMod);
 
-        $user = User::firstOrCreate([
+        $adminUser = User::firstOrCreate([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin123')
         ]);
 
-        $user->assignRole($admin);
+        $modUser = User::firstOrCreate([
+            'name' => 'Moderator',
+            'email' => 'mod@mod.com',
+            'password' => bcrypt('moderator123')
+        ]);
 
-        if (!$user->hasRole('admin')) {
-            $user->assignRole($admin);
-        }
+        $adminUser->assignRole($admin);
+        $modUser->assignRole($mod);
+
+        $adminUser->assignRole($admin);
+        $modUser->assignRole($mod);
+
     }
 }
