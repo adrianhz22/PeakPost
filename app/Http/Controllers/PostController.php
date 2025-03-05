@@ -43,6 +43,7 @@ class PostController extends Controller
             'body' => $request->body,
             'image' => $request->image,
             'user_id' => auth()->id(),
+            'is_approved' => false,
         ]);
 
         return redirect('home');
@@ -113,4 +114,20 @@ class PostController extends Controller
 
         return back();
     }
+
+    public function showPendingPosts()
+    {
+        if (auth()->user()->hasRole('moderator')) {
+
+            $posts = Post::where('is_approved', false)->get();
+
+            return view('moderation.pending-posts', compact('posts'));
+        }
+    }
+
+    public function showPendingPost(Post $post)
+    {
+        return view('moderation.pending-show', compact('post'));
+    }
+
 }
