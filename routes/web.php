@@ -39,8 +39,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 });
 
+Route::middleware(['auth', 'moderator'])->group(function () {
+
     Route::get('/mod/pending', [PostController::class, 'showPendingPosts'])->name('moderation.pending-posts');
     Route::get('/mod/pending/{post}', [PostController::class, 'showPendingPost'])->name('moderation.pending-show');
+
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
