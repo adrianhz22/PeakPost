@@ -20,13 +20,13 @@
 
             <a href="{{ route('moderation.pending-show', $post) }}">Ver mas</a>
 
-            <form action="" method="POST">
+            <form action="{{ route('moderation.approve', $post) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <button type="submit">Aprobar</button>
             </form>
 
-            <form action="" method="POST">
+            <form action="{{ route('moderation.reject', $post) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit">Rechazar</button>

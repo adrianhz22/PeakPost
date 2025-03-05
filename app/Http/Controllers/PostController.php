@@ -17,7 +17,7 @@ class PostController extends Controller
     public function index()
     {
 
-        $posts = Post::all();
+        $posts = Post::where('is_approved', true)->get();
 
         return view('home', compact('posts'));
     }
@@ -128,6 +128,20 @@ class PostController extends Controller
     public function showPendingPost(Post $post)
     {
         return view('moderation.pending-show', compact('post'));
+    }
+
+    public function approve(Post $post)
+    {
+        $post->update(['is_approved' => true]);
+
+        return redirect()->route('moderation.pending-posts');
+    }
+
+    public function reject(Post $post)
+    {
+        $post->delete();
+
+        return redirect()->route('moderation.pending-posts');
     }
 
 }
