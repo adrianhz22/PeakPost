@@ -20,12 +20,13 @@
                 <div class="bg-white shadow-md rounded-lg overflow-hidden">
                     <img src="{{ asset($post->image) }}" alt="Imagen de {{ $post->title }}" class="w-full h-48 object-cover">
                     <div class="p-5">
-                        <h2 class="text-xl font-semibold">{{ $post->title }}</h2>
-                        <p class="text-gray-600 mt-2">{!! Str::limit(strip_tags($post->body, 100)) !!}</p>
-                        <a href="{{ route('posts.show', $post->id) }}"
-                           class="inline-block mt-3 text-blue-500 hover:underline">
-                            Ver más
+                        <a href="{{ route('posts.show', $post->id) }}" class="text-xl font-semibold text-blue-500 hover:underline">
+                            {{ $post->title }}
                         </a>
+                        <p class="text-gray-600 mt-2">{!! Str::limit(strip_tags($post->body, 100)) !!}</p>
+                        @if(!$post->is_approved)
+                            <p class="text-yellow-500 font-semibold mt-2">En revision</p>
+                        @endif
                     </div>
                 </div>
             @endforeach

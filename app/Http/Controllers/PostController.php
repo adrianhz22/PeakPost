@@ -46,7 +46,7 @@ class PostController extends Controller
             'is_approved' => false,
         ]);
 
-        return redirect('home');
+        return redirect('home')->with('success', 'Tu post se ha enviado correctamente y está siendo revisado, para ver su estado consulta tus posts.');;
 
     }
 

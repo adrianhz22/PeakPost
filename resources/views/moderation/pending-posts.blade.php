@@ -34,7 +34,7 @@
                         <p><strong>Fecha:</strong> {{ $post->created_at->format('d/m/Y') }}</p>
                     </div>
 
-                    <p class="text-gray-700 mt-4">{{ Str::limit($post->body, 150) }}</p>
+                    <p class="text-gray-700 mt-4">{!! Str::limit($post->body, 150) !!}</p>
                 </div>
             </div>
         @endforeach

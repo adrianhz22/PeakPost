@@ -10,6 +10,12 @@
 <body>
 <x-navigation/>
 
+@if(session('success'))
+    <div class="bg-green-600 text-white text-center p-3 rounded mb-4">
+        {{ session('success') }}
+    </div>
+@endif
+
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl font-bold text-center mb-6">Página de Inicio</h1>
 
@@ -30,7 +36,7 @@
                         {{ $post->title }}
                     </a>
                 </h2>
-                <p class="mt-2 text-gray-700">{!! Str::limit(strip_tags($post->body, 100)) !!}</p>
+                <p class="mt-2 text-gray-700 break-words">{!! Str::limit(strip_tags($post->body, 100)) !!}</p>
                 <form action="{{ route('posts.like', $post->id) }}" method="POST">
                     @csrf
                     <button type="submit">
