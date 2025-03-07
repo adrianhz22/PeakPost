@@ -7,6 +7,12 @@
     <title>Post Detalle</title>
     @vite(['resources/css/app.css'])
     <script src="https://unpkg.com/@heroicons/react/solid"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-kml/1.1.0/leaflet-kml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-omnivore/0.3.1/leaflet-omnivore.min.js"></script>
+
+
 </head>
 
 <body class="bg-gray-100">
@@ -20,6 +26,11 @@
         <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $post->title }}</h1>
 
         <p class="text-gray-700 leading-relaxed">{!! $post->body !!}</p>
+
+        <div>
+            <h2>Ruta en el mapa</h2>
+            <div id="map" style="height: 500px;"></div>
+        </div>
 
         @can('update', $post)
             <div class="mt-6 flex space-x-4">
@@ -54,7 +65,6 @@
             </a>
         </div>
 
-
         <div class="mt-6 text-center">
             <a href="{{ route('home') }}" class="text-blue-500 hover:underline font-medium">
                 Volver al inicio
@@ -88,6 +98,28 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var map = L.map('map').setView([37.95, -1.09], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var trackUrl = "{{ asset('storage/' . $post->track) }}";
+
+        omnivore.kml(trackUrl)
+            .on('ready', function () {
+                map.fitBounds(this.getBounds());
+            })
+            .addTo(map)
+            .on('error', function (e) {
+                console.error('Error cargando el KML: ', e);
+            });
+    });
+</script>
+
 
 </body>
 </html>

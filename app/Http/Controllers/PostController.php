@@ -37,6 +37,12 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
 
+        $trackPath = null;
+
+        if ($request->hasFile('track')) {
+            $trackPath = $request->file('track')->store('tracks', 'public');
+        }
+
         Post::create([
             'title' => $request->title,
             'slug' => Str::slug($request->title),
@@ -44,6 +50,12 @@ class PostController extends Controller
             'image' => $request->image,
             'user_id' => auth()->id(),
             'is_approved' => false,
+            'province' => $request->province,
+            'difficulty' => $request->difficulty,
+            'longitude' => $request->longitude,
+            'altitude' => $request->altitude,
+            'time' => $request->time,
+            'track' => $trackPath,
         ]);
 
         return redirect('home')->with('success', 'Tu post se ha enviado correctamente y está siendo revisado, para ver su estado consulta tus posts.');;

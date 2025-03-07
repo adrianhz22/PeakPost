@@ -26,6 +26,13 @@ class PostRequest extends FormRequest
             'slug' => 'nullable|string',
             'body' => 'required|string|min:50',
             'image' => 'required|string',
+            'province' => 'required|string',
+            'difficulty' => 'required|string',
+            'longitude' => 'required|numeric',
+            'altitude' => 'nullable|numeric',
+            'time' => 'nullable|date-format:H:i:s',
+            'track' => 'nullable|file|mimes:xml,kml',
+
         ];
     }
 }

@@ -27,6 +27,12 @@ class Post extends Model
         'slug',
         'body',
         'image',
+        'province',
+        'difficulty',
+        'longitude',
+        'altitude',
+        'time',
+        'track',
         'user_id',
         'is_approved',
     ];
