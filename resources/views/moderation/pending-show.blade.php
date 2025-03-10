@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,32 +11,53 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-kml/1.1.0/leaflet-kml.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-omnivore/0.3.1/leaflet-omnivore.min.js"></script>
 </head>
+
 <body class="bg-gray-100">
 
 <x-navigation/>
 
-<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-10">
+<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10">
 
-    <img src="{{ $post->image }}" alt="Imagen del post" class="w-full h-64 object-cover">
+    <div class="mb-6">
+        <img src="{{ $post->image }}" alt="Imagen del post" class="w-full h-64 object-cover rounded-lg">
+    </div>
 
-    <div class="p-6">
+    <div class="space-y-6">
 
-        <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $post->title }}</h1>
-        <p class="text-gray-600 mb-4"><strong>Autor:</strong> {{ $post->user->name }}</p>
-        <p class="text-gray-700 leading-relaxed mb-6">{!! $post->body !!}</p>
-        <strong>Provincia:</strong> {{ $post->province }}
-        <strong>Dificultad:</strong> {{ $post->difficulty }}
-        <strong>Longitud:</strong> {{ $post->longitude }} km
-        <strong>Altitud:</strong> {{ $post->altitude }} m
-        <strong>Duracion:</strong> {{ $post->time }}
+        <h1 class="text-3xl font-semibold text-gray-800">{{ $post->title }}</h1>
 
-        <div>
-            <h2>Ruta en el mapa</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+            <div>
+                <p><strong>Autor:</strong> {{ $post->user->name }}</p>
+            </div>
+            <div>
+                <p><strong>Provincia:</strong> {{ $post->province }}</p>
+            </div>
+            <div>
+                <p><strong>Dificultad:</strong> {{ $post->difficulty }}</p>
+            </div>
+            <div>
+                <p><strong>Longitud:</strong> {{ $post->longitude }} km</p>
+            </div>
+            <div>
+                <p><strong>Altitud:</strong> {{ $post->altitude }} m</p>
+            </div>
+            <div>
+                <p><strong>Duración:</strong> {{ $post->time }}</p>
+            </div>
+        </div>
+
+        <div class="text-gray-700 leading-relaxed mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Contenido</h2>
+            <p>{!! $post->body !!}</p>
+        </div>
+
+        <div class="my-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Ruta en el mapa</h2>
             <div id="map" style="height: 500px;"></div>
         </div>
 
-        <div class="mt-4 flex justify-start space-x-4">
-
+        <div class="mt-6 flex justify-start space-x-4">
             <form action="{{ route('moderation.approve', $post) }}" method="POST" class="inline-block">
                 @csrf
                 @method('PUT')
@@ -48,8 +70,7 @@
             <form action="{{ route('moderation.reject', $post) }}" method="POST" class="inline-block">
                 @csrf
                 @method('DELETE')
-                <button type="submit"
-                        class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition">
+                <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition">
                     Rechazar
                 </button>
             </form>
@@ -60,8 +81,8 @@
                 Volver a posts pendientes
             </a>
         </div>
-
     </div>
+
 </div>
 
 <script>
@@ -86,4 +107,5 @@
 </script>
 
 </body>
+
 </html>
