@@ -106,6 +106,15 @@
                         <span class="text-sm text-gray-500">{{ $comment->created_at->format('d/m/Y') }}</span>
                     </div>
                     <p class="text-gray-700 mt-2">{{ $comment->content }}</p>
+                    @can('delete', $comment)
+                    <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">
+                            <i class="fas fa-trash-alt mr-2"></i>
+                        </button>
+                    </form>
+                    @endcan
                 </div>
             @endforeach
         </div>

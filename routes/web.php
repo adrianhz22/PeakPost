@@ -17,6 +17,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/posts/my-posts', [PostController::class, 'userPosts'])->name('posts.user-posts');
     Route::get('/post/{id}/pdf', [PostController::class, 'downloadPDF'])->name('post.pdf');
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('/upload-image', [PostController::class, 'uploadImage'])->name('upload.image');
     Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
 
