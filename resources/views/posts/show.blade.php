@@ -12,10 +12,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-kml/1.1.0/leaflet-kml.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-omnivore/0.3.1/leaflet-omnivore.min.js"></script>
 
-
 </head>
 
 <body class="bg-gray-100">
+
+<x-navigation/>
 
 <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-10">
 
@@ -26,6 +27,12 @@
         <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $post->title }}</h1>
 
         <p class="text-gray-700 leading-relaxed">{!! $post->body !!}</p>
+
+        <strong>Provincia:</strong> {{ $post->province }}
+        <strong>Dificultad:</strong> {{ $post->difficulty }}
+        <strong>Longitud:</strong> {{ $post->longitude }} km
+        <strong>Altitud:</strong> {{ $post->altitude }} m
+        <strong>Duracion:</strong> {{ $post->time }}
 
         <div>
             <h2>Ruta en el mapa</h2>

@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revisión del Post</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-kml/1.1.0/leaflet-kml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-omnivore/0.3.1/leaflet-omnivore.min.js"></script>
 </head>
 <body class="bg-gray-100">
 
@@ -19,6 +23,16 @@
         <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $post->title }}</h1>
         <p class="text-gray-600 mb-4"><strong>Autor:</strong> {{ $post->user->name }}</p>
         <p class="text-gray-700 leading-relaxed mb-6">{!! $post->body !!}</p>
+        <strong>Provincia:</strong> {{ $post->province }}
+        <strong>Dificultad:</strong> {{ $post->difficulty }}
+        <strong>Longitud:</strong> {{ $post->longitude }} km
+        <strong>Altitud:</strong> {{ $post->altitude }} m
+        <strong>Duracion:</strong> {{ $post->time }}
+
+        <div>
+            <h2>Ruta en el mapa</h2>
+            <div id="map" style="height: 500px;"></div>
+        </div>
 
         <div class="mt-4 flex justify-start space-x-4">
 
@@ -49,6 +63,27 @@
 
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var map = L.map('map').setView([37.95, -1.09], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var trackUrl = "{{ asset('storage/' . $post->track) }}";
+
+        omnivore.kml(trackUrl)
+            .on('ready', function () {
+                map.fitBounds(this.getBounds());
+            })
+            .addTo(map)
+            .on('error', function (e) {
+                console.error('Error cargando el KML: ', e);
+            });
+    });
+</script>
 
 </body>
 </html>

@@ -62,13 +62,10 @@
         <label for="province">Provincia:</label>
         <select id="province" name="province">
             <option value="">Selecciona una provincia</option>
-            <option value="Murcia">Murcia</option>
-            <option value="Alicante">Alicante</option>
-            <option value="Albacete">Albacete</option>
+            @foreach($provinces as $province)
+                <option value="{{ $province }}">{{ $province }}</option>
+            @endforeach
         </select>
-        @error('province')
-        <p class="text-red-500 text-sm">{{ $message }}</p>
-        @enderror
 
         <label for="difficulty">Dificultad:</label>
         <select id="difficulty" name="difficulty">

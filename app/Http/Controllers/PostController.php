@@ -31,7 +31,13 @@ class PostController extends Controller
     public function create()
     {
 
-        return view('posts.create');
+        $provinces = [
+            'Álava', 'Albacete', 'Alicante', 'Almería', 'Asturias', 'Ávila', 'Badajoz', 'Barcelona', 'Burgos', 'Cáceres', 'Cádiz', 'Cantabria', 'Castellón', 'Ciudad Real', 'Córdoba', 'Cuenca', 'Gerona', 'Granada', 'Guadalajara', 'Gipuzkoa', 'Huelva', 'Huesca', 'Islas Baleares', 'Jaén', 'La Coruña', 'La Rioja', 'Las Palmas', 'León', 'Lleida', 'Madrid', 'Málaga', 'Murcia', 'Navarra', 'Ourense', 'Palencia', 'Pontevedra', 'Salamanca', 'Segovia', 'Sevilla', 'Soria', 'Tarragona', 'Teruel', 'Toledo', 'Valencia', 'Valladolid', 'Vizcaya', 'Zamora', 'Zaragoza'
+        ];
+
+        $difficulties = ['Facil', 'Moderado', 'Dificil'];
+
+        return view('posts.create', compact('provinces', 'difficulties'));
     }
 
     public function store(PostRequest $request)
@@ -65,18 +71,36 @@ class PostController extends Controller
     public function edit(Post $post)
     {
 
+        $provinces = [
+            'Álava', 'Albacete', 'Alicante', 'Almería', 'Asturias', 'Ávila', 'Badajoz', 'Barcelona', 'Burgos', 'Cáceres', 'Cádiz', 'Cantabria', 'Castellón', 'Ciudad Real', 'Córdoba', 'Cuenca', 'Gerona', 'Granada', 'Guadalajara', 'Gipuzkoa', 'Huelva', 'Huesca', 'Islas Baleares', 'Jaén', 'La Coruña', 'La Rioja', 'Las Palmas', 'León', 'Lleida', 'Madrid', 'Málaga', 'Murcia', 'Navarra', 'Ourense', 'Palencia', 'Pontevedra', 'Salamanca', 'Segovia', 'Sevilla', 'Soria', 'Tarragona', 'Teruel', 'Toledo', 'Valencia', 'Valladolid', 'Vizcaya', 'Zamora', 'Zaragoza'
+        ];
+
+        $difficulties = ['Facil', 'Moderado', 'Dificil'];
+
         $this->authorize('update', $post);
-        return view('posts.edit', compact('post'));
+        return view('posts.edit', compact('post', 'provinces', 'difficulties'));
 
     }
 
     public function update(PostRequest $request, Post $post)
     {
 
+        $trackPath = $post->track;
+
+        if ($request->hasFile('track')) {
+            $trackPath = $request->file('track')->store('tracks', 'public');
+        }
+
         $post->title = $request->title;
         $post->slug = Str::slug($post->title);
         $post->body = $request->body;
         $post->image = $request->image;
+        $post->province = $request->province;
+        $post->difficulty = $request->difficulty;
+        $post->longitude = $request->longitude;
+        $post->altitude = $request->altitude;
+        $post->time = $request->time;
+        $post->track = $trackPath;
         $post->save();
 
         return redirect('home');

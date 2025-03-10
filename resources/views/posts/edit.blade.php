@@ -21,7 +21,7 @@
 <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg mt-10">
     <h1 class="text-3xl font-bold mb-6 text-center">Editar Post</h1>
 
-    <form action="{{ route('posts.update', $post->id) }}" method="POST">
+    <form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -51,6 +51,54 @@
         <p class="text-red-500 text-sm">{{ $message }}</p>
         @enderror
 
+        <label>Provincia:</label>
+        <select name="province">
+            <option value="">Selecciona una provincia</option>
+            @foreach($provinces as $province)
+                <option value="{{ $province }}" {{ old('province', $post->province) == $province ? 'selected' : '' }}>
+                    {{ $province }}
+                </option>
+            @endforeach
+        </select>
+        @error('province')
+        <p class="text-red-500 text-sm">{{ $message }}</p>
+        @enderror
+
+        <label>Dificultad:</label>
+        <select name="difficulty">
+            <option value="">Selecciona una dificultad</option>
+            @foreach($difficulties as $difficulty)
+                <option
+                    value="{{ $difficulty }}" {{ old('province', $post->difficulty) == $difficulty ? 'selected' : '' }}>
+                    {{ $difficulty }}
+                </option>
+            @endforeach
+        </select>
+        @error('difficulty')
+        <p class="text-red-500 text-sm">{{ $message }}</p>
+        @enderror
+
+        Longitud (km): <input type="number" name="longitude" step="0.01"
+                              value="{{ old('longitude', $post->longitude) }}">
+        @error('longitude')
+        <p class="text-red-500 text-sm">{{ $message }}</p>
+        @enderror
+
+        Altitud (m): <input type="number" name="altitude" value="{{ old('altitude', $post->altitude) }}">
+        @error('altitude')
+        <p class="text-red-500 text-sm">{{ $message }}</p>
+        @enderror
+
+        Duracion: <input type="time" name="time" step="1" value="{{ old('time', $post->time) }}">
+        @error('time')
+        <p class="text-red-500 text-sm">{{ $message }}</p>
+        @enderror
+
+        Subir track: <input type="file" name="track" accept=".kml">
+        @error('track')
+        <p class="text-red-500 text-sm">{{ $message }}</p>
+        @enderror
+
         <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg mt-6 hover:bg-blue-700">
             Guardar Cambios
         </button>
@@ -61,4 +109,3 @@
 
 </body>
 </html>
-
