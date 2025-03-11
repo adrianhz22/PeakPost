@@ -20,6 +20,7 @@ it('show info posts', function () {
         'user_id' => $user->id,
         'title' => 'Post de prueba',
         'body' => 'Contenido del post de prueba',
+        'is_approved' => 1,
     ]);
 
     $this->actingAs($user);
