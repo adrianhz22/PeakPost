@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     @vite(['resources/css/app.css'])
+
 </head>
 
 <body>
@@ -37,12 +38,7 @@
                     </a>
                 </h2>
                 <p class="mt-2 text-gray-700 break-words">{!! Str::limit(strip_tags($post->body, 100)) !!}</p>
-                <form action="{{ route('posts.like', $post->id) }}" method="POST">
-                    @csrf
-                    <button type="submit">
-                        Likes ({{ $post->likeCount }})
-                    </button>
-                </form>
+                <livewire:like-post :post="$post" />
             </div>
         @endforeach
     </div>
