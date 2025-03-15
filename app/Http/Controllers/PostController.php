@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
+use App\Mail\NuevoPostMailable;
 use App\Models\Post;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -49,7 +51,7 @@ class PostController extends Controller
             $trackPath = $request->file('track')->store('tracks', 'public');
         }
 
-        Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'body' => $request->body,
@@ -63,6 +65,8 @@ class PostController extends Controller
             'time' => $request->time,
             'track' => $trackPath,
         ]);
+
+        Mail::to(auth()->user())->send(new NuevoPostMailable($post));
 
         return redirect('home')->with('success', 'Tu post se ha enviado correctamente y está siendo revisado, para ver su estado consulta tus posts.');;
 
