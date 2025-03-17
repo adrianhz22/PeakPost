@@ -15,7 +15,7 @@ class ModMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->check() && auth()->user()->hasRole('moderator')) {
+        if(auth()->check() && auth()->user()->hasAnyRole('moderator', 'admin')) {
             return $next($request);
         }
 

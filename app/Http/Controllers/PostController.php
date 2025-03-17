@@ -150,12 +150,11 @@ class PostController extends Controller
 
     public function showPendingPosts()
     {
-        if (auth()->user()->hasRole('moderator')) {
 
-            $posts = Post::where('is_approved', false)->get();
+        $posts = Post::where('is_approved', false)->get();
 
-            return view('moderation.pending-posts', compact('posts'));
-        }
+        return view('moderation.pending-posts', compact('posts'));
+
     }
 
     public function showPendingPost(Post $post)
