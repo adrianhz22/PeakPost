@@ -21,9 +21,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $users = User::factory(5)->create();
-        $posts = Post::factory(15)->create(['user_id' => $users->random()->id]);
+        $posts = Post::factory(15)->create();
 
         foreach ($posts as $post) {
+
+            $post->update(['user_id' => $users->random()->id]);
+
             Comment::factory(3)->create([
                 'post_id' => $post->id,
                 'user_id' => $users->random()->id,
