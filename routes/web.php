@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -33,19 +34,17 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
-
-    Route::get('/admin/dashboard', [UserController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/users', [AdminDashboardController::class, 'users'])->name('admin.users');
+    Route::get('/admin/posts', [AdminDashboardController::class, 'posts'])->name('admin.posts');
     Route::delete('/admin/destroy/{user}', [UserController::class, 'destroy'])->name('admin.destroy');
-
 });
 
 Route::middleware(['auth', 'moderator'])->group(function () {
-
     Route::get('/mod/pending', [PostController::class, 'showPendingPosts'])->name('moderation.pending-posts');
     Route::get('/mod/pending/{post}', [PostController::class, 'showPendingPost'])->name('moderation.pending-show');
     Route::put('/mod/pending/{post}/approve', [PostController::class, 'approve'])->name('moderation.approve');
     Route::delete('/mod/pending/{post}/reject', [PostController::class, 'reject'])->name('moderation.reject');
-
 });
 
 Route::get('/dashboard', function () {
