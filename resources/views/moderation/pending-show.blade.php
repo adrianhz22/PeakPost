@@ -1,111 +1,92 @@
-<!DOCTYPE html>
-<html lang="es">
+<x-app-layout>
+    <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Revisión del Post</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-kml/1.1.0/leaflet-kml.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-omnivore/0.3.1/leaflet-omnivore.min.js"></script>
-</head>
+        <div class="mb-6">
+            <img src="{{ $post->image }}" alt="Imagen del post" class="w-full h-64 object-cover rounded-lg">
+        </div>
 
-<body class="bg-gray-100">
+        <div class="space-y-6">
 
-<x-navigation/>
+            <h1 class="text-3xl font-semibold text-gray-800">{{ $post->title }}</h1>
 
-<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                <div>
+                    <p><strong>Autor:</strong> {{ $post->user->name }}</p>
+                </div>
+                <div>
+                    <p><strong>Provincia:</strong> {{ $post->province }}</p>
+                </div>
+                <div>
+                    <p><strong>Dificultad:</strong> {{ $post->difficulty }}</p>
+                </div>
+                <div>
+                    <p><strong>Longitud:</strong> {{ $post->longitude }} km</p>
+                </div>
+                <div>
+                    <p><strong>Altitud:</strong> {{ $post->altitude }} m</p>
+                </div>
+                <div>
+                    <p><strong>Duración:</strong> {{ $post->time }}</p>
+                </div>
+            </div>
 
-    <div class="mb-6">
-        <img src="{{ $post->image }}" alt="Imagen del post" class="w-full h-64 object-cover rounded-lg">
+            <div class="text-gray-700 leading-relaxed mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Contenido</h2>
+                <p>{!! $post->body !!}</p>
+            </div>
+
+            <div class="my-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Ruta en el mapa</h2>
+                <div id="map" style="height: 500px;"></div>
+            </div>
+
+            <div class="mt-6 flex justify-start space-x-4">
+                <form action="{{ route('moderation.approve', $post) }}" method="POST" class="inline-block">
+                    @csrf
+                    @method('PUT')
+                    <button type="submit"
+                            class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition">
+                        Aprobar
+                    </button>
+                </form>
+
+                <form action="{{ route('moderation.reject', $post) }}" method="POST" class="inline-block">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                            class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition">
+                        Rechazar
+                    </button>
+                </form>
+            </div>
+
+            <div class="mt-6 text-center">
+                <a href="{{ route('moderation.pending-posts') }}" class="text-blue-500 hover:underline font-medium">
+                    Volver a posts pendientes
+                </a>
+            </div>
+        </div>
+
     </div>
 
-    <div class="space-y-6">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var map = L.map('map').setView([37.95, -1.09], 13);
 
-        <h1 class="text-3xl font-semibold text-gray-800">{{ $post->title }}</h1>
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-            <div>
-                <p><strong>Autor:</strong> {{ $post->user->name }}</p>
-            </div>
-            <div>
-                <p><strong>Provincia:</strong> {{ $post->province }}</p>
-            </div>
-            <div>
-                <p><strong>Dificultad:</strong> {{ $post->difficulty }}</p>
-            </div>
-            <div>
-                <p><strong>Longitud:</strong> {{ $post->longitude }} km</p>
-            </div>
-            <div>
-                <p><strong>Altitud:</strong> {{ $post->altitude }} m</p>
-            </div>
-            <div>
-                <p><strong>Duración:</strong> {{ $post->time }}</p>
-            </div>
-        </div>
+            var trackUrl = "{{ asset('storage/' . $post->track) }}";
 
-        <div class="text-gray-700 leading-relaxed mb-6">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Contenido</h2>
-            <p>{!! $post->body !!}</p>
-        </div>
-
-        <div class="my-6">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Ruta en el mapa</h2>
-            <div id="map" style="height: 500px;"></div>
-        </div>
-
-        <div class="mt-6 flex justify-start space-x-4">
-            <form action="{{ route('moderation.approve', $post) }}" method="POST" class="inline-block">
-                @csrf
-                @method('PUT')
-                <button type="submit"
-                        class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition">
-                    Aprobar
-                </button>
-            </form>
-
-            <form action="{{ route('moderation.reject', $post) }}" method="POST" class="inline-block">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition">
-                    Rechazar
-                </button>
-            </form>
-        </div>
-
-        <div class="mt-6 text-center">
-            <a href="{{ route('moderation.pending-posts') }}" class="text-blue-500 hover:underline font-medium">
-                Volver a posts pendientes
-            </a>
-        </div>
-    </div>
-
-</div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var map = L.map('map').setView([37.95, -1.09], 13);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        var trackUrl = "{{ asset('storage/' . $post->track) }}";
-
-        omnivore.kml(trackUrl)
-            .on('ready', function () {
-                map.fitBounds(this.getBounds());
-            })
-            .addTo(map)
-            .on('error', function (e) {
-                console.error('Error cargando el KML: ', e);
-            });
-    });
-</script>
-
-</body>
-
-</html>
+            omnivore.kml(trackUrl)
+                .on('ready', function () {
+                    map.fitBounds(this.getBounds());
+                })
+                .addTo(map)
+                .on('error', function (e) {
+                    console.error('Error cargando el KML: ', e);
+                });
+        });
+    </script>
+</x-app-layout>
