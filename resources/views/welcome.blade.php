@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido | PeakPost</title>
+    <title>{{ __('Welcome') }} | PeakPost</title>
     @vite(['resources/css/app.css'])
 </head>
 
@@ -13,16 +13,16 @@
 <section class="relative w-full h-screen bg-cover bg-center" style="background-image: url('/assets/banner.jpg');">
     <div class="absolute inset-0 bg-black bg-opacity-60"></div>
     <div class="relative flex flex-col justify-center items-center h-full text-center text-white px-6">
-        <h1 class="text-5xl font-extrabold mb-4">Bienvenido a <span class="text-blue-400">PeakPost</span></h1>
+        <h1 class="text-5xl font-extrabold mb-4">{{ __('Welcome to') }} <span class="text-blue-400">PeakPost</span></h1>
         <p class="text-lg text-gray-300 max-w-2xl">Descubre, comparte y documenta tus mejores aventuras en la montaña.</p>
         <div class="mt-8 space-x-4">
             <a href="{{ route('login') }}"
                class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition">
-                Iniciar Sesión
+                {{ __('Login') }}
             </a>
             <a href="{{ route('register') }}"
                class="bg-gray-900 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold transition">
-                Registrarse
+                {{ __('Register') }}
             </a>
         </div>
     </div>

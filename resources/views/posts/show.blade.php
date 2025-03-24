@@ -9,29 +9,29 @@
             <div
                 class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6 text-lg bg-gray-100 p-6 rounded-lg shadow-md">
                 <div>
-                    <p class="font-semibold text-gray-800">Provincia</p>
+                    <p class="font-semibold text-gray-800">{{ __('Province') }}</p>
                     <p class="text-gray-600">{{ $post->province }}</p>
                 </div>
                 <div>
-                    <p class="font-semibold text-gray-800">Dificultad</p>
+                    <p class="font-semibold text-gray-800">{{ __('Difficulty') }}</p>
                     <p class="text-gray-600">{{ $post->difficulty }}</p>
                 </div>
                 <div>
-                    <p class="font-semibold text-gray-800">Longitud</p>
+                    <p class="font-semibold text-gray-800">{{ __('Longitude') }}</p>
                     <p class="text-gray-600">{{ $post->longitude }} km</p>
                 </div>
                 <div>
-                    <p class="font-semibold text-gray-800">Altitud</p>
+                    <p class="font-semibold text-gray-800">{{ __('Altitude') }}</p>
                     <p class="text-gray-600">{{ $post->altitude }} m</p>
                 </div>
                 <div>
-                    <p class="font-semibold text-gray-800">Duración</p>
+                    <p class="font-semibold text-gray-800">{{ __('Duration') }}</p>
                     <p class="text-gray-600">{{ $post->time }}</p>
                 </div>
             </div>
 
             <div class="mt-6">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Ruta en el mapa</h2>
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">{{ __('Route on the map') }}</h2>
                 <div id="map" class="h-96 w-full rounded-lg shadow-md"></div>
             </div>
 
@@ -40,7 +40,7 @@
                     @can('update', $post)
                         <a href="{{ route('posts.edit', $post->id) }}"
                            class="flex items-center bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition duration-200 ease-in-out">
-                            <i class="fas fa-pencil-alt mr-2"></i> Editar
+                            <i class="fas fa-pencil-alt mr-2"></i> {{ __('Edit') }}
                         </a>
                     @endcan
 
@@ -50,7 +50,7 @@
                             @method('DELETE')
                             <button type="submit"
                                     class="flex items-center bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-red-700 transition duration-200 ease-in-out">
-                                <i class="fas fa-trash-alt mr-2"></i> Eliminar
+                                <i class="fas fa-trash-alt mr-2"></i> {{ __('Delete') }}
                             </button>
                         </form>
                     @endcan
@@ -59,25 +59,25 @@
                 <a href="{{ route('post.pdf', $post->id) }}"
                    class="flex items-center space-x-2 text-gray-700 hover:text-red-600 transition duration-200 ease-in-out mt-4 md:mt-0">
                     <i class="fas fa-file-pdf text-red-500 hover:text-red-700 transition duration-200 ease-in-out"></i>
-                    <span class="font-medium">Descargar PDF</span>
+                    <span class="font-medium">{{ __('Download PDF') }}</span>
                 </a>
             </div>
 
             <div class="mt-6 text-center">
                 <a href="{{ route('home') }}" class="text-blue-500 hover:underline font-medium">
-                    Volver al inicio
+                    {{ __('Back to home') }}
                 </a>
             </div>
         </div>
 
         <div class="p-6 border-t">
-            <h2 class="text-2xl font-semibold mb-4">Comentarios</h2>
+            <h2 class="text-2xl font-semibold mb-4">{{ __('Comments') }}</h2>
             <form action="{{ route('comments.store', $post) }}" method="POST" class="mb-6">
                 @csrf
                 <textarea name="content" rows="3" class="w-full p-3 border rounded focus:ring focus:ring-blue-300"
-                          placeholder="Escribe un comentario..." required></textarea>
+                          placeholder="{{ __('Write a comment...') }}" required></textarea>
                 <button type="submit" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                    Comentar
+                    {{ __('Comment') }}
                 </button>
             </form>
 

@@ -1,6 +1,6 @@
 <x-layouts.admin-layout title="Posts pendientes">
 
-    <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Posts pendientes</h1>
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">{{ __('Pending posts') }}</h1>
 
     @if($posts->count() > 0)
         @foreach($posts as $post)
@@ -15,8 +15,8 @@
                     </a>
 
                     <div class="text-gray-600 mt-2 flex items-center space-x-4">
-                        <p><strong>Autor:</strong> {{ $post->user->name }}</p>
-                        <p><strong>Fecha:</strong> {{ $post->created_at->format('d/m/Y') }}</p>
+                        <p><strong>{{ __('Author') }}</strong> {{ $post->user->name }}</p>
+                        <p><strong>{{ __('Date') }}</strong> {{ $post->created_at->format('d/m/Y') }}</p>
                     </div>
 
                     <p class="text-gray-700 mt-4">{!! Str::limit($post->body, 150) !!}</p>
@@ -24,7 +24,7 @@
             </div>
         @endforeach
     @else
-        <p class="text-center text-gray-500">No hay posts pendientes</p>
+        <p class="text-center text-gray-500">{{ __('There are no pending posts') }}</p>
     @endif
 
 </x-layouts.admin-layout>

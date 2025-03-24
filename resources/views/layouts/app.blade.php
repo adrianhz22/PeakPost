@@ -26,7 +26,7 @@
     </main>
 
     <footer class="bg-gray-200 text-center p-4 mt-8">
-        <p>©2025 Todos los derechos reservados PeakPost</p>
+        <p>©2025 {{ __('All rights reserved.') }} PeakPost</p>
     </footer>
 </div>
 </body>

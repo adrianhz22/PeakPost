@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Editar Post</title>
+    <title>{{ __('Edit post') }}</title>
 
     @vite(['resources/css/app.css'])
     @vite(['resources/js/app.js'])
@@ -22,14 +22,14 @@
 <x-navigation/>
 
 <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg mt-10">
-    <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Editar Post</h1>
+    <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">{{ __('Edit post') }}</h1>
 
     <form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
         <div class="mb-6">
-            <label class="block font-semibold text-gray-700">Imagen Actual:</label>
+            <label class="block font-semibold text-gray-700">{{ __('Current image') }}:</label>
             <img src="{{ $post->image }}" class="w-full h-64 object-cover rounded-lg mt-2">
         </div>
 
@@ -41,7 +41,7 @@
         @enderror
 
         <div class="mb-4">
-            <label for="title" class="block font-semibold text-gray-700">Título:</label>
+            <label for="title" class="block font-semibold text-gray-700">{{ __('Title') }}:</label>
             <input type="text" id="title" name="title" value="{{ old('title', $post->title) }}"
                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-2"
                    required>
@@ -51,7 +51,7 @@
         </div>
 
         <div class="mb-4">
-            <label for="body" class="block font-semibold text-gray-700">Contenido:</label>
+            <label for="body" class="block font-semibold text-gray-700">{{ __('Content') }}:</label>
             <input id="body" type="hidden" name="body" value="{{ old('body', $post->body) }}">
             <trix-editor input="body" class="w-full mt-2 border border-gray-300 rounded-lg"></trix-editor>
             @error('body')
@@ -62,10 +62,10 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
 
             <div>
-                <label for="province" class="block font-semibold text-gray-700">Provincia:</label>
+                <label for="province" class="block font-semibold text-gray-700">{{ __('Province') }}:</label>
                 <select name="province" id="province"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-2">
-                    <option value="">Selecciona una provincia</option>
+                    <option value="">{{ __('Select a province') }}</option>
                     @foreach($provinces as $province)
                         <option
                             value="{{ $province }}" {{ old('province', $post->province) == $province ? 'selected' : '' }}>
@@ -79,10 +79,10 @@
             </div>
 
             <div>
-                <label for="difficulty" class="block font-semibold text-gray-700">Dificultad:</label>
+                <label for="difficulty" class="block font-semibold text-gray-700">{{ __('Difficulty') }}:</label>
                 <select name="difficulty" id="difficulty"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-2">
-                    <option value="">Selecciona una dificultad</option>
+                    <option value="">{{ __('Select a difficulty') }}</option>
                     @foreach($difficulties as $difficulty)
                         <option
                             value="{{ $difficulty }}" {{ old('difficulty', $post->difficulty) == $difficulty ? 'selected' : '' }}>
@@ -96,7 +96,7 @@
             </div>
 
             <div>
-                <label for="longitude" class="block font-semibold text-gray-700">Longitud (km):</label>
+                <label for="longitude" class="block font-semibold text-gray-700">{{ __('Longitude') }} (km):</label>
                 <input type="number" name="longitude" id="longitude" step="0.01"
                        value="{{ old('longitude', $post->longitude) }}"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-2">
@@ -106,7 +106,7 @@
             </div>
 
             <div>
-                <label for="altitude" class="block font-semibold text-gray-700">Altitud (m):</label>
+                <label for="altitude" class="block font-semibold text-gray-700">{{ __('Altitude') }} (m):</label>
                 <input type="number" name="altitude" id="altitude" value="{{ old('altitude', $post->altitude) }}"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-2">
                 @error('altitude')
@@ -115,7 +115,7 @@
             </div>
 
             <div>
-                <label for="time" class="block font-semibold text-gray-700">Duración:</label>
+                <label for="time" class="block font-semibold text-gray-700">{{ __('Duration') }}</label>
                 <input type="time" name="time" id="time" step="1" value="{{ old('time', $post->time) }}"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-2">
                 @error('time')
@@ -125,7 +125,7 @@
         </div>
 
         <div class="mb-4">
-            <label for="track" class="block font-semibold text-gray-700">Subir track (KML):</label>
+            <label for="track" class="block font-semibold text-gray-700">{{ __('Upload track') }} (KML):</label>
             <input type="file" name="track" id="track" accept=".kml"
                    class="w-full px-4 py-2 border border-gray-300 rounded-lg mt-2">
             @error('track')
@@ -134,19 +134,19 @@
         </div>
 
         <div class="mb-6">
-            <label class="block font-semibold text-gray-700">Vista del Mapa:</label>
+            <label class="block font-semibold text-gray-700">{{ __('View on the map') }}:</label>
             <div id="map" style="height: 400px;" class="rounded-lg"></div>
         </div>
 
         <button type="submit"
                 class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg mt-6 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            Guardar Cambios
+            {{ __('Save changes') }}
         </button>
     </form>
 
     <a href="{{ route('home') }}"
        class="block text-center mt-6 text-gray-500 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500">
-        Volver
+        {{ __('Back') }}
     </a>
 </div>
 

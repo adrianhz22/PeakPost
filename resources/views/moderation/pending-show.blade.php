@@ -11,32 +11,32 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <div>
-                    <p><strong>Autor:</strong> {{ $post->user->name }}</p>
+                    <p><strong>{{ __('Author') }}</strong> {{ $post->user->name }}</p>
                 </div>
                 <div>
-                    <p><strong>Provincia:</strong> {{ $post->province }}</p>
+                    <p><strong>{{ __('Province') }}</strong> {{ $post->province }}</p>
                 </div>
                 <div>
-                    <p><strong>Dificultad:</strong> {{ $post->difficulty }}</p>
+                    <p><strong>{{ __('Difficulty') }}</strong> {{ $post->difficulty }}</p>
                 </div>
                 <div>
-                    <p><strong>Longitud:</strong> {{ $post->longitude }} km</p>
+                    <p><strong>{{ __('Longitude') }}</strong> {{ $post->longitude }} km</p>
                 </div>
                 <div>
-                    <p><strong>Altitud:</strong> {{ $post->altitude }} m</p>
+                    <p><strong>{{ __('Altitude') }}</strong> {{ $post->altitude }} m</p>
                 </div>
                 <div>
-                    <p><strong>Duración:</strong> {{ $post->time }}</p>
+                    <p><strong>{{ __('Duration') }}</strong> {{ $post->time }}</p>
                 </div>
             </div>
 
             <div class="text-gray-700 leading-relaxed mb-6">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Contenido</h2>
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ __('Content') }}</h2>
                 <p>{!! $post->body !!}</p>
             </div>
 
             <div class="my-6">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Ruta en el mapa</h2>
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ __('Route on the map') }}</h2>
                 <div id="map" style="height: 500px;"></div>
             </div>
 
@@ -46,7 +46,7 @@
                     @method('PUT')
                     <button type="submit"
                             class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition">
-                        Aprobar
+                        {{ __('Approve') }}
                     </button>
                 </form>
 
@@ -55,14 +55,14 @@
                     @method('DELETE')
                     <button type="submit"
                             class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition">
-                        Rechazar
+                        {{ __('Reject') }}
                     </button>
                 </form>
             </div>
 
             <div class="mt-6 text-center">
                 <a href="{{ route('moderation.pending-posts') }}" class="text-blue-500 hover:underline font-medium">
-                    Volver a posts pendientes
+                    {{ __('Back to pending posts') }}
                 </a>
             </div>
         </div>

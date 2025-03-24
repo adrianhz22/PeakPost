@@ -5,11 +5,11 @@
                 <thead class="bg-gray-50">
                 <tr>
                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">ID</th>
-                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">Nombre</th>
-                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Correo</th>
-                    <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Registro</th>
+                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">{{ __('Name') }}</th>
+                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">{{ __('Email') }}</th>
+                    <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">{{ __('Registration') }}</th>
                     <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                        <span class="sr-only">Acciones</span>
+                        <span class="sr-only">{{__('Actions')}}</span>
                     </th>
                 </tr>
                 </thead>
@@ -40,13 +40,13 @@
                                     <div>
                                         <a href="#"
                                            class="text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 block px-4 py-2 text-sm">
-                                            Detalle
+                                            {{ __('Detail') }}
                                         </a>
                                     </div>
                                     <div>
                                         <button wire:click="deleteUser({{ $user->id }})"
                                                 class="cursor-pointer text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 block px-4 py-2 text-sm">
-                                            Eliminar
+                                            {{ __('Delete') }}
                                         </button>
                                     </div>
                                 </div>
