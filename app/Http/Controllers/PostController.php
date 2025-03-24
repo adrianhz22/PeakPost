@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
-use App\Mail\NuevoPostMailable;
+use App\Jobs\SendNewPostEmail;
+use App\Mail\NewPostMailable;
 use App\Models\Post;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -66,7 +67,7 @@ class PostController extends Controller
             'track' => $trackPath,
         ]);
 
-        Mail::to(auth()->user())->send(new NuevoPostMailable($post));
+        dispatch(new SendNewPostEmail($post, auth()->user()->email));
 
         return redirect('home')->with('success', 'Tu post se ha enviado correctamente y está siendo revisado, para ver su estado consulta tus posts.');;
 
