@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
+use App\Jobs\SendApprovedPostEmail;
 use App\Jobs\SendNewPostEmail;
 use App\Mail\NewPostMailable;
 use App\Models\Post;
@@ -166,6 +167,8 @@ class PostController extends Controller
     public function approve(Post $post)
     {
         $post->update(['is_approved' => true]);
+
+        dispatch_sync(new SendApprovedPostEmail($post, $post->user));
 
         return redirect()->route('moderation.pending-posts');
     }
