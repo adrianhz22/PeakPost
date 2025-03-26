@@ -6,6 +6,7 @@ use App\Http\Requests\PostRequest;
 use App\Jobs\SendApprovedPostEmail;
 use App\Jobs\SendNewPostEmail;
 use App\Mail\NewPostMailable;
+use App\Models\ActivityLog;
 use App\Models\Post;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -48,6 +49,7 @@ class PostController extends Controller
     {
 
         $trackPath = null;
+        $user = auth()->user();
 
         if ($request->hasFile('track')) {
             $trackPath = $request->file('track')->store('tracks', 'public');
@@ -68,6 +70,12 @@ class PostController extends Controller
             'track' => $trackPath,
         ]);
 
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Nuevo post creado',
+            'description' => "El usuario {$user->name} ha creado un nuevo post."
+        ]);
+
         dispatch(new SendNewPostEmail($post, auth()->user()->email));
 
         return redirect('home')->with('success', 'Tu post se ha enviado correctamente y está siendo revisado, para ver su estado consulta tus posts.');;
@@ -84,6 +92,7 @@ class PostController extends Controller
         $difficulties = ['Facil', 'Moderado', 'Dificil'];
 
         $this->authorize('update', $post);
+
         return view('posts.edit', compact('post', 'provinces', 'difficulties'));
 
     }
@@ -92,6 +101,7 @@ class PostController extends Controller
     {
 
         $trackPath = $post->track;
+        $user = auth()->user();
 
         if ($request->hasFile('track')) {
             $trackPath = $request->file('track')->store('tracks', 'public');
@@ -109,6 +119,12 @@ class PostController extends Controller
         $post->track = $trackPath;
         $post->save();
 
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Post actualizado',
+            'description' => "El usuario {$user->name} ha actualizado un post."
+        ]);
+
         return redirect('home');
 
     }
@@ -116,9 +132,18 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
 
+        $user = auth()->user();
+
         $this->authorize('delete', $post);
 
         $post->delete();
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Post eliminado',
+            'description' => "El usuario {$user->name} ha eliminado un post."
+        ]);
+
         return redirect('home');
 
     }
@@ -166,7 +191,15 @@ class PostController extends Controller
 
     public function approve(Post $post)
     {
+        $user = auth()->user();
+
         $post->update(['is_approved' => true]);
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Post aprobado',
+            'description' => "El usuario {$user->name} ha aprobado un post."
+        ]);
 
         dispatch_sync(new SendApprovedPostEmail($post, $post->user));
 
@@ -175,7 +208,15 @@ class PostController extends Controller
 
     public function reject(Post $post)
     {
+        $user = auth()->user();
+
         $post->delete();
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Post rechazado',
+            'description' => "El usuario {$user->name} ha rechazado un post."
+        ]);
 
         return redirect()->route('moderation.pending-posts');
     }
