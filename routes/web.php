@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
@@ -38,6 +39,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users', [AdminDashboardController::class, 'users'])->name('admin.users');
     Route::get('/admin/posts', [AdminDashboardController::class, 'posts'])->name('admin.posts');
     Route::delete('/admin/destroy/{user}', [UserController::class, 'destroy'])->name('admin.destroy');
+    Route::get('/admin/historial', [ActivityLogController::class, 'index'])->name('admin.historial');
 });
 
 Route::middleware(['auth', 'moderator'])->group(function () {
