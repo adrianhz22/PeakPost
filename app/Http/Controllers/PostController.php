@@ -19,12 +19,18 @@ class PostController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index()
+    public function index(Request $request)
     {
 
-        $posts = Post::where('is_approved', true)->get();
+        $query = $request->get('query');
 
-        return view('home', compact('posts'));
+        if ($query) {
+            $posts = Post::where('title', 'LIKE', "%{$query}%")->where('is_approved', true)->get();
+        } else {
+            $posts = Post::where('is_approved', true)->get();
+        }
+
+        return view('home', compact('posts', 'query'));
     }
 
     public function show(Post $post)

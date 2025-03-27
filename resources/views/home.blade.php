@@ -8,6 +8,15 @@
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold text-center mb-6">{{__('Home')}}</h1>
 
+        <div>
+            <form action="{{ route('home') }}" method="GET">
+                <input type="text" name="query" value="{{ request('query') }}">
+                <button type="submit">
+                    Buscar
+                </button>
+            </form>
+        </div>
+
         <div class="flex justify-end mb-4">
             <a href="{{ route('posts.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700">
                 + {{__('Create Post')}}
