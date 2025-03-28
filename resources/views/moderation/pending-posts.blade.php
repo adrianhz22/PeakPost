@@ -6,7 +6,7 @@
         @foreach($posts as $post)
             <div class="bg-white shadow-md rounded-lg p-6 mb-6 flex space-x-6">
 
-                <img src="{{ $post->image }}" alt="Imagen del post" class="w-32 h-32 object-cover rounded-lg">
+                <img src="{{ asset($post->image) }}" alt="Imagen del post" class="w-32 h-32 object-cover rounded-lg">
 
                 <div class="flex-1">
                     <a href="{{ route('moderation.pending-show', $post) }}"

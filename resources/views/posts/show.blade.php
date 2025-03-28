@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-10">
-        <img src="{{ $post->image }}" alt="Imagen del post" class="w-full h-80 object-cover">
+        <img src="{{ asset($post->image) }}" alt="Imagen del post" class="w-full h-80 object-cover">
 
         <div class="p-6">
             <h1 class="text-4xl font-bold text-gray-800 mb-4">{{ $post->title }}</h1>
@@ -112,7 +112,7 @@
                 attribution: '&copy; OpenStreetMap contributors'
             }).addTo(map);
 
-            var trackUrl = "{{ asset('storage/' . $post->track) }}";
+            var trackUrl = "{{ asset($post->track) }}";
 
             omnivore.kml(trackUrl)
                 .on('ready', function () {

@@ -23,7 +23,7 @@ class PostSeeder extends Seeder
                 <p>La subida es algo empinada en las últimas fases, por lo que es aconsejable ir a un ritmo constante para no agotarse. La orientación en la ruta es sencilla, pero un GPS será útil si el clima empeora.</p><br>
                 <p>En la cima, las vistas de la sierra y los valles de la región son impresionantes. Es un lugar perfecto para una pausa antes de comenzar el descenso, que aunque es más sencillo, también requiere atención.</p><br>
                 <p>Es importante llevar ropa adecuada, botas de montaña resistentes y equipo de orientación como un <strong>GPS</strong>. Además, se recomienda llevar suficiente agua y alimentos energéticos, ya que la zona no tiene muchas fuentes.</p>',
-                'image' => '/storage/posts/revolcadores.jpg',
+                'image' => 'posts/revolcadores.jpg',
                 'province' => 'Murcia',
                 'difficulty' => 'Moderado',
                 'longitude' => 15.5,
@@ -34,7 +34,7 @@ class PostSeeder extends Seeder
                 'is_approved' => 1,
             ],
             [
-                'title' => 'Cumbre del Aneto por el glacial',
+                'title' => 'Cumbre del Aneto por el glaciar',
                 'slug' => Str::slug('Ascenso al Aneto'),
                 'body' => '<p>El <strong>Aneto</strong>, con sus <strong>3.404 metros de altitud</strong>, es la montaña más alta de los Pirineos. El ascenso es un reto técnico que requiere preparación adecuada. La ruta más común comienza en el <strong>Refugio de la Renclusa</strong>, donde los montañistas se preparan para enfrentar las pendientes empinadas y los glaciares. La ruta se caracteriza por tramos rocosos y algunas partes de nieve, por lo que se recomienda el uso de <strong>crampones y piolet</strong>.</p><br>
                 <p>En el ascenso, se atraviesa un terreno rocoso con una inclinación moderada, pero al acercarse al glaciar, la dificultad aumenta. A medida que se asciende, la respiración se vuelve más difícil debido a la altitud. Se recomienda hacer paradas regulares y aclimatarse a la altura. Desde el <strong>Collado de Coronas</strong>, se accede a la cima tras una subida algo empinada, pero la recompensa es una vista panorámica impresionante de los Pirineos.</p><br>
@@ -42,7 +42,7 @@ class PostSeeder extends Seeder
                 <p>A lo largo de la ruta, la altitud va incrementando considerablemente. Esto puede causar mal de altura, por lo que se debe estar preparado con agua, alimentos energéticos, y ropa apropiada para el frío. En zonas cercanas al glaciar, el viento puede ser muy fuerte, por lo que se recomienda llevar ropa de abrigo, además de protección para el rostro.</p><br>
                 <p>El último tramo hasta la cumbre, una vez superado el glaciar, se caracteriza por una fuerte pendiente que requiere técnica y concentración. Al llegar a la cima, las vistas son inigualables y abarcan el vasto paisaje montañoso de los Pirineos. Asegúrate de disfrutar de este momento de logro antes de comenzar el descenso.</p><br>
                 <p>Es necesario llevar ropa adecuada para la alta montaña, incluyendo <strong>ropa técnica</strong>, <strong>botas de montaña</strong> resistentes y gafas de sol. Además, siempre es recomendable portar <strong>agua</strong> y <strong>comida energética</strong> durante el trayecto.</p>',
-                'image' => '/storage/posts/aneto.jpg',
+                'image' => 'posts/aneto.jpg',
                 'province' => 'Huesca',
                 'difficulty' => 'Difícil',
                 'longitude' => 19.7,
@@ -61,7 +61,7 @@ class PostSeeder extends Seeder
                 <p>En las primeras fases de la subida, el terreno es relativamente sencillo, pero conforme se asciende, las pendientes aumentan. Es importante asegurarse de tener suficiente agua y comida energética para el trayecto. La altitud puede afectar la respiración, por lo que las pausas regulares son clave.</p><br>
                 <p>Al llegar a la cima, las vistas son espectaculares. Se puede ver gran parte de los Pirineos, y en días despejados, es posible observar el mar Mediterráneo. El descenso, aunque menos exigente, también requiere precaución, especialmente en condiciones de nieve.</p><br>
                 <p>El equipo necesario incluye <strong>ropa térmica</strong>, <strong>botas de montaña</strong>, <strong>gafas de sol</strong> y un <strong>GPS</strong> para la orientación. Asegúrate de llevar suficiente agua y comida energética para el ascenso.</p>',
-                'image' => '/storage/posts/puigmal.jpg',
+                'image' => 'posts/puigmal.jpg',
                 'province' => 'Girona',
                 'difficulty' => 'Moderado',
                 'longitude' => 8.4,
@@ -80,7 +80,7 @@ class PostSeeder extends Seeder
                 <p>El clima es otro factor a considerar. Dependiendo de la época del año, los peregrinos pueden enfrentarse a intensos calores en Castilla o lluvias persistentes en Galicia. Es fundamental llevar ropa adecuada, calzado cómodo y una mochila bien organizada con lo esencial para el viaje. También es recomendable llevar un botiquín con vendas y ungüentos para tratar las inevitables ampollas en los pies.</p><br>
                 <p>Al llegar a <strong>Santiago de Compostela</strong>, la sensación de logro y emoción es indescriptible. La catedral, con su imponente fachada barroca y el sepulcro del Apóstol Santiago, marca el final del camino. Muchos peregrinos asisten a la misa del peregrino y disfrutan de la hospitalidad gallega, con platos típicos como el pulpo a la gallega y la tarta de Santiago.</p><br>
                 <p>El Camino de Santiago no es solo un viaje físico, sino una experiencia de transformación personal. Ya sea por motivos religiosos, culturales o de superación personal, cada peregrino encuentra en la ruta un significado especial. Es un camino de reflexión, amistad y autodescubrimiento que deja una huella imborrable en quienes lo recorren.</p>',
-                'image' => '/storage/posts/santiago.jpg',
+                'image' => 'posts/santiago.jpg',
                 'province' => 'Asturias',
                 'difficulty' => 'Moderado',
                 'longitude' => 52.4,
@@ -99,7 +99,7 @@ class PostSeeder extends Seeder
                 <p>El último tramo hasta la cima es exigente, con una subida empinada y rocas sueltas. La técnica y el paso seguro son esenciales para evitar caídas. En invierno, es necesario llevar <strong>crampones</strong> y <strong>piolet</strong> para evitar resbalones en el hielo.</p><br>
                 <p>Una vez en la cima, la panorámica es impresionante. Las vistas se extienden por el Valle del Tiétar, los montes cercanos, y se pueden ver las otras cumbres del Sistema Central. El regreso es por la misma ruta, pero se debe tener en cuenta que el descenso también puede ser complicado en zonas rocosas.</p><br>
                 <p>Es importante llevar ropa técnica, botas de montaña resistentes y equipo de seguridad como un <strong>casco</strong> y <strong>cuerdas</strong> para las secciones más complicadas. También se recomienda llevar suficiente agua y alimentos energéticos durante el ascenso.</p>',
-                'image' => '/storage/posts/almanzor.jpg',
+                'image' => 'posts/almanzor.jpg',
                 'province' => 'Ávila',
                 'difficulty' => 'Difícil',
                 'longitude' => 13.0,
@@ -118,7 +118,7 @@ class PostSeeder extends Seeder
                 <p>Al llegar a la cumbre, se disfruta de una vista impresionante de la Vega de Granada, y en días despejados, se puede ver la <strong>Alpujarra granadina</strong> y otras montañas cercanas. El descenso no es complicado, pero es necesario tener cuidado en las zonas pedregosas.</p><br>
                 <p>El equipo necesario incluye <strong>ropa térmica</strong>, <strong>botas de montaña</strong>, <strong>gafas de sol</strong> y un <strong>GPS</strong> para la orientación. Asegúrate de llevar suficiente agua y comida energética para el ascenso.</p><br>
                 <p>Es recomendable planificar el ascenso con antelación y estar bien preparado para cualquier eventualidad, ya que la montaña puede ser exigente y el clima puede cambiar en cualquier momento.</p>',
-                'image' => '/storage/posts/sagra.jpg',
+                'image' => 'posts/sagra.jpg',
                 'province' => 'Granada',
                 'difficulty' => 'Moderado',
                 'longitude' => 21.9,

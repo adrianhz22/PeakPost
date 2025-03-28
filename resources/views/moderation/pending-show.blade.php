@@ -2,7 +2,7 @@
     <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10">
 
         <div class="mb-6">
-            <img src="{{ $post->image }}" alt="Imagen del post" class="w-full h-64 object-cover rounded-lg">
+            <img src="{{ asset($post->image) }}" alt="Imagen del post" class="w-full h-64 object-cover rounded-lg">
         </div>
 
         <div class="space-y-6">

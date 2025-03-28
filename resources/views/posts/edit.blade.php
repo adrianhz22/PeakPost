@@ -35,7 +35,7 @@
 
         <div class="dropzone border-2 border-dashed p-6 text-center mb-6" id="imagenDropzone">
         </div>
-        <input type="hidden" name="image">
+        <input type="hidden" name="image" id="imageInput" value="{{ $post->image }}">
         @error('image')
         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
         @enderror
