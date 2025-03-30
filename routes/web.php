@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -17,7 +18,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [PostController::class, 'index'])->name('home');
 
     Route::get('/posts/my-posts', [PostController::class, 'userPosts'])->name('posts.user-posts');
-    Route::get('/post/{id}/pdf', [PostController::class, 'downloadPDF'])->name('post.pdf');
+    Route::get('/post/{id}/pdf', [PDFController::class, 'downloadPDF'])->name('post.pdf');
+    Route::get('/terms', [PDFController::class, 'downloadTermsPDF'])->name('terms.pdf');
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('/upload-image', [PostController::class, 'uploadImage'])->name('upload.image');

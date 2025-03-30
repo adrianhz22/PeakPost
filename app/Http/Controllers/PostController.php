@@ -25,7 +25,7 @@ class PostController extends Controller
         $query = $request->get('query');
 
         if ($query) {
-            $posts = Post::where('title', 'LIKE', "%{$query}%")->where('is_approved', true)->get();
+            $posts = Post::where('title', 'LIKE', "%{$query}%")->where('is_approved', true)->paginate(12);
         } else {
             $posts = Post::where('is_approved', true)->paginate(12);
         }
@@ -170,15 +170,6 @@ class PostController extends Controller
 
         return view('posts.user-posts', compact('posts'));
 
-    }
-
-    public function downloadPDF($id)
-    {
-        $post = Post::findOrFail($id);
-
-        $pdf = Pdf::loadView('pdfs.post', compact('post'));
-
-        return $pdf->download('post_' . $post->id . '.pdf');
     }
 
     public function showPendingPosts()

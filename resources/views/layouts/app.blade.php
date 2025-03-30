@@ -25,9 +25,15 @@
         {{ $slot }}
     </main>
 
-    <footer class="bg-gray-200 text-center p-4 mt-8">
+    <footer class="bg-gray-200 text-center p-4 mt-8 text-sm text-gray-700">
         <p>©2025 {{ __('All rights reserved.') }} PeakPost</p>
+        <p>
+            <a href="{{ route('terms.pdf') }}" class="text-blue-600 hover:underline">
+                Términos y Condiciones
+            </a>
+        </p>
     </footer>
+
 </div>
 </body>
 </html>
