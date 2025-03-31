@@ -43,7 +43,6 @@
                             <i class="fas fa-pencil-alt mr-2"></i> {{ __('Edit') }}
                         </a>
                     @endcan
-
                     @can('delete', $post)
                         <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
                             @csrf
@@ -88,25 +87,59 @@
                             <p class="font-semibold text-gray-800">{{ $comment->user->name }}</p>
                             <span class="text-sm text-gray-500">{{ $comment->created_at->format('d/m/Y') }}</span>
                         </div>
-                        <p class="text-gray-700 mt-2">{{ $comment->content }}</p>
-                        @can('delete', $comment)
-                            <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit">
-                                    <i class="fas fa-trash-alt mr-2"></i>
-                                </button>
-                            </form>
-                        @endcan
-                        @can('update', $comment)
-                            <form action="{{ route('comments.update', $comment->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <input type="text" name="content" value="{{ $comment->content }}" class="border rounded p-1">
-                                <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded">Editar</button>
-                            </form>
-                        @endcan
+                        <p class="mt-2">{{ $comment->content }}</p>
 
+                        <form action="{{ route('comments.store', $post) }}" method="POST" class="mt-2">
+                            @csrf
+                            <input type="hidden" name="parent_id" value="{{ $comment->id }}">
+                            <textarea name="content" rows="2" placeholder="{{ __('Reply...') }}" required></textarea>
+                            <button type="submit">{{ __('Reply') }}</button>
+                        </form>
+
+                        @if($comment->replies->count())
+                            <div class="ml-4 mt-4">
+                                @foreach ($comment->replies as $reply)
+                                    <div class="bg-gray-200 p-3 rounded mb-2">
+                                        <div class="flex justify-between">
+                                            <strong>{{ $reply->user->name }}</strong>
+                                            <span
+                                                class="text-sm text-gray-500">{{ $reply->created_at->format('d/m/Y') }}</span>
+                                        </div>
+                                        <p class="mt-1">{{ $reply->content }}</p>
+                                        @can('delete', $reply)
+                                            <form action="{{ route('comments.destroy', $reply->id) }}" method="POST"
+                                                  class="mt-2">
+                                                @csrf @method('DELETE')
+                                                <button type="submit" class="text-red-500 hover:underline">
+                                                    <i class="fas fa-trash-alt"></i> {{ __('Delete') }}
+                                                </button>
+                                            </form>
+                                        @endcan
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+
+                        <div class="mt-2 flex space-x-2">
+                            @can('update', $comment)
+                                <form action="{{ route('comments.update', $comment->id) }}" method="POST">
+                                    @csrf @method('PUT')
+                                    <input type="text" name="content" value="{{ $comment->content }}"
+                                           class="border p-1 rounded">
+                                    <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded">
+                                        <i class="fas fa-edit"></i> {{ __('Edit') }}
+                                    </button>
+                                </form>
+                            @endcan
+                            @can('delete', $comment)
+                                <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="text-red-500 hover:underline">
+                                        <i class="fas fa-trash-alt"></i> {{ __('Delete') }}
+                                    </button>
+                                </form>
+                            @endcan
+                        </div>
                     </div>
                 @endforeach
             </div>
