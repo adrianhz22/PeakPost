@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/post/{id}/pdf', [PDFController::class, 'downloadPDF'])->name('post.pdf');
     Route::get('/terms', [PDFController::class, 'downloadTermsPDF'])->name('terms.pdf');
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('/upload-image', [PostController::class, 'uploadImage'])->name('upload.image');
 

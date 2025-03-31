@@ -34,6 +34,26 @@ class CommentController extends Controller
 
     }
 
+    public function update(CommentRequest $request, Comment $comment)
+    {
+        $user = Auth::user();
+
+        $this->authorize('update', $comment);
+
+        $comment->update([
+            'content' => $request->input('content'),
+        ]);
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Comentario editado',
+            'description' => "El usuario {$user->name} ha editado un comentario."
+        ]);
+
+        return redirect()->back();
+
+    }
+
     public function destroy(Comment $comment) {
 
         $user = Auth::user();

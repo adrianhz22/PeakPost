@@ -98,6 +98,15 @@
                                 </button>
                             </form>
                         @endcan
+                        @can('update', $comment)
+                            <form action="{{ route('comments.update', $comment->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="text" name="content" value="{{ $comment->content }}" class="border rounded p-1">
+                                <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded">Editar</button>
+                            </form>
+                        @endcan
+
                     </div>
                 @endforeach
             </div>
