@@ -8,6 +8,7 @@ test('Comment request has expected validation rules', function () {
 
     $expectedRules = [
         'content' => 'required|max:200',
+        'parent_id' => 'nullable|exists:comments,id'
     ];
 
     expect($commentRequest->rules())->toEqual($expectedRules);
