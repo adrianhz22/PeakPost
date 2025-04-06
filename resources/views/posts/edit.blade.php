@@ -30,7 +30,7 @@
 
         <div class="mb-6">
             <label class="block font-semibold text-gray-700">{{ __('Current image') }}:</label>
-            <img src="{{ $post->image }}" class="w-full h-64 object-cover rounded-lg mt-2">
+            <img src="{{ asset($post->image) }}" class="w-full h-64 object-cover rounded-lg mt-2">
         </div>
 
         <div class="dropzone border-2 border-dashed p-6 text-center mb-6" id="imagenDropzone">

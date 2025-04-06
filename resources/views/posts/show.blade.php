@@ -81,67 +81,153 @@
             </form>
 
             <div class="space-y-4">
-                @foreach ($post->comments as $comment)
-                    <div class="bg-gray-100 p-4 rounded-lg shadow mb-4">
-                        <div class="flex items-center justify-between">
+                @foreach ($post->comments->where('parent_id', null) as $comment)
+                    <div class="bg-gray-100 p-4 rounded-lg shadow mb-4"
+                         x-data="{ menu: false, editMode: false }">
+                        <div class="flex items-center justify-between relative">
                             <p class="font-semibold text-gray-800">{{ $comment->user->name }}</p>
-                            <span class="text-sm text-gray-500">{{ $comment->created_at->format('d/m/Y') }}</span>
-                        </div>
-                        <p class="mt-2">{{ $comment->content }}</p>
 
-                        <form action="{{ route('comments.store', $post) }}" method="POST" class="mt-2">
-                            @csrf
-                            <input type="hidden" name="parent_id" value="{{ $comment->id }}">
-                            <textarea name="content" rows="2" placeholder="{{ __('Reply...') }}" required></textarea>
-                            <button type="submit">{{ __('Reply') }}</button>
-                        </form>
+                            <div class="flex items-center space-x-2">
+                                <span class="text-sm text-gray-500">{{ $comment->created_at->format('d/m/Y') }}</span>
 
-                        @if($comment->replies->count())
-                            <div class="ml-4 mt-4">
-                                @foreach ($comment->replies as $reply)
-                                    <div class="bg-gray-200 p-3 rounded mb-2">
-                                        <div class="flex justify-between">
-                                            <strong>{{ $reply->user->name }}</strong>
-                                            <span
-                                                class="text-sm text-gray-500">{{ $reply->created_at->format('d/m/Y') }}</span>
-                                        </div>
-                                        <p class="mt-1">{{ $reply->content }}</p>
-                                        @can('delete', $reply)
-                                            <form action="{{ route('comments.destroy', $reply->id) }}" method="POST"
-                                                  class="mt-2">
-                                                @csrf @method('DELETE')
-                                                <button type="submit" class="text-red-500 hover:underline">
-                                                    <i class="fas fa-trash-alt"></i> {{ __('Delete') }}
-                                                </button>
+                                <div class="relative">
+                                    <button @click="menu = !menu"
+                                            class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+
+                                    <div x-show="menu" @click.away="menu = false" x-cloak
+                                         class="absolute right-0 top-full mt-2 w-40 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-50">
+                                        @can('update', $comment)
+                                            <button @click="editMode = true; menu = false"
+                                                    class="w-full px-4 py-2 text-left">
+                                                {{ __('Edit') }}
+                                            </button>
+                                        @endcan
+
+                                        @can('delete', $comment)
+                                            <button type="submit" form="deleteForm-{{ $comment->id }}"
+                                                    class="w-full px-4 py-2 text-left">
+                                                {{ __('Delete') }}
+                                            </button>
+                                            <form id="deleteForm-{{ $comment->id }}"
+                                                  action="{{ route('comments.destroy', $comment->id) }}" method="POST"
+                                                  class="hidden">
+                                                @csrf
+                                                @method('DELETE')
                                             </form>
                                         @endcan
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div x-show="editMode" x-transition class="mt-2">
+                            <form action="{{ route('comments.update', $comment->id) }}" method="POST">
+                                @csrf @method('PUT')
+                                <textarea name="content" rows="3"
+                                          class="w-full p-3 border rounded focus:ring focus:ring-blue-300"
+                                          required>{{ $comment->content }}</textarea>
+                                <button type="submit"
+                                        class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                                    {{ __('Save Changes') }}
+                                </button>
+                            </form>
+                        </div>
+
+                        <div x-show="!editMode" class="mt-2">
+                            <p>{{ $comment->content }}</p>
+                        </div>
+
+                        <div class="mt-2" x-data="{ showReplyForm: false }">
+                            <button @click="showReplyForm = !showReplyForm"
+                                    class="text-blue-500 hover:underline font-medium">
+                                {{ __('Reply') }}
+                            </button>
+
+                            <form x-show="showReplyForm" x-cloak action="{{ route('comments.store', $post) }}"
+                                  method="POST" class="mt-2">
+                                @csrf
+                                <input type="hidden" name="parent_id" value="{{ $comment->id }}">
+                                <textarea name="content" rows="2"
+                                          class="w-full p-2 border rounded focus:ring focus:ring-blue-300"
+                                          placeholder="{{ __('Write a reply...') }}" required></textarea>
+                                <button type="submit"
+                                        class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                                    {{ __('Reply') }}
+                                </button>
+                            </form>
+                        </div>
+
+                        @if($comment->replies->count())
+                            <div class="ml-4 mt-4 space-y-2">
+                                @foreach ($comment->replies as $reply)
+                                    <div class="bg-gray-200 p-3 rounded relative"
+                                         x-data="{ menu: false, editMode: false }">
+                                        <div class="flex justify-between items-center">
+                                            <div>
+                                                <strong>{{ $reply->user->name }}</strong>
+                                                <span
+                                                    class="text-sm text-gray-500 ml-2">{{ $reply->created_at->format('d/m/Y') }}</span>
+                                            </div>
+
+                                            <div class="relative">
+                                                <button @click="menu = !menu"
+                                                        class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+
+                                                <div x-show="menu" @click.away="menu = false" x-cloak
+                                                     class="absolute right-0 top-full mt-2 w-40 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-50">
+                                                    @can('update', $comment)
+                                                        <button @click="editMode = true; menu = false"
+                                                                class="w-full px-4 py-2 text-left">
+                                                            {{ __('Edit') }}
+                                                        </button>
+                                                    @endcan
+
+                                                    @can('delete', $comment)
+                                                        <button type="submit" form="deleteForm-{{ $comment->id }}"
+                                                                class="w-full px-4 py-2 text-left">
+                                                            {{ __('Delete') }}
+                                                        </button>
+                                                        <form id="deleteForm-{{ $comment->id }}"
+                                                              action="{{ route('comments.destroy', $comment->id) }}"
+                                                              method="POST" class="hidden">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                    @endcan
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div x-show="editMode" x-transition class="mt-2">
+                                            <form action="{{ route('comments.update', $reply->id) }}" method="POST">
+                                                @csrf @method('PUT')
+                                                <textarea name="content" rows="2"
+                                                          class="w-full p-2 border rounded focus:ring focus:ring-blue-300"
+                                                          required>{{ $reply->content }}</textarea>
+                                                <button type="submit"
+                                                        class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                                                    {{ __('Save Changes') }}
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                        <div x-show="!editMode" class="mt-1">
+                                            {{ $reply->content }}
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
                         @endif
 
-                        <div class="mt-2 flex space-x-2">
-                            @can('update', $comment)
-                                <form action="{{ route('comments.update', $comment->id) }}" method="POST">
-                                    @csrf @method('PUT')
-                                    <input type="text" name="content" value="{{ $comment->content }}"
-                                           class="border p-1 rounded">
-                                    <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded">
-                                        <i class="fas fa-edit"></i> {{ __('Edit') }}
-                                    </button>
-                                </form>
-                            @endcan
-                            @can('delete', $comment)
-                                <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="text-red-500 hover:underline">
-                                        <i class="fas fa-trash-alt"></i> {{ __('Delete') }}
-                                    </button>
-                                </form>
-                            @endcan
-                        </div>
                     </div>
                 @endforeach
+
             </div>
         </div>
     </div>
