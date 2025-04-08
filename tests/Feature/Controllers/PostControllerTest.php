@@ -96,3 +96,72 @@ test('moderator can reject a post', function () {
     $response->assertRedirect(route('moderation.pending-posts'));
     $this->assertDatabaseMissing('posts', ['id' => $post->id]);
 });
+
+test('create a post using the API', function () {
+
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    $post = [
+        'title' => 'Titulo de prueba',
+        'body' => 'Contenido de prueba este post esta creado para el test',
+        'image' => 'imagen.jpg',
+        'province' => 'Granada',
+        'difficulty' => 'Moderado',
+        'longitude' => 14,
+        'altitude' => 2612,
+        'user_id' => $user->id,
+    ];
+
+    $response = $this->postJson('/api/posts', $post);
+
+    $response->assertStatus(201);
+    $this->assertDatabaseHas('posts', ['title' => 'Titulo de prueba']);
+});
+
+test('delete a post using the API', function () {
+
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    $post = Post::factory()->create(['user_id' => $user->id]);
+
+    $response = $this->deleteJson("/api/posts/{$post->id}");
+
+    $response->assertStatus(200);
+});
+
+test('show detail post using the API', function () {
+
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    $post = Post::factory()->create(['user_id' => $user->id]);
+
+    $response = $this->getJson("/api/posts/{$post->id}");
+
+    $response->assertStatus(200);
+});
+
+test('update a post using the API', function () {
+
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    $post = Post::factory()->create(['user_id' => $user->id]);
+
+    $updatedPost = [
+        'title' => 'Titulo de prueba',
+        'body' => 'Contenido de prueba este post esta creado para el test',
+        'image' => 'imagen.jpg',
+        'province' => 'Granada',
+        'difficulty' => 'Moderado',
+        'longitude' => 14,
+        'altitude' => 2612,
+    ];
+
+    $response = $this->putJson("/api/posts/{$post->id}", $updatedPost);
+
+    $response->assertStatus(200);
+    $this->assertDatabaseHas('posts', ['id' => $post->id, 'title' => 'Titulo de prueba']);
+});
