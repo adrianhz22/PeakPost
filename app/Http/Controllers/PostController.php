@@ -22,11 +22,7 @@ class PostController extends Controller
 
         $query = $request->get('query');
 
-        if ($query) {
-            $posts = Post::where('title', 'LIKE', "%{$query}%")->where('is_approved', true)->paginate(12);
-        } else {
-            $posts = Post::where('is_approved', true)->paginate(12);
-        }
+        $posts = Post::search($query)->paginate(12);
 
         return view('home', compact('posts', 'query'));
     }

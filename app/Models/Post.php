@@ -12,6 +12,18 @@ class Post extends Model
 {
     use hasFactory, Likeable;
 
+    public function scopeSearch($query, $search)
+    {
+
+        $query->where('is_approved', true);
+
+        if ($search) {
+            return $query->where('title', 'LIKE', "%{$search}%");
+        }
+
+        return $query;
+    }
+
     public function user() : belongsTo
     {
         return $this->belongsTo(User::class);
