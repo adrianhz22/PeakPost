@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Jobs\SendApprovedPostEmail;
 use App\Jobs\SendNewPostEmail;
-use App\Mail\NewPostMailable;
 use App\Models\ActivityLog;
 use App\Models\Post;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -175,9 +173,12 @@ class PostController extends Controller
     public function showPendingPosts()
     {
 
+        Artisan::call('posts:pending');
+        $pendingCount = trim(Artisan::output());
+
         $posts = Post::where('is_approved', false)->get();
 
-        return view('moderation.pending-posts', compact('posts'));
+        return view('moderation.pending-posts', compact('posts', 'pendingCount'));
 
     }
 

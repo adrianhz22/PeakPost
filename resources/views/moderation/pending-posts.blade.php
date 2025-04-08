@@ -1,6 +1,6 @@
 <x-layouts.admin-layout title="Posts pendientes">
 
-    <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">{{ __('Pending posts') }}</h1>
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">{{ __('Pending posts') }} ({{ $pendingCount }})</h1>
 
     @if($posts->count() > 0)
         @foreach($posts as $post)
