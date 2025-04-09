@@ -12,16 +12,21 @@ class Post extends Model
 {
     use hasFactory, Likeable;
 
-    public function scopeSearch($query, $search)
+    public function scopeSearch($query, $search, $sort = 'desc')
     {
-
         $query->where('is_approved', true);
 
         if ($search) {
-            return $query->where('title', 'LIKE', "%{$search}%");
+            $query->where('title', 'LIKE', "%{$search}%");
         }
 
-        return $query;
+        if ($sort === 'popular') {
+            return $query
+                ->withCount('likes')
+                ->orderBy('likes_count', 'desc');
+        }
+
+        return $query->orderBy('created_at', 'desc');
     }
 
     public function user() : belongsTo
