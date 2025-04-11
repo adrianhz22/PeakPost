@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostCreated;
 use App\Http\Requests\PostRequest;
 use App\Jobs\SendApprovedPostEmail;
 use App\Jobs\SendNewPostEmail;
@@ -78,6 +79,8 @@ class PostController extends Controller
         ]);
 
         dispatch(new SendNewPostEmail($post, auth()->user()->email));
+
+        PostCreated::dispatch($post);
 
         return redirect('home')->with('success', 'Tu post se ha enviado correctamente y está siendo revisado, para ver su estado consulta tus posts.');;
 

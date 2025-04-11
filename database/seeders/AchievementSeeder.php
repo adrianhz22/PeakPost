@@ -16,19 +16,19 @@ class AchievementSeeder extends Seeder
         Achievement::create([
             'name' => 'Bronce',
             'description' => 'Publica 5 posts',
-            'image' => 'achievements/bronce.png',
+            'image' => 'assets/bronce.png',
         ]);
 
         Achievement::create([
             'name' => 'Plata',
             'description' => 'Publica 20 posts',
-            'image' => 'achievements/plata.png',
+            'image' => 'assets/plata.png',
         ]);
 
         Achievement::create([
             'name' => 'Oro',
             'description' => 'Publica 50 posts',
-            'image' => 'achievements/oro.png',
+            'image' => 'assets/oro.png',
         ]);
     }
 }
