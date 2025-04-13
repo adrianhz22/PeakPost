@@ -25,9 +25,14 @@
                    onchange="document.getElementById('uploadForm').submit();">
 
             <div class="relative group w-32 h-32 cursor-pointer" onclick="document.getElementById('fileInput').click()">
-                <img src="{{ asset('storage/' . $user->profile_photo) }}"
-                     alt="Foto de perfil"
-                     class="w-32 h-32 rounded-full border border-gray-300 shadow-sm">
+                <img
+                    @if ($user->profile_photo)
+                        src="{{ asset('storage/' . $user->profile_photo) }}"
+                    @else
+                        src="{{ asset('assets/default-photo.jpg') }}"
+                    @endif
+                    alt="Foto de perfil"
+                    class="w-32 h-32 rounded-full border border-gray-300 shadow-sm">
 
                 <div
                     class="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition">
