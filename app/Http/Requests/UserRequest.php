@@ -27,4 +27,13 @@ class UserRequest extends FormRequest
             'password' => 'required|string|min:8',
         ];
     }
+
+    public static function creationRules(): array
+    {
+        return [
+            'name' => 'required|string|max:40',
+            'email' => 'required',
+            'password' => 'required|string|min:8',
+        ];
+    }
 }

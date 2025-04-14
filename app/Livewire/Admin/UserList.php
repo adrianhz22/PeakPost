@@ -2,13 +2,31 @@
 
 namespace App\Livewire\Admin;
 
+use App\Http\Requests\UserRequest;
 use App\Models\ActivityLog;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use App\Models\User;
 
 class UserList extends Component
 {
+
+    public $name, $email, $password;
+
+    public function createUser()
+    {
+        $this->validate(UserRequest::creationRules());
+
+        User::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => Hash::make($this->password),
+        ]);
+
+        $this->reset();
+    }
+
     public function deleteUser($userId)
     {
         $user = User::find($userId);

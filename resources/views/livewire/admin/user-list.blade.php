@@ -1,4 +1,30 @@
 <div class="max-w-7xl mx-auto">
+
+    <div x-data="{ open: false }">
+        <button @click="open = !open">
+            <span x-show="!open">Crear usuario</span>
+            <span x-show="open">Cerrar</span>
+        </button>
+
+        <div x-show="open">
+            <form wire:submit.prevent="createUser">
+                <input wire:model.defer="name" type="text" placeholder="Nombre">
+                @error('name')
+                <div>{{ $message }}</div> @enderror
+
+                <input wire:model.defer="email" type="email" placeholder="Email">
+                @error('email')
+                <div>{{ $message }}</div> @enderror
+
+                <input wire:model.defer="password" type="password" placeholder="Contraseña">
+                @error('password')
+                <div>{{ $message }}</div> @enderror
+
+                <button type="submit">Crear</button>
+            </form>
+        </div>
+    </div>
+
     <div class="inline-block min-w-full py-2 align-middle">
         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
             <table class="min-w-full divide-y divide-gray-300">
