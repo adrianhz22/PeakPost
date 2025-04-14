@@ -1,26 +1,40 @@
 <div class="max-w-7xl mx-auto">
-
-    <div x-data="{ open: false }">
-        <button @click="open = !open">
-            <span x-show="!open">Crear usuario</span>
-            <span x-show="open">Cerrar</span>
+    <div x-data="{ open: false }" class="mb-6">
+        <button @click="open = !open"
+                class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700">
+            <span x-show="!open">Crear nuevo usuario</span>
+            <span x-show="open">Cerrar formulario</span>
         </button>
 
-        <div x-show="open">
-            <form wire:submit.prevent="createUser">
-                <input wire:model.defer="name" type="text" placeholder="Nombre">
-                @error('name')
-                <div>{{ $message }}</div> @enderror
+        <div x-show="open" x-transition class="mt-4 bg-white shadow-md rounded-md p-6 max-w-2xl">
+            <h2 class="text-lg font-semibold mb-4 text-gray-800">Crear nuevo usuario</h2>
 
-                <input wire:model.defer="email" type="email" placeholder="Email">
-                @error('email')
-                <div>{{ $message }}</div> @enderror
+            <form wire:submit.prevent="createUser" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Nombre</label>
+                    <input wire:model.defer="name" type="text"
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                    @error('name') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                </div>
 
-                <input wire:model.defer="password" type="password" placeholder="Contraseña">
-                @error('password')
-                <div>{{ $message }}</div> @enderror
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Email</label>
+                    <input wire:model.defer="email" type="email"
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                    @error('email') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                </div>
 
-                <button type="submit">Crear</button>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Contraseña</label>
+                    <input wire:model.defer="password" type="password"
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                    @error('password') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                </div>
+
+                <button type="submit"
+                        class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+                    Crear usuario
+                </button>
             </form>
         </div>
     </div>
@@ -30,10 +44,14 @@
             <table class="min-w-full divide-y divide-gray-300">
                 <thead class="bg-gray-50">
                 <tr>
-                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">ID</th>
-                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">{{ __('Name') }}</th>
-                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">{{ __('Email') }}</th>
-                    <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">{{ __('Registration') }}</th>
+                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">ID
+                    </th>
+                    <th scope="col"
+                        class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">{{ __('Name') }}</th>
+                    <th scope="col"
+                        class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">{{ __('Email') }}</th>
+                    <th scope="col"
+                        class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">{{ __('Registration') }}</th>
                     <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                         <span class="sr-only">{{__('Actions')}}</span>
                     </th>
@@ -57,7 +75,8 @@
                                     <span class="sr-only">Open options</span>
                                     <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                          fill="currentColor" aria-hidden="true">
-                                        <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
+                                        <path
+                                            d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
                                     </svg>
                                 </button>
 
