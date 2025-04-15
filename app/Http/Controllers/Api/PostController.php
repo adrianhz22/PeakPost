@@ -12,8 +12,21 @@ class PostController extends Controller
 {
 
     use AuthorizesRequests;
+
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/posts",
+     *     tags={"Posts"},
+     *     summary="Obtener todos los posts aprobados",
+     *     @OA\Response(
+     *         response="200",
+     *         description="Listado de posts aprobados"
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="No autenticado"
+     *     )
+     * )
      */
     public function index()
     {
@@ -21,7 +34,19 @@ class PostController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/posts",
+     *     tags={"Posts"},
+     *     summary="Crear un nuevo post",
+     *     @OA\Response(
+     *         response="201",
+     *         description="Post creado"
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="No autenticado"
+     *     )
+     * )
      */
     public function store(PostRequest $request)
     {
@@ -44,7 +69,24 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/posts/{id}",
+     *     tags={"Posts"},
+     *     summary="Obtener un post por ID",
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="ID del post"
+     *      ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Post encontrado"
+     *     ),
+     *     @OA\Response(
+     *         response="404",
+     *         description="Post no encontrado"
+     *     )
+     * )
      */
     public function show(Post $post)
     {
@@ -52,7 +94,28 @@ class PostController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/api/posts/{id}",
+     *     tags={"Posts"},
+     *     summary="Actualizar un post",
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="ID del post"
+     *      ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Post actualizado"
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="No autenticado"
+     *     ),
+     *     @OA\Response(
+     *         response="404",
+     *         description="Post no encontrado"
+     *     )
+     * )
      */
     public function update(PostRequest $request, Post $post)
     {
@@ -63,7 +126,28 @@ class PostController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/posts/{id}",
+     *     tags={"Posts"},
+     *     summary="Eliminar un post",
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="ID del post"
+     *      ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Post eliminado"
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="No autenticado"
+     *     ),
+     *     @OA\Response(
+     *         response="404",
+     *         description="Post no encontrado"
+     *     )
+     * )
      */
     public function destroy(Post $post)
     {

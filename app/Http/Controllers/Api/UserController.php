@@ -11,7 +11,19 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/users",
+     *     tags={"Users"},
+     *     summary="Listar todos los usuarios",
+     *     @OA\Response(
+     *         response="200",
+     *         description="Listado de usuarios"
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="No autenticado"
+     *     )
+     * )
      */
     public function index()
     {
@@ -19,7 +31,19 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/users",
+     *     tags={"Users"},
+     *     summary="Crear un nuevo usuario",
+     *     @OA\Response(
+     *         response="201",
+     *         description="Usuario creado"
+     *     ),
+     *     @OA\Response(
+     *         response="422",
+     *         description="Error de validación"
+     *     )
+     * )
      */
     public function store(UserRequest $request)
     {
@@ -34,7 +58,19 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/users/{id}",
+     *     tags={"Users"},
+     *     summary="Mostrar un usuario especifico",
+     *     @OA\Response(
+     *         response="200",
+     *         description="Usuario encontrado"
+     *     ),
+     *     @OA\Response(
+     *         response="404",
+     *         description="Usuario no encontrado"
+     *     )
+     * )
      */
     public function show(User $user)
     {
@@ -42,7 +78,19 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/api/users/{id}",
+     *     tags={"Users"},
+     *     summary="Actualizar un usuario",
+     *     @OA\Response(
+     *         response="200",
+     *         description="Usuario actualizado"
+     *     ),
+     *     @OA\Response(
+     *         response="404",
+     *         description="Usuario no encontrado"
+     *     )
+     * )
      */
     public function update(UserRequest $request, User $user)
     {
@@ -59,7 +107,19 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/users/{id}",
+     *     tags={"Users"},
+     *     summary="Eliminar un usuario",
+     *     @OA\Response(
+     *         response="200",
+     *         description="Usuario eliminado"
+     *     ),
+     *     @OA\Response(
+     *         response="404",
+     *         description="Usuario no encontrado"
+     *     )
+     * )
      */
     public function destroy(User $user)
     {
