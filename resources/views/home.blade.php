@@ -11,6 +11,26 @@
         <div class="mb-6 flex justify-center">
             <form action="{{ route('home') }}" method="GET" class="w-full max-w-2xl px-4">
                 <div class="flex gap-2">
+                    <div>
+                        <select
+                            name="province"
+                            class="h-12 border rounded-full px-4 pr-10 shadow-lg dark:bg-gray-200 dark:border-gray-700 dark:text-gray-800 appearance-none relative bg-[url('data:image/svg+xml;utf8,<svg fill=\'%23666\' height=\'24\' viewBox=\'0 0 24 24\' width=\'24\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5z\'/></svg>')] bg-no-repeat bg-[right_0.75rem_center] bg-[length:1.5rem_1.5rem]"
+                        >
+                            <option value="">{{ __('Todas las provincias') }}</option>
+                            @foreach([
+                                'Álava', 'Albacete', 'Alicante', 'Almería', 'Asturias', 'Ávila', 'Badajoz', 'Barcelona', 'Burgos', 'Cáceres',
+                                'Cádiz', 'Cantabria', 'Castellón', 'Ciudad Real', 'Córdoba', 'Cuenca', 'Gerona', 'Granada', 'Guadalajara',
+                                'Gipuzkoa', 'Huelva', 'Huesca', 'Islas Baleares', 'Jaén', 'La Coruña', 'La Rioja', 'Las Palmas', 'León',
+                                'Lleida', 'Madrid', 'Málaga', 'Murcia', 'Navarra', 'Ourense', 'Palencia', 'Pontevedra', 'Salamanca',
+                                'Segovia', 'Sevilla', 'Soria', 'Tarragona', 'Teruel', 'Toledo', 'Valencia', 'Valladolid', 'Vizcaya',
+                                'Zamora', 'Zaragoza'
+                            ] as $prov)
+                                <option
+                                    value="{{ $prov }}" @selected(request('province') === $prov)>{{ $prov }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="relative flex-grow">
                         <input
                             type="text"

@@ -29,6 +29,15 @@ class Post extends Model
         return $query->orderBy('created_at', 'desc');
     }
 
+    public function scopeFromProvince($query, $province)
+    {
+        if ($province) {
+            return $query->where('province', $province);
+        }
+
+        return $query;
+    }
+
     public function user() : belongsTo
     {
         return $this->belongsTo(User::class);

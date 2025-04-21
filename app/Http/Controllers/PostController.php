@@ -23,10 +23,13 @@ class PostController extends Controller
 
         $query = $request->get('query');
         $sort = $request->get('sort', 'desc');
+        $province = $request->get('province');
 
-        $posts = Post::search($query, $sort)->paginate(12);
+        $posts = Post::search($query, $sort)
+            ->fromProvince($province)
+            ->paginate(12);
 
-        return view('home', compact('posts', 'query', 'sort'));
+        return view('home', compact('posts', 'query', 'sort', 'province'));
     }
 
     public function show(Post $post)
