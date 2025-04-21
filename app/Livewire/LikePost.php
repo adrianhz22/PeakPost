@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Events\PostLiked;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -28,6 +29,8 @@ class LikePost extends Component
             $this->post->likes()->create(['user_id' => Auth::id()]);
             $this->likeCount++;
         }
+
+        PostLiked::dispatch($this->post);
 
         $this->isLiked = !$this->isLiked;
     }
