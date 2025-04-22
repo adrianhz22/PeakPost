@@ -38,6 +38,15 @@ class Post extends Model
         return $query;
     }
 
+    public function scopeFromDifficulty($query, $difficulty)
+    {
+        if ($difficulty) {
+            return $query->where('difficulty', $difficulty);
+        }
+
+        return $query;
+    }
+
     public function user() : belongsTo
     {
         return $this->belongsTo(User::class);

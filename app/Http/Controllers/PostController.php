@@ -22,14 +22,16 @@ class PostController extends Controller
     {
 
         $query = $request->get('query');
-        $sort = $request->get('sort', 'desc');
         $province = $request->get('province');
+        $difficulty = $request->get('difficulty');
+        $sort = $request->get('sort', 'desc');
 
         $posts = Post::search($query, $sort)
             ->fromProvince($province)
+            ->fromDifficulty($difficulty)
             ->paginate(12);
 
-        return view('home', compact('posts', 'query', 'sort', 'province'));
+        return view('home', compact('posts', 'query', 'sort', 'province', 'difficulty'));
     }
 
     public function show(Post $post)

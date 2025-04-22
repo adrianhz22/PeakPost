@@ -30,6 +30,18 @@
                             @endforeach
                         </select>
                     </div>
+                    <div>
+                        <select
+                            name="difficulty"
+                            class="h-12 border rounded-full px-4 pr-10 shadow-lg dark:bg-gray-200 dark:border-gray-700 dark:text-gray-800 appearance-none relative bg-[url('data:image/svg+xml;utf8,<svg fill=\'%23666\' height=\'24\' viewBox=\'0 0 24 24\' width=\'24\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5z\'/></svg>')] bg-no-repeat bg-[right_0.75rem_center] bg-[length:1.5rem_1.5rem]"
+                        >
+                            <option value="">{{ __('Todas las dificultades') }}</option>
+                            @foreach(['Easy', 'Medium', 'Hard'] as $difficulty)
+                                <option value="{{ $difficulty }}" @selected(request('difficulty') === $difficulty)>{{ $difficulty }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
 
                     <div class="relative flex-grow">
                         <input
