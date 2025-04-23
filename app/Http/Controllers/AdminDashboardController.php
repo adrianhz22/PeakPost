@@ -18,6 +18,12 @@ class AdminDashboardController extends Controller
         return view('admin.users', compact('users'));
     }
 
+    public function approvedPosts()
+    {
+        $posts = Post::where('is_approved', true)->get();
+        return view('admin.approvedPosts', compact('posts'));
+    }
+
     public function posts()
     {
         $posts = Post::where('is_approved', false)->get();

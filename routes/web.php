@@ -40,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/users', [AdminDashboardController::class, 'users'])->name('admin.users');
-    Route::get('/admin/posts', [AdminDashboardController::class, 'posts'])->name('admin.posts');
+    Route::get('/admin/approved-posts', [AdminDashboardController::class, 'approvedPosts'])->name('admin.approvedPosts');
     Route::delete('/admin/destroy/{user}', [UserController::class, 'destroy'])->name('admin.destroy');
     Route::get('/admin/historial', [ActivityLogController::class, 'index'])->name('admin.historial');
 });
