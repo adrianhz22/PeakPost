@@ -6,6 +6,46 @@
             <span x-show="open">Cerrar formulario</span>
         </button>
 
+        @if($editingUserId)
+            <div class="mt-6 bg-white shadow-md rounded-md p-6 max-w-2xl">
+                <h2 class="text-lg font-semibold mb-4 text-gray-800">Editar usuario</h2>
+
+                <form wire:submit.prevent="updateUser" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Nombre</label>
+                        <input wire:model.defer="name" type="text"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        @error('name') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Email</label>
+                        <input wire:model.defer="email" type="email"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        @error('email') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Nueva contraseña (opcional)</label>
+                        <input wire:model.defer="password" type="password"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        @error('password') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="flex space-x-4">
+                        <button type="submit"
+                                class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+                            Guardar cambios
+                        </button>
+                        <button wire:click="$set('editingUserId', null)"
+                                class="bg-gray-400 text-white px-4 py-2 rounded">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        @endif
+
         <div x-show="open" x-transition class="mt-4 bg-white shadow-md rounded-md p-6 max-w-2xl">
             <h2 class="text-lg font-semibold mb-4 text-gray-800">Crear nuevo usuario</h2>
 
@@ -92,6 +132,12 @@
                                         <button wire:click="deleteUser({{ $user->id }})"
                                                 class="cursor-pointer text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 block px-4 py-2 text-sm">
                                             {{ __('Delete') }}
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button wire:click="editUser({{ $user->id }})"
+                                                class="cursor-pointer text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 block px-4 py-2 text-sm">
+                                            {{ __('Editar') }}
                                         </button>
                                     </div>
                                 </div>

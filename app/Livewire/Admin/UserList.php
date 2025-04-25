@@ -14,6 +14,8 @@ class UserList extends Component
 
     public $name, $email, $password;
 
+    public $editingUserId = null;
+
     public function createUser()
     {
         $this->validate(UserRequest::creationRules());
@@ -38,6 +40,32 @@ class UserList extends Component
                 'description' => "El usuario {$user->name} ha sido eliminado."
             ]);
         }
+    }
+
+    public function editUser($userId)
+    {
+        $user = User::findOrFail($userId);
+        $this->editingUserId = $userId;
+
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->password = null;
+    }
+
+    public function updateUser()
+    {
+        $user = User::findOrFail($this->editingUserId);
+
+        if ($this->password) {
+            $user->password = Hash::make($this->password);
+        }
+
+        $user->update([
+            'name' => $this->name,
+            'email' => $this->email,
+        ]);
+
+        $this->editingUserId = null;
     }
 
     public function render()

@@ -35,4 +35,19 @@ class PostRequest extends FormRequest
 
         ];
     }
+
+    public static function creationRules(): array
+    {
+        return [
+            'title' => 'required|string|min:10',
+            'body' => 'required|string|min:50',
+            'image' => 'required|image',
+            'province' => 'required|string',
+            'difficulty' => 'required|string',
+            'longitude' => 'required|numeric',
+            'altitude' => 'nullable|numeric',
+            'time' => 'nullable|date_format:H:i:s',
+            'track' => 'nullable|file|mimes:xml,kml',
+        ];
+    }
 }
