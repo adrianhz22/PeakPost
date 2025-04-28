@@ -43,7 +43,7 @@ it('admins can access posts page', function () {
     $admin = User::factory()->create();
     $admin->assignRole('admin');
 
-    $response = $this->actingAs($admin)->get(route('admin.posts'));
+    $response = $this->actingAs($admin)->get(route('admin.approvedPosts'));
 
     $response->assertStatus(200);
 });
