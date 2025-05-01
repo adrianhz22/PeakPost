@@ -30,10 +30,12 @@
                 </div>
             </div>
 
-            <div class="mt-6">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">{{ __('Route on the map') }}</h2>
-                <div id="map" class="h-96 w-full rounded-lg shadow-md"></div>
-            </div>
+            @if($post->track)
+                <div class="mt-6">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">{{ __('Route on the map') }}</h2>
+                    <div id="map" class="h-96 w-full rounded-lg shadow-md"></div>
+                </div>
+            @endif
 
             <div class="mt-6 flex justify-between items-center">
                 <div class="flex space-x-4">

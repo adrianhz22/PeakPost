@@ -35,10 +35,12 @@
                 <p>{!! $post->body !!}</p>
             </div>
 
-            <div class="my-6">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ __('Route on the map') }}</h2>
-                <div id="map" style="height: 500px;"></div>
-            </div>
+            @if($post->track)
+                <div class="my-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ __('Route on the map') }}</h2>
+                    <div id="map" style="height: 500px;"></div>
+                </div>
+            @endif
 
             <div class="mt-6 flex justify-start space-x-4">
                 <form action="{{ route('moderation.approve', $post) }}" method="POST" class="inline-block">
