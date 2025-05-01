@@ -50,4 +50,19 @@ class PostRequest extends FormRequest
             'track' => 'nullable|file|mimes:xml,kml',
         ];
     }
+
+    public static function updateRules(): array
+    {
+        return [
+            'title' => 'required|string|min:10',
+            'body' => 'required|string|min:50',
+            'image' => 'nullable|image',
+            'province' => 'required|string',
+            'difficulty' => 'required|string',
+            'longitude' => 'required|numeric',
+            'altitude' => 'nullable|numeric',
+            'time' => 'nullable|date_format:H:i:s',
+            'track' => 'nullable',
+        ];
+    }
 }
