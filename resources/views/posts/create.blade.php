@@ -52,7 +52,7 @@
             </div>
 
             <div>
-                <x-select name="difficulty" label="{{ __('Difficulty') }}" :options="['Easy', 'Medium', 'Hard']"
+                <x-select name="difficulty" label="{{ __('Difficulty') }}" :options="$difficulties"
                           placeholder="{{ __('Select a difficulty') }}"/>
                 <x-input-error :messages="$errors->get('difficulty')" class="mt-2"/>
             </div>

@@ -21,6 +21,9 @@ class PostController extends Controller
     public function index(Request $request)
     {
 
+        $provinces = config('lists.provinces');
+        $difficulties = config('lists.difficulties');
+
         $query = $request->get('query');
         $province = $request->get('province');
         $difficulty = $request->get('difficulty');
@@ -31,7 +34,7 @@ class PostController extends Controller
             ->fromDifficulty($difficulty)
             ->paginate(12);
 
-        return view('home', compact('posts', 'query', 'sort', 'province', 'difficulty'));
+        return view('home', compact('posts', 'query', 'sort', 'province', 'difficulty', 'provinces', 'difficulties'));
     }
 
     public function show(Post $post)
@@ -43,11 +46,8 @@ class PostController extends Controller
     public function create()
     {
 
-        $provinces = [
-            'Álava', 'Albacete', 'Alicante', 'Almería', 'Asturias', 'Ávila', 'Badajoz', 'Barcelona', 'Burgos', 'Cáceres', 'Cádiz', 'Cantabria', 'Castellón', 'Ciudad Real', 'Córdoba', 'Cuenca', 'Gerona', 'Granada', 'Guadalajara', 'Gipuzkoa', 'Huelva', 'Huesca', 'Islas Baleares', 'Jaén', 'La Coruña', 'La Rioja', 'Las Palmas', 'León', 'Lleida', 'Madrid', 'Málaga', 'Murcia', 'Navarra', 'Ourense', 'Palencia', 'Pontevedra', 'Salamanca', 'Segovia', 'Sevilla', 'Soria', 'Tarragona', 'Teruel', 'Toledo', 'Valencia', 'Valladolid', 'Vizcaya', 'Zamora', 'Zaragoza'
-        ];
-
-        $difficulties = ['Facil', 'Moderado', 'Dificil'];
+        $provinces = config('lists.provinces');
+        $difficulties = config('lists.difficulties');
 
         return view('posts.create', compact('provinces', 'difficulties'));
     }
@@ -94,11 +94,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
 
-        $provinces = [
-            'Álava', 'Albacete', 'Alicante', 'Almería', 'Asturias', 'Ávila', 'Badajoz', 'Barcelona', 'Burgos', 'Cáceres', 'Cádiz', 'Cantabria', 'Castellón', 'Ciudad Real', 'Córdoba', 'Cuenca', 'Gerona', 'Granada', 'Guadalajara', 'Gipuzkoa', 'Huelva', 'Huesca', 'Islas Baleares', 'Jaén', 'La Coruña', 'La Rioja', 'Las Palmas', 'León', 'Lleida', 'Madrid', 'Málaga', 'Murcia', 'Navarra', 'Ourense', 'Palencia', 'Pontevedra', 'Salamanca', 'Segovia', 'Sevilla', 'Soria', 'Tarragona', 'Teruel', 'Toledo', 'Valencia', 'Valladolid', 'Vizcaya', 'Zamora', 'Zaragoza'
-        ];
-
-        $difficulties = ['Facil', 'Moderado', 'Dificil'];
+        $provinces = config('lists.provinces');
+        $difficulties = config('lists.difficulties');
 
         $this->authorize('update', $post);
 
