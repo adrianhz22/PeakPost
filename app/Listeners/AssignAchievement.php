@@ -37,7 +37,9 @@ class AssignAchievement
                 $achievement = Achievement::where('name', $nameAchievement)->first();
 
                 if (!$user->achievements()->where('achievement_id', $achievement->id)->exists()) {
-                    $user->achievements()->attach($achievement->id);
+                    $user->achievements()->attach($achievement->id, [
+                        'achieved_at' => now(),
+                    ]);
                 }
             }
         }
