@@ -9,6 +9,11 @@
             @auth
                 <li x-data="{ open: false }" class="relative">
                     <button @click="open = !open" class="flex items-center space-x-2">
+                        <img
+                            src="{{ Auth::user()->profile_photo ? asset('storage/' . Auth::user()->profile_photo) : asset('assets/default-photo.jpg') }}"
+                            alt="Profile photo"
+                            class="w-8 h-8 rounded-full object-cover"
+                        >
                         <span>{{ Auth::user()->name }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"

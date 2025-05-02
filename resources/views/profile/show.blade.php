@@ -26,14 +26,9 @@
 
             <div class="relative group w-32 h-32 cursor-pointer" onclick="document.getElementById('fileInput').click()">
                 <img
-                    @if ($user->profile_photo)
-                        src="{{ asset('storage/' . $user->profile_photo) }}"
-                    @else
-                        src="{{ asset('assets/default-photo.jpg') }}"
-                    @endif
+                    src="{{ Auth::user()->profile_photo ? asset('storage/' . Auth::user()->profile_photo) : asset('assets/default-photo.jpg') }}"
                     alt="Foto de perfil"
-                    class="w-32 h-32 rounded-full border border-gray-300 shadow-sm">
-
+                    class="w-32 h-32 rounded-full object-cover border border-gray-300 shadow-sm aspect-square">
                 <div
                     class="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition">
                     <i data-lucide="pencil" class="text-white w-6 h-6"></i>
