@@ -52,6 +52,6 @@ class RegisteredUserController extends Controller
             'description' => "El usuario {$user->name} ha sido registrado."
         ]);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('home', absolute: false));
     }
 }
