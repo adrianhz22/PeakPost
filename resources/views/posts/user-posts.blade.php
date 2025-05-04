@@ -23,10 +23,14 @@
             </div>
         @else
             <div class="text-center">
-                <p class="text-gray-600 text-lg mb-4">Vaya... Parece que aún no has publicado nada. ¡Porque no comenzar
-                    ahora!</p>
+                <img src="{{ asset('assets/not-posts.png') }}" alt="Sin publicaciones"
+                     class="mx-auto w-60 h-auto">
+
+                <p class="text-gray-600 text-lg mb-4">
+                    Vaya... Parece que aún no has publicado nada. ¡¿Por qué no comenzar ahora?!
+                </p>
                 <a href="{{ route('posts.create') }}"
-                   class="bg-blue-500 text-white px-6 py-2 rounded-3xl hover:bg-blue-600">
+                   class="bg-blue-500 text-white px-6 py-2 rounded-3xl hover:bg-blue-600 transition duration-300">
                     +
                 </a>
             </div>
@@ -34,5 +38,3 @@
 
     </div>
 </x-app-layout>
-
-
