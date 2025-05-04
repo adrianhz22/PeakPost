@@ -46,10 +46,12 @@
                         </a>
                     @endcan
                     @can('delete', $post)
-                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
+                              id="deleteForm-{{ $post->id }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit"
+                            <button type="button"
+                                    onclick="confirmDelete({{ $post->id }})"
                                     class="flex items-center bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-red-700 transition duration-200 ease-in-out">
                                 <i class="fas fa-trash-alt mr-2"></i> {{ __('Delete') }}
                             </button>
@@ -226,13 +228,13 @@
                                 @endforeach
                             </div>
                         @endif
-
                     </div>
                 @endforeach
-
             </div>
         </div>
     </div>
+
+    @include('components.confirm-delete')
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -254,4 +256,5 @@
                 });
         });
     </script>
+
 </x-app-layout>
