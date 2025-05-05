@@ -47,10 +47,15 @@
     <div class="mt-8">
         <h2 class="text-xl font-semibold text-gray-800 mb-4">Logros desbloqueados</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            @foreach($user->achievements as $achievement)
+            @foreach($allAchievements as $achievement)
                 <div class="text-center bg-gray-50 p-4 rounded-lg shadow-md">
-                    <img src="{{ asset($achievement->image) }}" alt="{{ $achievement->name }}"
-                         class="w-20 h-20 object-cover mx-auto mb-2">
+                    <div class="text-xs text-gray-500 mb-1">
+                        {{ min($postCount, $achievement->target_posts) }} / {{ $achievement->target_posts }} posts
+                    </div>
+                    <img src="{{ asset($achievement->image) }}"
+                         class="w-20 h-20 object-cover mx-auto mb-2
+                            @if(!in_array($achievement->id, $userAchievementIds)) grayscale opacity-40 @endif"
+                         alt="{{ $achievement->name }}">
                     <p class="text-sm text-gray-500">{{ $achievement->description }}</p>
                 </div>
             @endforeach

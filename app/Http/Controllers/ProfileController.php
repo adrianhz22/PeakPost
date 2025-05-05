@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Achievement;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,8 +61,13 @@ class ProfileController extends Controller
 
     public function show()
     {
+        $user = Auth::user();
+
         return view('profile.show', [
-            'user' => Auth::user(),
+            'user' => $user,
+            'postCount' => $user->posts()->count(),
+            'allAchievements' => Achievement::all(),
+            'userAchievementIds' => $user->achievements->pluck('id')->toArray(),
         ]);
     }
 
