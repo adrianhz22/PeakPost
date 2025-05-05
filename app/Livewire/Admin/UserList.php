@@ -12,8 +12,8 @@ use App\Models\User;
 class UserList extends Component
 {
 
+    public $search = '';
     public $name, $email, $password;
-
     public $editingUserId = null;
 
     public function createUser()
@@ -70,10 +70,18 @@ class UserList extends Component
 
     public function render()
     {
+        $search = request('search');
+        $users = User::query();
+
+        if ($search) {
+            $users->where('name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%");
+        }
+
+        $users = $users->get();
+
         return view('livewire.admin.user-list', [
-            'users' => User::all()
+            'users' => $users
         ]);
     }
 }
-
-

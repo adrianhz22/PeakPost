@@ -1,4 +1,11 @@
 <div class="max-w-7xl mx-auto">
+
+    <div class="flex justify-center items-center w-full mb-6">
+        <div class="relative w-full md:w-1/2">
+            <x-user-filter :action="route('admin.users')"/>
+        </div>
+    </div>
+
     <div x-data="{ open: false }" class="mb-6">
         <button @click="open = !open"
                 class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700">
