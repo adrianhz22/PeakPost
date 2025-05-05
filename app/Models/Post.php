@@ -14,7 +14,7 @@ class Post extends Model
 
     public function scopeSearch($query, $search, $sort = 'desc')
     {
-        $query->where('is_approved', true);
+        $query->where('status', 'approved');
 
         if ($search) {
             $query->where('title', 'LIKE', "%{$search}%");
@@ -69,6 +69,7 @@ class Post extends Model
         'time',
         'track',
         'user_id',
-        'is_approved',
+        'status',
+        'reject_reason',
     ];
 }

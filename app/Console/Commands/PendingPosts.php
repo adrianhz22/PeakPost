@@ -27,7 +27,7 @@ class PendingPosts extends Command
     public function handle()
     {
 
-        $pending_posts = Post::where('is_approved', 0)->count();
+        $pending_posts = Post::where('status', 'pending')->count();
 
         $this->info($pending_posts);
 

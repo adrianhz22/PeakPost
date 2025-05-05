@@ -30,7 +30,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return response()->json(Post::where('is_approved', true)->get(), 200);
+        return response()->json(Post::where('status', 'approved')->get(), 200);
     }
 
     /**
@@ -62,7 +62,7 @@ class PostController extends Controller
             'time' => $request->time,
             'track' => $request->track,
             'user_id' => auth()->id(),
-            'is_approved' => false,
+            'status' => 'pending',
         ]);
 
         return response()->json($post, 201);

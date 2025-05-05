@@ -43,7 +43,7 @@ class PostList extends Component
             'time' => $this->time,
             'track' => $trackPath,
             'user_id' => auth()->id(),
-            'is_approved' => false,
+            'status' => 'pending',
         ]);
 
         $this->reset();

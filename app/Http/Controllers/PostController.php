@@ -68,7 +68,7 @@ class PostController extends Controller
             'body' => $request->body,
             'image' => $request->image,
             'user_id' => auth()->id(),
-            'is_approved' => false,
+            'status' => 'pending',
             'province' => $request->province,
             'difficulty' => $request->difficulty,
             'longitude' => $request->longitude,
@@ -178,7 +178,7 @@ class PostController extends Controller
         Artisan::call('posts:pending');
         $pendingCount = trim(Artisan::output());
 
-        $posts = Post::where('is_approved', false)->paginate(10);
+        $posts = Post::where('status', 'pending')->paginate(10);
 
         return view('moderation.pending-posts', compact('posts', 'pendingCount'));
 
@@ -193,7 +193,7 @@ class PostController extends Controller
     {
         $user = auth()->user();
 
-        $post->update(['is_approved' => true]);
+        $post->update(['status' => 'approved']);
 
         ActivityLog::create([
             'user_id' => Auth::id(),
@@ -206,11 +206,19 @@ class PostController extends Controller
         return redirect()->route('moderation.pending-posts');
     }
 
-    public function reject(Post $post)
+    public function reject(Post $post, Request $request)
     {
+
+        $request->validate([
+            'rejection_reason' => 'required|string|max:1000',
+        ]);
+
         $user = auth()->user();
 
-        $post->delete();
+        $post->update([
+            'status' => 'rejected',
+            'rejection_reason' => $request->input('rejection_reason'),
+        ]);
 
         ActivityLog::create([
             'user_id' => Auth::id(),

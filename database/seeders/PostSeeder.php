@@ -31,7 +31,7 @@ class PostSeeder extends Seeder
                 'time' => '05:31:27',
                 'track' => 'tracks/revolcadores.kml',
                 'user_id' => 1,
-                'is_approved' => 1,
+                'status' => 'approved',
             ],
             [
                 'title' => 'Cumbre del Aneto por el glaciar',
@@ -50,7 +50,7 @@ class PostSeeder extends Seeder
                 'time' => '07:20:36',
                 'track' => 'tracks/aneto.kml',
                 'user_id' => 1,
-                'is_approved' => 1,
+                'status' => 'approved',
             ],
             [
                 'title' => 'Ascenso al Puigmal',
@@ -69,7 +69,7 @@ class PostSeeder extends Seeder
                 'time' => '06:34:50',
                 'track' => 'tracks/puigmal.kml',
                 'user_id' => 1,
-                'is_approved' => 1,
+                'status' => 'approved',
             ],
             [
                 'title' => 'El Camino de Santiago: Ruta del Francés',
@@ -88,7 +88,7 @@ class PostSeeder extends Seeder
                 'time' => '17:32:05',
                 'track' => 'tracks/santiago.kml',
                 'user_id' => 1,
-                'is_approved' => 1,
+                'status' => 'approved',
             ],
             [
                 'title' => 'Ascenso al Almanzor por el valle',
@@ -107,7 +107,7 @@ class PostSeeder extends Seeder
                 'time' => '08:12:09',
                 'track' => 'tracks/almanzor.kml',
                 'user_id' => 1,
-                'is_approved' => 1,
+                'status' => 'approved',
             ],
             [
                 'title' => 'La Sagra por el collado de las víboras',
@@ -126,7 +126,7 @@ class PostSeeder extends Seeder
                 'time' => '07:32:18',
                 'track' => 'tracks/sagra.kml',
                 'user_id' => 1,
-                'is_approved' => 1,
+                'status' => 'approved',
             ],
         ];
 

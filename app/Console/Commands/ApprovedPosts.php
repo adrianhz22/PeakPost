@@ -27,7 +27,7 @@ class ApprovedPosts extends Command
     public function handle()
     {
 
-        $approved_posts = Post::where('is_approved', 1)->count();
+        $approved_posts = Post::where('status', 'approved')->count();
 
         $this->info($approved_posts);
 

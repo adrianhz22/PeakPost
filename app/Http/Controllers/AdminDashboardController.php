@@ -20,13 +20,13 @@ class AdminDashboardController extends Controller
 
     public function approvedPosts()
     {
-        $posts = Post::where('is_approved', true)->get();
+        $posts = Post::where('status', 'approved')->get();
         return view('admin.approvedPosts', compact('posts'));
     }
 
     public function posts()
     {
-        $posts = Post::where('is_approved', false)->get();
+        $posts = Post::where('status', 'pending')->get();
         return view('moderation.pending-posts', compact('posts'));
     }
 }

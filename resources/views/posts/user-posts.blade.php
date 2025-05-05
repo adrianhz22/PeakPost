@@ -14,9 +14,13 @@
                                 {{ $post->title }}
                             </a>
                             <p class="text-gray-600 mt-2">{!! Str::limit(strip_tags($post->body, 100)) !!}</p>
-                            @if(!$post->is_approved)
-                                <p class="text-yellow-500 font-semibold mt-2">En revision</p>
+
+                            @if($post->status == 'pending')
+                                <p class="text-yellow-500 font-semibold mt-2">En revisión</p>
+                            @elseif($post->status == 'rejected')
+                                <p class="text-red-500 font-semibold mt-2">Rechazado</p>
                             @endif
+                            
                         </div>
                     </div>
                 @endforeach

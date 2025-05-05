@@ -70,14 +70,14 @@ test('moderator can approve a post', function () {
     $moderator = User::factory()->create();
     $moderator->assignRole('moderator');
 
-    $post = Post::factory()->create(['is_approved' => false]);
+    $post = Post::factory()->create(['status' => 'pending']);
 
     $this->actingAs($moderator);
 
     $response = $this->put(route('moderation.approve', $post));
 
     $response->assertRedirect(route('moderation.pending-posts'));
-    $this->assertDatabaseHas('posts', ['id' => $post->id, 'is_approved' => true]);
+    $this->assertDatabaseHas('posts', ['id' => $post->id, 'status' => 'approved']);
 });
 
 test('moderator can reject a post', function () {
@@ -87,7 +87,7 @@ test('moderator can reject a post', function () {
     $moderator = User::factory()->create();
     $moderator->assignRole('moderator');
 
-    $post = Post::factory()->create(['is_approved' => false]);
+    $post = Post::factory()->create(['status' => 'pending']);
 
     $this->actingAs($moderator);
 

@@ -54,9 +54,13 @@
 
                 <form action="{{ route('moderation.reject', $post) }}" method="POST" class="inline-block">
                     @csrf
-                    @method('DELETE')
+                    @method('PATCH')
+
+                    <textarea name="rejection_reason" placeholder="Motivo del rechazo" required
+                              class="block w-full mt-2 p-2 border border-red-300 rounded-md"></textarea>
+
                     <button type="submit"
-                            class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition">
+                            class="mt-2 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition">
                         {{ __('Reject') }}
                     </button>
                 </form>

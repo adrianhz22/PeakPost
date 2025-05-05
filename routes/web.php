@@ -49,7 +49,7 @@ Route::middleware(['auth', 'moderator'])->group(function () {
     Route::get('/mod/pending', [PostController::class, 'showPendingPosts'])->name('moderation.pending-posts');
     Route::get('/mod/pending/{post}', [PostController::class, 'showPendingPost'])->name('moderation.pending-show');
     Route::put('/mod/pending/{post}/approve', [PostController::class, 'approve'])->name('moderation.approve');
-    Route::delete('/mod/pending/{post}/reject', [PostController::class, 'reject'])->name('moderation.reject');
+    Route::patch('/mod/pending/{post}/reject', [PostController::class, 'reject'])->name('moderation.reject');
 });
 
 Route::get('/dashboard', function () {

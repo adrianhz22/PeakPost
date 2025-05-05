@@ -36,7 +36,7 @@ class PostFactory extends Factory
             'body' => fake()->paragraph(5, true),
             'image' => $randomImage,
             'user_id' => User::inRandomorder()->first()->id,
-            'is_approved' => fake()->boolean(),
+            'status' => fake()->randomElement(['pending', 'approved', 'rejected']),
             'province' => fake()->randomElement(['Murcia', 'Madrid', 'Alicante', 'Cuenca']),
             'difficulty' => fake()->randomElement(['Easy', 'Medium', 'Hard']),
             'longitude' => fake()->randomFloat(2, 0, 999),
