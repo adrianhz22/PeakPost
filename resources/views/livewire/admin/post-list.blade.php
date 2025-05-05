@@ -176,7 +176,12 @@
                 </div>
             </div>
         @endforeach
+        <div class="mt-6 mb-6">
+            {{ $posts->links() }}
+        </div>
+
     @else
         <p class="text-center text-gray-500">No hay posts disponibles.</p>
     @endif
+
 </div>

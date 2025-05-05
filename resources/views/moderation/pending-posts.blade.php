@@ -2,30 +2,38 @@
 
     <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">{{ __('Pending posts') }} ({{ $pendingCount }})</h1>
 
-    @if($posts->count() > 0)
-        @foreach($posts as $post)
-            <div class="bg-white shadow-md rounded-lg p-6 mb-6 flex space-x-6">
+    <div class="container mx-auto px-6 py-2">
+        @if($posts->count() > 0)
 
-                <img src="{{ asset($post->image) }}" alt="Imagen del post" class="w-32 h-32 object-cover rounded-lg">
+            <div class="space-y-6">
+                @foreach($posts as $post)
+                    <div class="bg-white shadow-md rounded-lg p-6 flex space-x-6">
+                        <img src="{{ asset($post->image) }}" alt="Imagen del post"
+                             class="w-32 h-32 object-cover rounded-lg">
 
-                <div class="flex-1">
-                    <a href="{{ route('moderation.pending-show', $post) }}"
-                       class="text-xl font-semibold text-gray-800 hover:text-blue-500">
-                        {{ $post->title }}
-                    </a>
+                        <div class="flex-1">
+                            <a href="{{ route('moderation.pending-show', $post) }}"
+                               class="text-xl font-semibold text-gray-800 hover:text-blue-500">
+                                {{ $post->title }}
+                            </a>
 
-                    <div class="text-gray-600 mt-2 flex items-center space-x-4">
-                        <p><strong>{{ __('Author') }}</strong> {{ $post->user->name }}</p>
-                        <p><strong>{{ __('Date') }}</strong> {{ $post->created_at->format('d/m/Y') }}</p>
+                            <div class="text-gray-600 mt-2 flex items-center space-x-4">
+                                <p><strong>{{ __('Author') }}</strong> {{ $post->user->name }}</p>
+                                <p><strong>{{ __('Date') }}</strong> {{ $post->created_at->format('d/m/Y') }}</p>
+                            </div>
+
+                            <p class="text-gray-700 mt-4">{!! Str::limit($post->body, 150) !!}</p>
+                        </div>
                     </div>
-
-                    <p class="text-gray-700 mt-4">{!! Str::limit($post->body, 150) !!}</p>
-                </div>
+                @endforeach
             </div>
-        @endforeach
-    @else
-        <p class="text-center text-gray-500">{{ __('There are no pending posts') }}</p>
-    @endif
+            <div class="flex justify-center mt-12">
+                {{ $posts->links() }}
+            </div>
+
+        @else
+            <p class="text-center text-gray-500">{{ __('There are no pending posts') }}</p>
+        @endif
+    </div>
 
 </x-layouts.admin-layout>
-

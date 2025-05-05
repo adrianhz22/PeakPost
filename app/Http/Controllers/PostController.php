@@ -178,7 +178,7 @@ class PostController extends Controller
         Artisan::call('posts:pending');
         $pendingCount = trim(Artisan::output());
 
-        $posts = Post::where('is_approved', false)->get();
+        $posts = Post::where('is_approved', false)->paginate(10);
 
         return view('moderation.pending-posts', compact('posts', 'pendingCount'));
 
