@@ -96,7 +96,15 @@
                     <div class="bg-gray-100 p-4 rounded-lg shadow mb-4"
                          x-data="{ menu: false, editMode: false }">
                         <div class="flex items-center justify-between relative">
-                            <p class="font-semibold text-gray-800">{{ $comment->user->name }}</p>
+                            <div class="flex items-center space-x-2">
+                                <img
+                                    src="{{ $comment->user->profile_photo ? asset('storage/' . $comment->user->profile_photo) : asset('assets/default-photo.jpg') }}"
+                                    alt="Profile"
+                                    class="w-8 h-8 rounded-full object-cover border border-gray-300 aspect-square"
+                                >
+                                <p class="font-semibold text-gray-800">{{ $comment->user->username }}</p>
+                            </div>
+
 
                             <div class="flex items-center space-x-2">
                                 <span class="text-sm text-gray-500">{{ $comment->created_at->format('d/m/Y') }}</span>

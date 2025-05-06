@@ -38,7 +38,8 @@
     </div>
 
     <div class="space-y-4 text-gray-700">
-        <p><strong class="font-medium">Nombre:</strong> {{ $user->name }}</p>
+        <p><strong class="font-medium">Nombre:</strong> {{ $user->name }} {{ ' ' . $user->last_name}}</p>
+        <p><strong class="font-medium">Nombre de usuario:</strong> {{ $user->username }}</p>
         <p><strong class="font-medium">Email:</strong> {{ $user->email }}</p>
         <p><strong class="font-medium">Fecha de creación:</strong> {{ $user->created_at->format('d/m/Y') }}</p>
         <p><strong class="font-medium">Likes recibidos:</strong> {{ $user->total_likes }}</p>
