@@ -123,6 +123,8 @@ class PostController extends Controller
         $post->altitude = $request->altitude;
         $post->time = $request->time;
         $post->track = $trackPath;
+        $post->status = 'pending';
+        $post->rejection_reason = null;
         $post->save();
 
         ActivityLog::create([
