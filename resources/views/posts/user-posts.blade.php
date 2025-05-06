@@ -20,7 +20,6 @@
                             @elseif($post->status == 'rejected')
                                 <p class="text-red-500 font-semibold mt-2">Rechazado</p>
                             @endif
-                            
                         </div>
                     </div>
                 @endforeach

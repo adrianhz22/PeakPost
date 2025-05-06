@@ -4,6 +4,13 @@
 
         <div class="p-6">
             <h1 class="text-4xl font-bold text-gray-800 mb-4">{{ $post->title }}</h1>
+
+            @if($post->rejection_reason)
+                <div class="mt-4 mb-4 p-2 bg-red-100 border border-red-300 rounded">
+                    <strong>Motivo del rechazo:</strong> {{ $post->rejection_reason }}
+                </div>
+            @endif
+
             <p class="text-gray-700 leading-relaxed text-lg">{!! $post->body !!}</p>
 
             <div

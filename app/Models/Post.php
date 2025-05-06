@@ -70,6 +70,6 @@ class Post extends Model
         'track',
         'user_id',
         'status',
-        'reject_reason',
+        'rejection_reason',
     ];
 }

@@ -217,7 +217,7 @@ class PostController extends Controller
 
         $post->update([
             'status' => 'rejected',
-            'rejection_reason' => $request->input('rejection_reason'),
+            'rejection_reason' => $request->rejection_reason,
         ]);
 
         ActivityLog::create([
