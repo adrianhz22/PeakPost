@@ -10,7 +10,7 @@
                 <li x-data="{ open: false }" class="relative">
                     <button @click="open = !open" class="flex items-center space-x-2">
                         <img
-                            src="{{ Auth::user()->profile_photo ? asset('storage/' . Auth::user()->profile_photo) : asset('assets/default-photo.jpg') }}"
+                            src="{{ Auth::user()->profile_photo ? asset(Auth::user()->profile_photo) : asset('assets/default-photo.jpg') }}"
                             alt="Profile photo"
                             class="w-8 h-8 rounded-full object-cover"
                         >
