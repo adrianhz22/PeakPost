@@ -102,7 +102,10 @@
                                     alt="Profile"
                                     class="w-8 h-8 rounded-full object-cover border border-gray-300 aspect-square"
                                 >
-                                <p class="font-semibold text-gray-800">{{ $comment->user->username }}</p>
+                                <a href="{{ route('users.show', $comment->user) }}">
+                                    {{ $comment->user->username }}
+                                </a>
+
                             </div>
 
 

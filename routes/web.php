@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -16,6 +17,7 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', [PostController::class, 'index'])->name('home');
+    Route::get('/users/{user:username}', [UserController::class, 'show'])->name('users.show');
 
     Route::get('/posts/my-posts', [PostController::class, 'userPosts'])->name('posts.user-posts');
     Route::get('/post/{id}/pdf', [PDFController::class, 'downloadPDF'])->name('post.pdf');
@@ -34,6 +36,11 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.photo');
+
+    Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
+    Route::delete('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
+    Route::get('/users/{user:username}/followers', [UserController::class, 'followers'])->name('users.followers');
+    Route::get('/users/{user:username}/following', [UserController::class, 'following'])->name('users.following');
 
 });
 

@@ -25,11 +25,44 @@ class User extends Authenticatable
         return $this->belongsToMany(Achievement::class)->withPivot('achieved_at')->withTimestamps();
     }
 
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id')->withTimestamps();
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id')->withTimestamps();
+    }
+
+    public function follow(User $user)
+    {
+        if (!$this->isFollowing($user)) {
+            $this->following()->attach($user->id);
+        }
+    }
+
+    public function unfollow(User $user)
+    {
+        $this->following()->detach($user->id);
+    }
+
+    public function isFollowing(User $user)
+    {
+        return $this->following()->where('followed_id', $user->id)->exists();
+    }
+
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
+
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
+
     protected $fillable = [
         'name',
         'last_name',
