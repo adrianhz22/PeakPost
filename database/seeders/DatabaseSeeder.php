@@ -16,14 +16,16 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $this->call([
-            RolesSeeder::class,
-            PostSeeder::class,
-            AchievementSeeder::class,
-        ]);
-
         $users = User::factory(5)->create();
         $posts = Post::factory(15)->create();
+
+        $this->call([
+            RolesSeeder::class,
+            UserSeeder::class,
+            PostSeeder::class,
+            CommentSeeder::class,
+            AchievementSeeder::class,
+        ]);
 
         foreach ($posts as $post) {
 

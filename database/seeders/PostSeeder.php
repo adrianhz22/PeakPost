@@ -30,7 +30,7 @@ class PostSeeder extends Seeder
                 'altitude' => 1835,
                 'time' => '05:31:27',
                 'track' => 'tracks/revolcadores.kml',
-                'user_id' => 1,
+                'user_id' => 8,
                 'status' => 'approved',
             ],
             [
@@ -49,7 +49,7 @@ class PostSeeder extends Seeder
                 'altitude' => 3404,
                 'time' => '07:20:36',
                 'track' => 'tracks/aneto.kml',
-                'user_id' => 1,
+                'user_id' => 9,
                 'status' => 'approved',
             ],
             [
@@ -68,7 +68,7 @@ class PostSeeder extends Seeder
                 'altitude' => 2910,
                 'time' => '06:34:50',
                 'track' => 'tracks/puigmal.kml',
-                'user_id' => 1,
+                'user_id' => 10,
                 'status' => 'approved',
             ],
             [
@@ -87,7 +87,7 @@ class PostSeeder extends Seeder
                 'altitude' => 267,
                 'time' => '17:32:05',
                 'track' => 'tracks/santiago.kml',
-                'user_id' => 1,
+                'user_id' => 11,
                 'status' => 'approved',
             ],
             [
@@ -106,7 +106,7 @@ class PostSeeder extends Seeder
                 'altitude' => 2592,
                 'time' => '08:12:09',
                 'track' => 'tracks/almanzor.kml',
-                'user_id' => 1,
+                'user_id' => 12,
                 'status' => 'approved',
             ],
             [
@@ -125,7 +125,7 @@ class PostSeeder extends Seeder
                 'altitude' => 2382,
                 'time' => '07:32:18',
                 'track' => 'tracks/sagra.kml',
-                'user_id' => 1,
+                'user_id' => 13,
                 'status' => 'approved',
             ],
         ];
