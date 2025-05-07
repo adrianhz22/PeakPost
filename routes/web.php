@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', [PostController::class, 'index'])->name('home');
     Route::get('/users/{user:username}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/usuarios', [UserController::class, 'index'])->name('users.index');
 
     Route::get('/posts/my-posts', [PostController::class, 'userPosts'])->name('posts.user-posts');
     Route::get('/post/{id}/pdf', [PDFController::class, 'downloadPDF'])->name('post.pdf');

@@ -6,6 +6,10 @@
 
         <ul class="flex space-x-4 items-center">
 
+            <li>
+                <a href="{{ route('users.index') }}" class="text-base font-medium hover:text-blue-400">Comunidad</a>
+            </li>
+
             @auth
                 <li x-data="{ open: false }" class="relative">
                     <button @click="open = !open" class="flex items-center space-x-2">

@@ -9,13 +9,19 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('search');
 
-        $users = User::all();
+        $users = User::query()
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', "%{$search}%")
+                    ->orWhere('username', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(12);
 
-        return view('admin.admin-dashboard', compact('users'));
-
+        return view('users.index', compact('users', 'search'));
     }
 
     public function destroy(User $user)
