@@ -1,5 +1,6 @@
 <div>
-    <div class="inline-flex p-0.5">
+    <div class="inline-flex p-0.5 items-center">
+
         <button wire:click="likeUnlike"
                 class="inline-flex shrink-0 justify-center items-center size-8 rounded-full text-gray-500 hover:bg-blue-100 hover:text-blue-800 focus:outline-hidden focus:bg-blue-100 focus:text-blue-800">
             <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -9,8 +10,8 @@
                     d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"></path>
             </svg>
         </button>
+
+        <span class="ml-1 text-sm text-gray-600">{{ $likeCount }}</span>
+
     </div>
-    <span class="ml-2 text-sm text-gray-600">{{ $likeCount }} Likes</span>
 </div>
-
-

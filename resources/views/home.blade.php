@@ -33,7 +33,28 @@
                         </a>
                     </h2>
                     <p class="mt-2 text-gray-600">{!! Str::limit(strip_tags($post->body), 100) !!}</p>
-                    <livewire:like-post :post="$post"/>
+
+                    <div class="mt-4 flex items-center justify-between">
+
+                        <div class="flex items-center space-x-3">
+                            <img
+                                src="{{ $post->user->profile_photo ? asset($post->user->profile_photo) : asset('assets/default-photo.jpg') }}"
+                                alt="Profile"
+                                class="w-8 h-8 rounded-full object-cover border border-gray-300 aspect-square">
+                            <a href="{{ route('users.show', $post->user) }}"
+                               class="text-sm font-semibold text-gray-800 hover:text-blue-600">
+                                {{ $post->user->username }}
+                            </a>
+                        </div>
+
+                        <div class="text-sm text-gray-500">
+                            {{ $post->created_at->format('d M, Y') }}
+                        </div>
+
+                        <div class="text-sm text-gray-600">
+                            <livewire:like-post :post="$post"/>
+                        </div>
+                    </div>
                 </div>
             @endforeach
         </div>

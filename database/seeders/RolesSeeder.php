@@ -26,6 +26,7 @@ class RolesSeeder extends Seeder
 
         $adminUser = User::firstOrCreate([
             'name' => 'Admin',
+            'last_name' => 'Admin Admin',
             'username' => 'admin',
             'profile_photo' => 'assets/admin.jpeg',
             'email' => 'admin@admin.com',
@@ -34,8 +35,9 @@ class RolesSeeder extends Seeder
 
         $modUser = User::firstOrCreate([
             'name' => 'Moderator',
-            'profile_photo' => 'assets/admin.jpeg',
+            'last_name' => 'Mod Mod',
             'username' => 'moderator',
+            'profile_photo' => 'assets/mod.jpeg',
             'email' => 'mod@mod.com',
             'password' => bcrypt('moderator123')
         ]);

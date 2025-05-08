@@ -105,42 +105,36 @@
                                 <a href="{{ route('users.show', $comment->user) }}">
                                     {{ $comment->user->username }}
                                 </a>
-
+                                <span class="text-sm text-gray-500">{{ $comment->created_at->format('d/m/Y') }}</span>
                             </div>
 
+                            <div class="relative">
+                                <button @click="menu = !menu"
+                                        class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
 
-                            <div class="flex items-center space-x-2">
-                                <span class="text-sm text-gray-500">{{ $comment->created_at->format('d/m/Y') }}</span>
+                                <div x-show="menu" @click.away="menu = false" x-cloak
+                                     class="absolute right-0 top-full mt-2 w-40 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-50">
+                                    @can('update', $comment)
+                                        <button @click="editMode = true; menu = false"
+                                                class="w-full px-4 py-2 text-left">
+                                            {{ __('Edit') }}
+                                        </button>
+                                    @endcan
 
-                                <div class="relative">
-                                    <button @click="menu = !menu"
-                                            class="text-gray-500 hover:text-gray-700 focus:outline-none">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </button>
-
-                                    <div x-show="menu" @click.away="menu = false" x-cloak
-                                         class="absolute right-0 top-full mt-2 w-40 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-50">
-                                        @can('update', $comment)
-                                            <button @click="editMode = true; menu = false"
-                                                    class="w-full px-4 py-2 text-left">
-                                                {{ __('Edit') }}
-                                            </button>
-                                        @endcan
-
-                                        @can('delete', $comment)
-                                            <button type="submit" form="deleteForm-{{ $comment->id }}"
-                                                    class="w-full px-4 py-2 text-left">
-                                                {{ __('Delete') }}
-                                            </button>
-                                            <form id="deleteForm-{{ $comment->id }}"
-                                                  action="{{ route('comments.destroy', $comment->id) }}" method="POST"
-                                                  class="hidden">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                        @endcan
-                                    </div>
-
+                                    @can('delete', $comment)
+                                        <button type="submit" form="deleteForm-{{ $comment->id }}"
+                                                class="w-full px-4 py-2 text-left">
+                                            {{ __('Delete') }}
+                                        </button>
+                                        <form id="deleteForm-{{ $comment->id }}"
+                                              action="{{ route('comments.destroy', $comment->id) }}" method="POST"
+                                              class="hidden">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                    @endcan
                                 </div>
                             </div>
                         </div>
@@ -187,9 +181,16 @@
                                 @foreach ($comment->replies as $reply)
                                     <div class="bg-gray-200 p-3 rounded relative"
                                          x-data="{ menu: false, editMode: false }">
-                                        <div class="flex justify-between items-center">
-                                            <div>
-                                                <strong>{{ $reply->user->name }}</strong>
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center space-x-2">
+                                                <img
+                                                    src="{{ $reply->user->profile_photo ? asset($reply->user->profile_photo) : asset('assets/default-photo.jpg') }}"
+                                                    alt="Profile"
+                                                    class="w-8 h-8 rounded-full object-cover border border-gray-300 aspect-square"
+                                                >
+                                                <a href="{{ route('users.show', $reply->user) }}">
+                                                    {{ $reply->user->username }}
+                                                </a>
                                                 <span
                                                     class="text-sm text-gray-500 ml-2">{{ $reply->created_at->format('d/m/Y') }}</span>
                                             </div>
