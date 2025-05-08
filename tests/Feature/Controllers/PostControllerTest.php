@@ -91,10 +91,15 @@ test('moderator can reject a post', function () {
 
     $this->actingAs($moderator);
 
-    $response = $this->delete(route('moderation.reject', $post));
+    $response = $this->patch(route('moderation.reject', $post), [
+        'rejection_reason' => 'Contenido inapropiado'
+    ]);
 
     $response->assertRedirect(route('moderation.pending-posts'));
-    $this->assertDatabaseMissing('posts', ['id' => $post->id]);
+    $this->assertDatabaseHas('posts', [
+        'id' => $post->id,
+        'status' => 'rejected'
+    ]);
 });
 
 test('create a post using the API', function () {
