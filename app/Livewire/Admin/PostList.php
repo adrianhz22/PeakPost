@@ -117,10 +117,9 @@ class PostList extends Component
     public function deletePost($postId)
     {
 
-        $post = Post::find($postId);
-        if($post){
-            $post->delete();
-        }
+        $post = Post::findOrFail($postId);
+
+        $post->delete();
 
     }
     public function render()

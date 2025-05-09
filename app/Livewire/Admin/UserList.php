@@ -3,8 +3,6 @@
 namespace App\Livewire\Admin;
 
 use App\Http\Requests\UserRequest;
-use App\Models\ActivityLog;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use App\Models\User;
@@ -31,15 +29,9 @@ class UserList extends Component
 
     public function deleteUser($userId)
     {
-        $user = User::find($userId);
-        if ($user) {
-            $user->delete();
-            ActivityLog::create([
-                'user_id' => Auth::id(),
-                'action' => 'Usuario eliminado',
-                'description' => "El usuario {$user->name} ha sido eliminado."
-            ]);
-        }
+        $user = User::findOrFail($userId);
+        $user->delete();
+
     }
 
     public function editUser($userId)

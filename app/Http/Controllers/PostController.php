@@ -56,7 +56,6 @@ class PostController extends Controller
     {
 
         $trackPath = null;
-        $user = auth()->user();
 
         if ($request->hasFile('track')) {
             $trackPath = $request->file('track')->store('tracks', 'public');
@@ -75,12 +74,6 @@ class PostController extends Controller
             'altitude' => $request->altitude,
             'time' => $request->time,
             'track' => $trackPath,
-        ]);
-
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'action' => 'Nuevo post creado',
-            'description' => "El usuario {$user->name} ha creado un nuevo post."
         ]);
 
         dispatch(new SendNewPostEmail($post, auth()->user()->email));
@@ -107,7 +100,6 @@ class PostController extends Controller
     {
 
         $trackPath = $post->track;
-        $user = auth()->user();
 
         if ($request->hasFile('track')) {
             $trackPath = $request->file('track')->store('tracks', 'public');
@@ -127,12 +119,6 @@ class PostController extends Controller
         $post->rejection_reason = null;
         $post->save();
 
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'action' => 'Post actualizado',
-            'description' => "El usuario {$user->name} ha actualizado un post."
-        ]);
-
         return redirect('home');
 
     }
@@ -140,17 +126,9 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
 
-        $user = auth()->user();
-
         $this->authorize('delete', $post);
 
         $post->delete();
-
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'action' => 'Post eliminado',
-            'description' => "El usuario {$user->name} ha eliminado un post."
-        ]);
 
         return redirect('home');
 
@@ -193,14 +171,13 @@ class PostController extends Controller
 
     public function approve(Post $post)
     {
-        $user = auth()->user();
 
         $post->update(['status' => 'approved']);
 
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'Post aprobado',
-            'description' => "El usuario {$user->name} ha aprobado un post."
+            'description' => "El usuario " . Auth::user()->username . " ha aprobado un post."
         ]);
 
         dispatch_sync(new SendApprovedPostEmail($post, $post->user));
@@ -215,8 +192,6 @@ class PostController extends Controller
             'rejection_reason' => 'required|string|max:1000',
         ]);
 
-        $user = auth()->user();
-
         $post->update([
             'status' => 'rejected',
             'rejection_reason' => $request->rejection_reason,
@@ -225,7 +200,7 @@ class PostController extends Controller
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'Post rechazado',
-            'description' => "El usuario {$user->name} ha rechazado un post."
+            'description' => "El usuario " . Auth::user()->username . " ha rechazado un post."
         ]);
 
         return redirect()->route('moderation.pending-posts');
