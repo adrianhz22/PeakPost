@@ -10,6 +10,8 @@ class CommentObserver
 {
     public function created(Comment $comment)
     {
+        if (!Auth::user()) return;
+
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'Nuevo comentario',
@@ -19,6 +21,8 @@ class CommentObserver
 
     public function updated(Comment $comment)
     {
+        if (!Auth::user()) return;
+
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'Comentario editado',
@@ -28,6 +32,8 @@ class CommentObserver
 
     public function deleted(Comment $comment)
     {
+        if (!Auth::user()) return;
+
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'Comentario eliminado',

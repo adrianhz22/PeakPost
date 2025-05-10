@@ -6,12 +6,14 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use App\Models\User;
+use Livewire\WithPagination;
 
 class UserList extends Component
 {
+    use WithPagination;
 
     public $search = '';
-    public $name, $email, $password;
+    public $name, $last_name, $username, $email, $password;
     public $editingUserId = null;
 
     public function createUser()
@@ -20,6 +22,8 @@ class UserList extends Component
 
         User::create([
             'name' => $this->name,
+            'last_name' => $this->last_name,
+            'username' => $this->username,
             'email' => $this->email,
             'password' => Hash::make($this->password),
         ]);
@@ -40,6 +44,8 @@ class UserList extends Component
         $this->editingUserId = $userId;
 
         $this->name = $user->name;
+        $this->last_name = $user->last_name;
+        $this->username = $user->username;
         $this->email = $user->email;
         $this->password = null;
     }
@@ -54,6 +60,8 @@ class UserList extends Component
 
         $user->update([
             'name' => $this->name,
+            'last_name' => $this->last_name,
+            'username' => $this->username,
             'email' => $this->email,
         ]);
 

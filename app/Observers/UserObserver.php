@@ -10,6 +10,8 @@ class UserObserver
 {
     public function created(User $user)
     {
+        if (!Auth::user()) return;
+
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'Usuario creado',
@@ -19,6 +21,8 @@ class UserObserver
 
     public function updated(User $user)
     {
+        if (!Auth::user()) return;
+
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'Usuario actualizado',
@@ -28,6 +32,8 @@ class UserObserver
 
     public function deleted(User $user)
     {
+        if (!Auth::user()) return;
+
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'Usuario eliminado',

@@ -10,6 +10,8 @@ class PostObserver
 {
     public function created(Post $post)
     {
+        if (!Auth::user()) return;
+
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'Nuevo post creado',
@@ -19,6 +21,8 @@ class PostObserver
 
     public function updated(Post $post)
     {
+        if (!Auth::user()) return;
+
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'Post actualizado',
@@ -28,6 +32,8 @@ class PostObserver
 
     public function deleted(Post $post)
     {
+        if (!Auth::user()) return;
+
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'Post eliminado',

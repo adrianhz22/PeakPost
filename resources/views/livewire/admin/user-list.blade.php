@@ -26,6 +26,20 @@
                     </div>
 
                     <div>
+                        <label class="block text-sm font-medium text-gray-700">Apellidos</label>
+                        <input wire:model.defer="last_name" type="text"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        @error('last_name') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Nombre de usuario</label>
+                        <input wire:model.defer="username" type="text"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        @error('username') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div>
                         <label class="block text-sm font-medium text-gray-700">Email</label>
                         <input wire:model.defer="email" type="email"
                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
@@ -62,6 +76,20 @@
                     <input wire:model.defer="name" type="text"
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                     @error('name') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Apellidos</label>
+                    <input wire:model.defer="last_name" type="text"
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                    @error('last_name') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Nombre de usuario</label>
+                    <input wire:model.defer="username" type="text"
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                    @error('username') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
 
                 <div>
@@ -130,7 +158,7 @@
                                 <div x-show="menu" x-on:click.away="menu = false"
                                      class="absolute right-32 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none">
                                     <div>
-                                        <a href="#"
+                                        <a href="{{ route('users.show', $user->username) }}"
                                            class="text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 block px-4 py-2 text-sm">
                                             {{ __('Detail') }}
                                         </a>
