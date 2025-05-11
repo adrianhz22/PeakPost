@@ -4,28 +4,32 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 
-it('an authenticated user can comment', function () {
+it('a user can comment', function () {
 
     $user = User::factory()->create();
     $post = Post::factory()->create();
 
     $this->actingAs($user)->post(route('comments.store', $post), [
-        'content' => 'Testing comment',
+        'content' => 'Comentario de prueba',
     ]);
 
-    $this->assertDatabaseHas(Comment::class, ['content' => 'Testing comment']);
+    $this->assertDatabaseHas('comments', ['content' => 'Comentario de prueba']);
 
 });
 
-it('an not authenticated user cant comment', function () {
+it('a user can delete a comment', function () {
 
     $user = User::factory()->create();
     $post = Post::factory()->create();
 
-    $this->post(route('comments.store', $post), [
-        'content' => 'Testing comment',
-        ])->assertRedirect(route('login'));
+    $comment = Comment::factory()->create([
+        'user_id' => $user->id,
+        'post_id' => $post->id,
+    ]);
 
-    $this->assertDatabaseCount(Comment::class, 0);
+    $this->actingAs($user)->delete(route('comments.destroy', $comment));
 
+    $this->assertDatabaseMissing('comments', [
+        'id' => $comment->id,
+    ]);
 });

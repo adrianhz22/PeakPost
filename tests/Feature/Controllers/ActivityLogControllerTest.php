@@ -1,10 +1,18 @@
 <?php
 
-it('it redirects to login if user is not authenticated', function () {
+use App\Models\User;
+use Spatie\Permission\Models\Role;
 
-    $response = $this->get('/admin/historial');
+it('admin can access activity log', function () {
 
-    $response->assertRedirect(route('login'));
+    $user = User::factory()->create();
+    Role::firstOrCreate(['name' => 'admin']);
+    $user->assignRole('admin');
 
-    $response->assertStatus(302);
+    $this->actingAs($user);
+
+    $response = $this->get(route('admin.historial'));
+
+    $response->assertStatus(200);
+
 });
