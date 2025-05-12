@@ -32,7 +32,7 @@
                            class="block px-4 py-2 hover:bg-gray-200">{{ __('Profile') }}</a>
                         <a href="{{ route('posts.user-posts') }}"
                            class="block px-4 py-2 hover:bg-gray-200">{{ __('My posts') }}</a>
-                        @if(auth()->user()->hasRole('admin'))
+                        @if(auth()->user()->hasAnyRole('admin', 'moderator'))
                             <a href="{{ route('admin.dashboard') }}"
                                class="block px-4 py-2 hover:bg-gray-200">{{ __('Administration') }}</a>
                         @endif

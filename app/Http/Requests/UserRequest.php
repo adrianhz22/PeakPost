@@ -22,9 +22,9 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:20',
-            'last_name' => 'nullable|string|max:40',
-            'username' => 'required|string|max:20',
+            'name' => 'required|string|min:3|max:20',
+            'last_name' => 'nullable|string|min:3|max:40',
+            'username' => 'required|string|min:3|max:20',
             'email' => 'required',
             'password' => 'required|string|min:8',
         ];
@@ -33,9 +33,9 @@ class UserRequest extends FormRequest
     public static function creationRules(): array
     {
         return [
-            'name' => 'required|string|max:20',
-            'last_name' => 'nullable|string|max:40',
-            'username' => 'required|string|max:20',
+            'name' => 'required|string|min:3|max:20',
+            'last_name' => 'nullable|string|min:3|max:40',
+            'username' => 'required|string|min:3|max:20',
             'email' => 'required',
             'password' => 'required|string|min:8',
         ];
