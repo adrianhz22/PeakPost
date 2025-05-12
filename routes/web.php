@@ -46,7 +46,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/users', [AdminDashboardController::class, 'users'])->name('admin.users');
     Route::get('/admin/approved-posts', [AdminDashboardController::class, 'approvedPosts'])->name('admin.approvedPosts');
     Route::delete('/admin/destroy/{user}', [UserController::class, 'destroy'])->name('admin.destroy');
@@ -54,10 +53,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'moderator'])->group(function () {
-    Route::get('/mod/pending', [PostController::class, 'showPendingPosts'])->name('moderation.pending-posts');
-    Route::get('/mod/pending/{post}', [PostController::class, 'showPendingPost'])->name('moderation.pending-show');
-    Route::put('/mod/pending/{post}/approve', [PostController::class, 'approve'])->name('moderation.approve');
-    Route::patch('/mod/pending/{post}/reject', [PostController::class, 'reject'])->name('moderation.reject');
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/mod/pending', [AdminDashboardController::class, 'showPendingPosts'])->name('moderation.pending-posts');
+    Route::get('/mod/pending/{post}', [AdminDashboardController::class, 'showPendingPost'])->name('moderation.pending-show');
+    Route::put('/mod/pending/{post}/approve', [AdminDashboardController::class, 'approve'])->name('moderation.approve');
+    Route::patch('/mod/pending/{post}/reject', [AdminDashboardController::class, 'reject'])->name('moderation.reject');
 });
 
 Route::get('/dashboard', function () {
