@@ -19,6 +19,7 @@ class ModMiddleware
             return $next($request);
         }
 
-        return redirect('home');
+        abort(403, 'Solo el administrador puede acceder a esta sección.');
+
     }
 }
