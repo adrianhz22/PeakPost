@@ -9,7 +9,7 @@ it('non-admin users are redirected to home', function () {
 
     $response = $this->actingAs($user)->get(route('admin.dashboard'));
 
-    $response->assertRedirect('/home');
+    $response->assertStatus(403);
 });
 
 it('admins can access dashboard', function () {

@@ -7,9 +7,9 @@ test('User request has expected validation rules', function () {
     $userRequest = new UserRequest();
 
     $expectedRules = [
-        'name' => 'required|string|max:20',
-        'last_name' => 'nullable|string|max:40',
-        'username' => 'required|string|max:20',
+        'name' => 'required|string|min:3|max:20',
+        'last_name' => 'nullable|string|min:3|max:40',
+        'username' => 'required|string|min:3|max:20',
         'email' => 'required',
         'password' => 'required|string|min:8',
     ];

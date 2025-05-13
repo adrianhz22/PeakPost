@@ -20,6 +20,6 @@ class AdminMiddleware
         }
 
         abort(403, 'Solo el administrador puede acceder a esta sección.');
-        
+
     }
 }

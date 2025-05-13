@@ -10,7 +10,7 @@ test('users without the moderator role are redirected to home', function () {
 
     $response = $this->actingAs($user)->get(route('moderation.pending-posts'));
 
-    $response->assertRedirect('/home');
+    $response->assertStatus(403);
 });
 
 test('moderators can access pending-posts', function () {
