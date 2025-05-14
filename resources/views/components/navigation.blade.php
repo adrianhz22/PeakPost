@@ -30,12 +30,14 @@
                          class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lg py-2">
                         <a href="{{ route('profile.show') }}"
                            class="block px-4 py-2 hover:bg-gray-200">{{ __('Profile') }}</a>
-                        <a href="{{ route('posts.user-posts') }}"
-                           class="block px-4 py-2 hover:bg-gray-200">{{ __('My posts') }}</a>
                         @if(auth()->user()->hasAnyRole('admin', 'moderator'))
                             <a href="{{ route('admin.dashboard') }}"
                                class="block px-4 py-2 hover:bg-gray-200">{{ __('Administration') }}</a>
                         @endif
+                        <a href="{{ route('posts.user-posts') }}"
+                           class="block px-4 py-2 hover:bg-gray-200">{{ __('My posts') }}</a>
+                        <a href="{{ route('posts.liked') }}"
+                           class="block px-4 py-2 hover:bg-gray-200">{{ __('My likes') }}</a>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit"

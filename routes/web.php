@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('/upload-image', [PostController::class, 'uploadImage'])->name('upload.image');
+    Route::get('/my-likes', [PostController::class, 'userLikedPosts'])->name('posts.liked');
 
     Route::resource('posts', PostController::class)
         ->names('posts')

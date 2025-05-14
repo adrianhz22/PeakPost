@@ -52,6 +52,12 @@ class User extends Authenticatable
         return $this->following()->where('followed_id', $user->id)->exists();
     }
 
+    public function likedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'likeable_likes', 'user_id', 'likeable_id')
+            ->where('likeable_type', Post::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
