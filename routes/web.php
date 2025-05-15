@@ -4,6 +4,7 @@ use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\GalleryImageController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -28,6 +29,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('/upload-image', [PostController::class, 'uploadImage'])->name('upload.image');
     Route::get('/my-likes', [PostController::class, 'userLikedPosts'])->name('posts.liked');
+    Route::get('/gallery', [GalleryImageController::class, 'index'])->name('gallery.index');
+    Route::post('/gallery', [GalleryImageController::class, 'store'])->name('gallery.store');
 
     Route::resource('posts', PostController::class)
         ->names('posts')
@@ -59,6 +62,9 @@ Route::middleware(['auth', 'moderator'])->group(function () {
     Route::get('/mod/pending/{post}', [AdminDashboardController::class, 'showPendingPost'])->name('moderation.pending-show');
     Route::put('/mod/pending/{post}/approve', [AdminDashboardController::class, 'approve'])->name('moderation.approve');
     Route::patch('/mod/pending/{post}/reject', [AdminDashboardController::class, 'reject'])->name('moderation.reject');
+    Route::get('/pending-images', [AdminDashboardController::class, 'pendingImages'])->name('moderation.pending-images');
+    Route::put('/images/{image}/approve', [AdminDashboardController::class, 'approveImage'])->name('moderation.images.approve');
+    Route::patch('/images/{image}/reject', [AdminDashboardController::class, 'rejectImage'])->name('moderation.images.reject');
 });
 
 Route::get('/dashboard', function () {

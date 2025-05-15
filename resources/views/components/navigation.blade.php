@@ -7,6 +7,12 @@
         <ul class="flex space-x-4 items-center">
 
             <li>
+                <a href="{{ route('home') }}" class="text-base font-medium hover:text-blue-400">Inicio</a>
+            </li>
+            <li>
+                <a href="{{ route('gallery.index') }}" class="text-base font-medium hover:text-blue-400">Galeria</a>
+            </li>
+            <li>
                 <a href="{{ route('users.index') }}" class="text-base font-medium hover:text-blue-400">Comunidad</a>
             </li>
 

@@ -82,6 +82,19 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('moderation.pending-images') }}"
+                       class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 7h2l2-3h10l2 3h2a2 2 0 012 2v10a2 2 0 01-2 2H3a2 2 0 01-2-2V9a2 2 0 012-2zm9 10a4 4 0 100-8 4 4 0 000 8z"/>
+                                </svg>
+                            </span>
+                        <span class="ml-2 text-sm tracking-wide truncate">{{ __('Pending images') }}</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('admin.approvedPosts') }}"
                        class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                             <span class="inline-flex justify-center items-center ml-4">

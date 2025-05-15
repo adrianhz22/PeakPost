@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\SendApprovedPostEmail;
 use App\Models\ActivityLog;
+use App\Models\GalleryImage;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -99,4 +100,45 @@ class AdminDashboardController extends Controller
         $posts = Post::where('status', 'pending')->get();
         return view('moderation.pending-posts', compact('posts'));
     }
+
+    public function pendingImages()
+    {
+        $images = GalleryImage::where('status', 'pending')->latest()->paginate(12);
+
+        return view('moderation.pending-images', compact('images'));
+    }
+
+    public function approveImage(GalleryImage $image)
+    {
+        $image->update(['status' => 'approved']);
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Imagen aprobada',
+            'description' => "El usuario " . Auth::user()->username . " ha aprobado una imagen."
+        ]);
+
+        return redirect()->route('moderation.pending-images');
+    }
+
+    public function rejectImage(GalleryImage $image, Request $request)
+    {
+        $request->validate([
+            'rejection_reason' => 'required|string|max:1000',
+        ]);
+
+        $image->update([
+            'status' => 'rejected',
+            'rejection_reason' => $request->rejection_reason,
+        ]);
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Imagen rechazada',
+            'description' => "El usuario " . Auth::user()->username . " ha rechazado una imagen."
+        ]);
+
+        return redirect()->route('moderation.pending-images');
+    }
+
 }
