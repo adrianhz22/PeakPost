@@ -2,7 +2,7 @@
      x-init="@this.on('editingPostStarted', () => formMode = 'edit')">
 
     <button @click="formMode = formMode === 'create' ? null : 'create'; $wire.resetForm()"
-            class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700">
+            class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 mb-6">
         <span x-show="formMode !== 'create'">Crear nuevo post</span>
         <span x-show="formMode === 'create'">Cerrar formulario</span>
     </button>
@@ -147,12 +147,16 @@
             <div class="bg-white shadow-md rounded-lg p-6 mb-6 flex space-x-6 relative">
                 <img src="{{ asset($post->image) }}" alt="Imagen del post" class="w-32 h-32 object-cover rounded-lg">
                 <div class="flex-1">
-                    <h2 class="text-xl font-semibold text-gray-800">{{ $post->title }}</h2>
+                    <a href="{{ route('moderation.pending-show', $post) }}"
+                       class="text-xl font-semibold text-gray-800 hover:text-blue-500 block break-words">
+                        {{ $post->title }}
+                    </a>
                     <div class="text-gray-600 mt-2 flex items-center space-x-4">
                         <p><strong>Autor:</strong> {{ $post->user->name }}</p>
                         <p><strong>Fecha:</strong> {{ $post->created_at->format('d/m/Y') }}</p>
                     </div>
-                    <p class="text-gray-700 mt-4">{!! Str::limit($post->body, 150) !!}</p>
+                    <p class="text-gray-700 mt-4">{!! Str::limit(strip_tags($post->body), 150) !!}</p>
+
                     <div class="mt-4 absolute top-4 right-4" x-data="{ menu: false }">
                         <button @click="menu = !menu" type="button"
                                 class="flex items-center text-gray-500 hover:text-gray-700 focus:outline-none">
