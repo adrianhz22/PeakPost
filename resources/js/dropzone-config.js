@@ -3,7 +3,12 @@ import Dropzone from "dropzone";
 Dropzone.autoDiscover = false;
 
 document.addEventListener("DOMContentLoaded", function () {
-    let dropzone = new Dropzone("#imagenDropzone", {
+    const imageInput = document.querySelector("input[name='image']");
+    const dropzoneElement = document.querySelector("#imagenDropzone");
+
+    if (!dropzoneElement) return;
+
+    let dropzone = new Dropzone(dropzoneElement, {
         url: "/upload-image",
         paramName: "file",
         maxFiles: 1,
@@ -14,21 +19,46 @@ document.addEventListener("DOMContentLoaded", function () {
             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
         },
         success: function (file, response) {
-            document.querySelector("input[name='image']").value = response.path;
+            if (imageInput) {
+                imageInput.value = response.path;
+            }
         },
         removedfile: function (file) {
-            document.querySelector("input[name='image']").value = "";
-            file.previewElement.remove();
+            if (imageInput) {
+                imageInput.value = "";
+            }
+            if (file.previewElement) {
+                file.previewElement.remove();
+            }
+        },
+        init: function () {
+            this.on("addedfile", function (file) {
+                if (this.files.length > 1) {
+                    this.removeFile(this.files[0]);
+                }
+
+                if (file.previewElement) {
+                    const img = file.previewElement.querySelector("img");
+                    if (img) {
+                        img.style.cursor = "pointer";
+                        img.addEventListener("click", () => {
+                            dropzoneElement.click();
+                        });
+                    }
+                }
+            });
         }
     });
 
-    let existingImage = document.querySelector("input[name='image']").value;
+    let existingImage = imageInput?.value;
 
     if (existingImage) {
-        let mockFile = { name: "Imagen actual", size: 12345, type: "image/jpeg" };
+        const mockFile = { name: "Imagen actual", size: 12345, type: "image/jpeg" };
 
         dropzone.emit("addedfile", mockFile);
         dropzone.emit("thumbnail", mockFile, `/storage/posts/${existingImage}`);
+        dropzone.emit("complete", mockFile);
+
         dropzone.files.push(mockFile);
     }
 });

@@ -1,6 +1,7 @@
 @props([
     'name',
     'label' => '',
+    'value' => '',
 ])
 
 <div class="mb-4">
@@ -10,7 +11,7 @@
         </label>
     @endif
 
-    <input id="{{ $name }}" type="hidden" name="{{ $name }}">
+    <input id="{{ $name }}" type="hidden" name="{{ $name }}" value="{{ $value }}">
 
     <trix-editor
         input="{{ $name }}"

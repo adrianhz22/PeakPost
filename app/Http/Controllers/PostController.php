@@ -8,6 +8,7 @@ use App\Jobs\SendNewPostEmail;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -157,6 +158,19 @@ class PostController extends Controller
 
         return view('posts.my-likes', compact('likedPosts'));
 
+    }
+
+    public function uploadTrixImage(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|image|max:2048',
+        ]);
+
+        $path = $request->file('file')->store('trix-images', 'public');
+
+        return response()->json([
+            'url' => Storage::url($path)
+        ]);
     }
 
 }

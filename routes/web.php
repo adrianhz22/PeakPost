@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('/upload-image', [PostController::class, 'uploadImage'])->name('upload.image');
     Route::get('/my-likes', [PostController::class, 'userLikedPosts'])->name('posts.liked');
+    Route::post('/trix-image', [PostController::class, 'uploadTrixImage'])->name('trix.image');
     Route::get('/gallery', [GalleryImageController::class, 'index'])->name('gallery.index');
     Route::post('/gallery', [GalleryImageController::class, 'store'])->name('gallery.store');
 
