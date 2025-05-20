@@ -66,7 +66,7 @@ class Post extends Model
         'difficulty',
         'longitude',
         'altitude',
-        'time',
+        'duration',
         'track',
         'user_id',
         'status',

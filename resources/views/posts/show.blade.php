@@ -33,7 +33,7 @@
                 </div>
                 <div>
                     <p class="font-semibold text-gray-800">{{ __('Duration') }}</p>
-                    <p class="text-gray-600">{{ $post->time }}</p>
+                    <p class="text-gray-600">{{ floor($post->duration / 60) }}h {{ $post->duration % 60 }}m</p>
                 </div>
             </div>
 

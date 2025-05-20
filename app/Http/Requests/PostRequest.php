@@ -30,7 +30,8 @@ class PostRequest extends FormRequest
             'difficulty' => 'required|string',
             'longitude' => 'required|numeric',
             'altitude' => 'nullable|numeric',
-            'time' => 'nullable|date-format:H:i:s',
+            'durationHours' => 'nullable|integer|min:0',
+            'durationMinutes' => 'nullable|integer|min:0|max:59',
             'track' => 'nullable|file|mimes:xml,kml',
 
         ];
@@ -46,7 +47,8 @@ class PostRequest extends FormRequest
             'difficulty' => 'required|string',
             'longitude' => 'required|numeric',
             'altitude' => 'nullable|numeric',
-            'time' => 'nullable|date_format:H:i:s',
+            'durationHours' => 'nullable|integer|min:0',
+            'durationMinutes' => 'nullable|integer|min:0|max:59',
             'track' => 'nullable|file|mimes:xml,kml',
         ];
     }
@@ -61,7 +63,8 @@ class PostRequest extends FormRequest
             'difficulty' => 'required|string',
             'longitude' => 'required|numeric',
             'altitude' => 'nullable|numeric',
-            'time' => 'nullable|date_format:H:i:s',
+            'durationHours' => 'nullable|integer|min:0',
+            'durationMinutes' => 'nullable|integer|min:0|max:59',
             'track' => 'nullable',
         ];
     }

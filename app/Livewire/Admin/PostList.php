@@ -15,7 +15,7 @@ class PostList extends Component
 
     use WithFileUploads, WithPagination;
 
-    public $title, $body, $image, $province, $difficulty, $longitude, $altitude, $time, $track;
+    public $title, $body, $image, $province, $difficulty, $longitude, $altitude, $durationHours, $durationMinutes, $track;
     public $editingPostId = null;
 
     public function createPost()
@@ -40,7 +40,7 @@ class PostList extends Component
             'difficulty' => $this->difficulty,
             'longitude' => $this->longitude,
             'altitude' => $this->altitude,
-            'time' => $this->time,
+            'duration' => ($this->durationHours * 60) + $this->durationMinutes,
             'track' => $trackPath,
             'user_id' => auth()->id(),
             'status' => 'pending',
@@ -61,7 +61,8 @@ class PostList extends Component
         $this->difficulty = $post->difficulty;
         $this->longitude = $post->longitude;
         $this->altitude = $post->altitude;
-        $this->time = $post->time;
+        $this->durationHours = floor($post->duration / 60);
+        $this->durationMinutes = floor($post->duration % 60);
         $this->image = $post->image;
         $this->track = $post->track;
     }
@@ -91,7 +92,7 @@ class PostList extends Component
         $post->difficulty = $this->difficulty;
         $post->longitude = $this->longitude;
         $post->altitude = $this->altitude;
-        $post->time = $this->time;
+        $post->duration = ($this->durationHours * 60) + $this->durationMinutes;
 
         if ($this->image instanceof UploadedFile) {
             $post->image = 'storage/' . $this->image->store('posts', 'public');
@@ -110,7 +111,7 @@ class PostList extends Component
     {
         $this->reset([
             'title', 'body', 'image', 'province', 'difficulty',
-            'longitude', 'altitude', 'time', 'track', 'editingPostId'
+            'longitude', 'altitude', 'durationHours', 'durationMinutes', 'track', 'editingPostId'
         ]);
     }
 

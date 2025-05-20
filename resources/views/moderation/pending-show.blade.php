@@ -26,7 +26,7 @@
                     <p><strong>{{ __('Altitude') }}</strong> {{ $post->altitude }} m</p>
                 </div>
                 <div>
-                    <p><strong>{{ __('Duration') }}</strong> {{ $post->time }}</p>
+                    <p><strong>{{ __('Duration') }}</strong> {{ floor($post->duration / 60) }}h {{ $post->duration % 60 }}m</p>
                 </div>
             </div>
 

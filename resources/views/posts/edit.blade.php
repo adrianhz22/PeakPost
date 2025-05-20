@@ -58,11 +58,18 @@
             </div>
 
             <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <x-input-label for="time" :value="__('Duration')"/>
-                    <input type="time" name="time" id="time" step="1" value="{{ old('time', $post->time) }}"
-                           class="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:ring focus:ring-blue-300"/>
-                    <x-input-error :messages="$errors->get('time')" class="mt-2"/>
+                    <x-input-label for="duration_hours" :value="__('Duration (hours)')" />
+                    <x-input id="duration_hours" name="duration_hours" type="number" min="0" value="{{ old('duration_hours', floor(($post->duration ?? 0) / 60)) }}"/>
+                    <x-input-error :messages="$errors->get('duration_hours')" class="mt-2" />
+                </div>
+
+                <div>
+                    <x-input-label for="duration_minutes" :value="__('Duration (minutes)')" />
+                    <x-input id="duration_minutes" name="duration_minutes" type="number" min="0" max="59" value="{{ old('duration_minutes', ($post->duration ?? 0) % 60) }}"/>
+                    <x-input-error :messages="$errors->get('duration_minutes')" class="mt-2" />
+                </div>
                 </div>
 
                 <div>

@@ -59,6 +59,10 @@ class PostController extends Controller
             $trackPath = $request->file('track')->store('tracks', 'public');
         }
 
+        $hours = (int) $request->input('duration_hours', 0);
+        $minutes = (int) $request->input('duration_minutes', 0);
+        $totalDuration = ($hours * 60) + $minutes;
+
         $post = Post::create([
             'title' => $request->title,
             'slug' => Str::slug($request->title),
@@ -70,7 +74,7 @@ class PostController extends Controller
             'difficulty' => $request->difficulty,
             'longitude' => $request->longitude,
             'altitude' => $request->altitude,
-            'time' => $request->time,
+            'duration' => $totalDuration,
             'track' => $trackPath,
         ]);
 
@@ -103,6 +107,10 @@ class PostController extends Controller
             $trackPath = $request->file('track')->store('tracks', 'public');
         }
 
+        $hours = (int) $request->input('duration_hours', 0);
+        $minutes = (int) $request->input('duration_minutes', 0);
+        $totalDuration = ($hours * 60) + $minutes;
+
         $post->title = $request->title;
         $post->slug = Str::slug($post->title);
         $post->body = $request->body;
@@ -111,7 +119,7 @@ class PostController extends Controller
         $post->difficulty = $request->difficulty;
         $post->longitude = $request->longitude;
         $post->altitude = $request->altitude;
-        $post->time = $request->time;
+        $post->duration = $totalDuration;
         $post->track = $trackPath;
         $post->status = 'pending';
         $post->rejection_reason = null;

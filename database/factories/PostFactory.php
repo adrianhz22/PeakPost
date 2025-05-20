@@ -41,7 +41,7 @@ class PostFactory extends Factory
             'difficulty' => fake()->randomElement(['Easy', 'Medium', 'Hard']),
             'longitude' => fake()->randomFloat(2, 0, 999),
             'altitude' => fake()->numberBetween(0, 9000),
-            'time' => fake()->time(),
+            'duration' => fake()->numberBetween(30, 600),
             'track' => 'tracks/' . fake()->word() . '.kml',
         ];
     }

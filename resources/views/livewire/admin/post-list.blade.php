@@ -48,10 +48,22 @@
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700">Duración</label>
-                <input wire:model.defer="time" type="text"
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                @error('time') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                <div class="flex space-x-2">
+                    <div class="flex-1">
+                        <input wire:model.defer="durationHours" type="number" min="0"
+                               placeholder="Horas"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                    </div>
+                    <div class="flex-1">
+                        <input wire:model.defer="durationMinutes" type="number" min="0" max="59"
+                               placeholder="Minutos"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                    </div>
+                </div>
+                @error('durationHours') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                @error('durationMinutes') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
             </div>
+
             <div>
                 <label class="block text-sm font-medium text-gray-700">Imagen</label>
                 <input wire:model="image" type="file"
