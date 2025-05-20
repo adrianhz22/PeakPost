@@ -43,7 +43,7 @@ class AdminDashboardController extends Controller
 
     public function showPendingPost(Post $post)
     {
-        return view('moderation.pending-show', compact('post'));
+        return view('posts.show', compact('post'));
     }
 
     public function users()

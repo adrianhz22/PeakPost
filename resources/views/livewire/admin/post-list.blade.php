@@ -159,7 +159,7 @@
             <div class="bg-white shadow-md rounded-lg p-6 mb-6 flex space-x-6 relative">
                 <img src="{{ asset($post->image) }}" alt="Imagen del post" class="w-32 h-32 object-cover rounded-lg">
                 <div class="flex-1">
-                    <a href="{{ route('moderation.pending-show', $post) }}"
+                    <a href="{{ route('posts.show', $post) }}"
                        class="text-xl font-semibold text-gray-800 hover:text-blue-500 block break-words">
                         {{ $post->title }}
                     </a>

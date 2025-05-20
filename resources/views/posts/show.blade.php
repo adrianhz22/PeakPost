@@ -1,5 +1,32 @@
 <x-app-layout>
     <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-10">
+
+        @if(auth()->user()->hasRole('admin') && $post->status === 'pending')
+            <div class="w-full flex justify-center gap-4 py-6 bg-gray-50 border-b border-gray-200">
+                <form action="{{ route('moderation.approve', $post) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <button type="submit"
+                            class="inline-flex items-center gap-2 bg-emerald-600 text-white text-sm px-4 py-2 rounded-lg shadow hover:bg-emerald-700 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                             viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Aprobar
+                    </button>
+                </form>
+                <button
+                    onclick="document.getElementById('rejectionModal').classList.remove('hidden')"
+                    class="inline-flex items-center gap-2 bg-rose-600 text-white text-sm px-4 py-2 rounded-lg shadow hover:bg-rose-700 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                         viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                    Rechazar
+                </button>
+            </div>
+        @endif
+
         <img src="{{ asset($post->image) }}" alt="Imagen del post" class="w-full h-80 object-cover">
 
         <div class="p-6">
@@ -250,6 +277,33 @@
                     </div>
                 @endforeach
             </div>
+        </div>
+    </div>
+    <div id="rejectionModal"
+         class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-[1000] hidden">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Motivo del rechazo</h2>
+
+            <form action="{{ route('moderation.reject', $post) }}" method="POST">
+                @csrf
+                @method('PATCH')
+
+                <textarea name="rejection_reason" required
+                          class="w-full h-32 p-3 border border-red-300 rounded-md mb-4 resize-none"
+                          placeholder="Explica por qué se rechaza esta publicación..."></textarea>
+
+                <div class="flex justify-end space-x-3">
+                    <button type="button"
+                            onclick="document.getElementById('rejectionModal').classList.add('hidden')"
+                            class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition">
+                        Cancelar
+                    </button>
+                    <button type="submit"
+                            class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-800 transition">
+                        Enviar rechazo
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
