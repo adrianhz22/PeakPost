@@ -33,5 +33,21 @@ class GalleryImageController extends Controller
         return redirect()->route('gallery.index');
     }
 
+    public function destroy(GalleryImage $image)
+    {
+        $image->delete();
+
+        return redirect()->route('gallery.user-images');
+    }
+
+    public function userImages()
+    {
+
+        $user = Auth::user();
+        $images = $user->galleryImages()->latest()->paginate(20);
+
+        return view('gallery.user-images', compact('images'));
+
+    }
 
 }

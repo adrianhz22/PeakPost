@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/usuarios', [UserController::class, 'index'])->name('users.index');
 
     Route::get('/posts/my-posts', [PostController::class, 'userPosts'])->name('posts.user-posts');
+    Route::get('/gallery/my-images', [GalleryImageController::class, 'userImages'])->name('gallery.user-images');
     Route::get('/post/{id}/pdf', [PDFController::class, 'downloadPDF'])->name('post.pdf');
     Route::get('/terms', [PDFController::class, 'downloadTermsPDF'])->name('terms.pdf');
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
@@ -32,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/trix-image', [PostController::class, 'uploadTrixImage'])->name('trix.image');
     Route::get('/gallery', [GalleryImageController::class, 'index'])->name('gallery.index');
     Route::post('/gallery', [GalleryImageController::class, 'store'])->name('gallery.store');
+    Route::delete('/gallery/{image}', [GalleryImageController::class, 'destroy'])->name('gallery.destroy');
 
     Route::resource('posts', PostController::class)
         ->names('posts')
