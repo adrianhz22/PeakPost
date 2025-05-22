@@ -38,7 +38,7 @@ class PostFactory extends Factory
             'user_id' => User::inRandomorder()->first()->id,
             'status' => fake()->randomElement(['pending', 'approved', 'rejected']),
             'province' => fake()->randomElement(['Murcia', 'Madrid', 'Alicante', 'Cuenca']),
-            'difficulty' => fake()->randomElement(['Easy', 'Medium', 'Hard']),
+            'difficulty' => fake()->randomElement(['Fácil', 'Moderado', 'Difícil']),
             'longitude' => fake()->randomFloat(2, 0, 999),
             'altitude' => fake()->numberBetween(0, 9000),
             'duration' => fake()->numberBetween(30, 600),

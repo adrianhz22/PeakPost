@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const mockFile = { name: "Imagen actual", size: 12345, type: "image/jpeg" };
 
         dropzone.emit("addedfile", mockFile);
-        dropzone.emit("thumbnail", mockFile, `/storage/posts/${existingImage}`);
+        dropzone.emit("thumbnail", mockFile, existingImage);
         dropzone.emit("complete", mockFile);
 
         dropzone.files.push(mockFile);

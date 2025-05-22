@@ -1,6 +1,7 @@
 @props([
     'name' => 'image',
     'label' => __('Cover image'),
+    'value' => '',
 ])
 
 <div>
@@ -14,7 +15,7 @@
         </div>
     </div>
 
-    <input type="hidden" name="{{ $name }}">
+    <input type="hidden" name="{{ $name }}" id="{{ $name }}Input" value="{{ $value }}">
 </div>
 
 <style>

@@ -35,7 +35,7 @@ class PostList extends Component
             'title' => $this->title,
             'slug' => Str::slug($this->title),
             'body' => $this->body,
-            'image' => "storage/$imagePath",
+            'image' => "/storage/$imagePath",
             'province' => $this->province,
             'difficulty' => $this->difficulty,
             'longitude' => $this->longitude,

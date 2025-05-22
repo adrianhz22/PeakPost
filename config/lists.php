@@ -53,8 +53,8 @@ return [
     ],
 
     'difficulties' => [
-        'Easy' => 'Easy',
-        'Medium' => 'Medium',
-        'Hard' => 'Hard',
+        'Fácil' => 'Fácil',
+        'Moderado' => 'Moderado',
+        'Difícil' => 'Difícil',
     ],
 ];
