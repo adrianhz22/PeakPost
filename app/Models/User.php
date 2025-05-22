@@ -20,6 +20,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function galleryImages(): hasMany
+    {
+        return $this->hasMany(GalleryImage::class);
+    }
+
     public function achievements()
     {
         return $this->belongsToMany(Achievement::class)->withPivot('achieved_at')->withTimestamps();

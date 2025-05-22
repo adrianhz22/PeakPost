@@ -62,7 +62,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth', 'moderator'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/mod/pending', [AdminDashboardController::class, 'showPendingPosts'])->name('moderation.pending-posts');
-    Route::get('/mod/pending/{post}', [PostController::class, 'show'])->name('posts.show');
+    Route::get('/mod/pending/{post}', [PostController::class, 'show'])->name('moderation.show');
     Route::put('/mod/pending/{post}/approve', [AdminDashboardController::class, 'approve'])->name('moderation.approve');
     Route::patch('/mod/pending/{post}/reject', [AdminDashboardController::class, 'reject'])->name('moderation.reject');
     Route::get('/pending-images', [AdminDashboardController::class, 'pendingImages'])->name('moderation.pending-images');

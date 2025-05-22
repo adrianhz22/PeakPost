@@ -7,9 +7,17 @@ use Illuminate\Http\Request;
 
 class ActivityLogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $logs = ActivityLog::all();
-        return view ('admin.activity-logs', compact('logs'));
+        $query = ActivityLog::query();
+
+        if ($request->has('date') && $request->date) {
+            $query->whereDate('created_at', $request->date);
+        }
+
+        $logs = $query->latest()->paginate(50)->withQueryString();
+
+        return view('admin.activity-logs', compact('logs'));
     }
+
 }
