@@ -3,7 +3,8 @@ import Dropzone from "dropzone";
 Dropzone.autoDiscover = false;
 
 document.addEventListener("DOMContentLoaded", function () {
-    const imageInput = document.querySelector("input[name='image']");
+    const imageInput = document.getElementById("image");
+
     const dropzoneElement = document.querySelector("#imagenDropzone");
 
     if (!dropzoneElement) return;

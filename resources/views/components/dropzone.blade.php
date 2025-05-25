@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <input type="hidden" name="{{ $name }}" id="{{ $name }}Input" value="{{ $value }}">
+    <input type="hidden" name="{{ $name }}" id="{{ $name }}" value="{{ $value }}">
 </div>
 
 <style>

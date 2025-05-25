@@ -56,7 +56,7 @@ class PostController extends Controller
         $trackPath = null;
 
         if ($request->hasFile('track')) {
-            $trackPath = $request->file('track')->store('tracks', 'public');
+            $trackPath = $request->file('track')->store('posts/tracks', 'public');
         }
 
         $hours = (int) $request->input('duration_hours', 0);
@@ -104,7 +104,7 @@ class PostController extends Controller
         $trackPath = $post->track;
 
         if ($request->hasFile('track')) {
-            $trackPath = $request->file('track')->store('tracks', 'public');
+            $trackPath = $request->file('track')->store('posts/tracks', 'public');
         }
 
         $hours = (int) $request->input('duration_hours', 0);
@@ -143,9 +143,9 @@ class PostController extends Controller
     public function uploadImage(Request $request)
     {
 
-        $path = $request->file('file')->store('posts', 'public');
+        $path = $request->file('file')->store('posts/images', 'public');
 
-        return response()->json(['path' => "/storage/$path"]);
+        return response()->json(['path' => $path]);
     }
 
     public function userPosts()
