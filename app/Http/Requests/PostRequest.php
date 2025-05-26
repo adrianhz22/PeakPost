@@ -19,24 +19,6 @@ class PostRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
-        return [
-            'title' => 'required|string|min:10',
-            'slug' => 'nullable|string',
-            'body' => 'required|string|min:50',
-            'image' => 'required|string',
-            'province' => 'required|string',
-            'difficulty' => 'required|string',
-            'longitude' => 'required|numeric',
-            'altitude' => 'nullable|numeric',
-            'duration_hours' => 'required|integer|min:0',
-            'duration_minutes' => 'required|integer|min:0|max:59',
-            'track' => 'nullable|file|mimes:xml,kml',
-
-        ];
-    }
-
     public static function creationRules(): array
     {
         return [
@@ -65,7 +47,7 @@ class PostRequest extends FormRequest
             'altitude' => 'nullable|numeric',
             'duration_hours' => 'required|integer|min:0',
             'duration_minutes' => 'required|integer|min:0|max:59',
-            'track' => 'nullable',
+            'track' => 'nullable|file|mimes:xml,kml',
         ];
     }
 }

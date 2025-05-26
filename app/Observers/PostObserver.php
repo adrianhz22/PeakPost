@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\ActivityLog;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostObserver
 {
@@ -39,5 +40,14 @@ class PostObserver
             'action' => 'Post eliminado',
             'description' => "El usuario " . Auth::user()->username . " ha eliminado un post."
         ]);
+
+
+        if ($post->image && Storage::disk('public')->exists($post->image)) {
+            Storage::disk('public')->delete($post->image);
+        }
+
+        if ($post->track && Storage::disk('public')->exists($post->track)) {
+            Storage::disk('public')->delete($post->track);
+        }
     }
 }

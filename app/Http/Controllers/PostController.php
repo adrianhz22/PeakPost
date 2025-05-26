@@ -50,10 +50,17 @@ class PostController extends Controller
         return view('posts.create', compact('provinces', 'difficulties'));
     }
 
-    public function store(PostRequest $request)
+    public function store(Request $request)
     {
 
+        $request->validate(PostRequest::creationRules());
+
+        $imagePath = null;
         $trackPath = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('posts/images', 'public');
+        }
 
         if ($request->hasFile('track')) {
             $trackPath = $request->file('track')->store('posts/tracks', 'public');
@@ -67,7 +74,7 @@ class PostController extends Controller
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'body' => $request->body,
-            'image' => $request->image,
+            'image' => $imagePath,
             'user_id' => auth()->id(),
             'status' => 'pending',
             'province' => $request->province,
@@ -79,10 +86,9 @@ class PostController extends Controller
         ]);
 
         dispatch(new SendNewPostEmail($post, auth()->user()->email));
-
         PostCreated::dispatch($post);
 
-        return redirect('home')->with('success', 'Tu post se ha enviado correctamente y está siendo revisado, para ver su estado consulta tus posts.');;
+        return redirect('home')->with('success', 'Tu post se ha enviado correctamente y está siendo revisado, para ver su estado consulta tus posts.');
 
     }
 
@@ -98,10 +104,17 @@ class PostController extends Controller
 
     }
 
-    public function update(PostRequest $request, Post $post)
+    public function update(Request $request, Post $post)
     {
 
+        $request->validate(PostRequest::updateRules());
+
+        $imagePath = $post->image;
         $trackPath = $post->track;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('posts/images', 'public');
+        }
 
         if ($request->hasFile('track')) {
             $trackPath = $request->file('track')->store('posts/tracks', 'public');
@@ -111,22 +124,22 @@ class PostController extends Controller
         $minutes = (int) $request->input('duration_minutes', 0);
         $totalDuration = ($hours * 60) + $minutes;
 
-        $post->title = $request->title;
-        $post->slug = Str::slug($post->title);
-        $post->body = $request->body;
-        $post->image = $request->image;
-        $post->province = $request->province;
-        $post->difficulty = $request->difficulty;
-        $post->longitude = $request->longitude;
-        $post->altitude = $request->altitude;
-        $post->duration = $totalDuration;
-        $post->track = $trackPath;
-        $post->status = 'pending';
-        $post->rejection_reason = null;
-        $post->save();
+        $post->fill([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'body' => $request->body,
+            'image' => $imagePath,
+            'province' => $request->province,
+            'difficulty' => $request->difficulty,
+            'longitude' => $request->longitude,
+            'altitude' => $request->altitude,
+            'duration' => $totalDuration,
+            'track' => $trackPath,
+            'status' => 'pending',
+            'rejection_reason' => null,
+        ])->save();
 
-        return redirect('home');
-
+        return redirect('home')->with('success', 'Tu post se ha actualizado correctamente y está pendiente de revisión.');
     }
 
     public function destroy(Post $post)
@@ -138,14 +151,6 @@ class PostController extends Controller
 
         return redirect('home');
 
-    }
-
-    public function uploadImage(Request $request)
-    {
-
-        $path = $request->file('file')->store('posts/images', 'public');
-
-        return response()->json(['path' => $path]);
     }
 
     public function userPosts()

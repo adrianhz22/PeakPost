@@ -8,7 +8,8 @@
 <x-dropzone
     name="image"
     label="{{ isset($post) ? __('New image') : __('Cover image') }}"
-    :value="old('image', isset($post) ? asset($post->image) : '')"/>
+    :value="isset($post) ? asset('storage/' . $post->image) : ''"
+/>
 
 <x-input-error :messages="$errors->get('image')" class="mt-2"/>
 

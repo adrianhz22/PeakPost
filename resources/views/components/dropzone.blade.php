@@ -7,15 +7,18 @@
 <div>
     <label class="block text-gray-700 font-medium mb-2">{{ $label }}</label>
 
-    <div id="imagenDropzone"
+    <label id="imagenDropzone"
+           data-existing-image="{{ $value ? asset($value) : '' }}"
+           data-input-id="{{ $name }}"
         {{ $attributes->merge(['class' => 'dropzone border-dashed border-2 border-gray-300 rounded-lg p-6 text-center bg-gray-50 min-h-[200px] flex flex-col items-center justify-center cursor-pointer']) }}>
         <div class="dz-message text-gray-500 flex flex-col items-center">
             <i class="fas fa-upload text-3xl mb-2"></i>
             <span class="text-sm">Arrastra una imagen aqui o haz clic para seleccionar</span>
         </div>
-    </div>
+    </label>
 
-    <input type="hidden" name="{{ $name }}" id="{{ $name }}" value="{{ $value }}">
+    <input type="file" name="{{ $name }}" id="{{ $name }}" class="hidden" accept="image/*">
+
 </div>
 
 <style>
