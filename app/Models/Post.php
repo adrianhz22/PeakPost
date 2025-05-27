@@ -12,36 +12,27 @@ class Post extends Model
 {
     use hasFactory, Likeable;
 
-    public function scopeSearch($query, $search, $sort = 'desc')
+    public function scopeSearch($query, $search = null, $sort = 'desc', $province = null, $difficulty = null)
     {
+
         $query->where('status', 'approved');
 
         if ($search) {
             $query->where('title', 'LIKE', "%{$search}%");
         }
 
-        if ($sort === 'popular') {
-            return $query
-                ->withCount('likes')
-                ->orderBy('likes_count', 'desc');
-        }
-
-        return $query->orderBy('created_at', 'desc');
-    }
-
-    public function scopeFromProvince($query, $province)
-    {
         if ($province) {
-            return $query->where('province', $province);
+            $query->where('province', $province);
         }
 
-        return $query;
-    }
-
-    public function scopeFromDifficulty($query, $difficulty)
-    {
         if ($difficulty) {
-            return $query->where('difficulty', $difficulty);
+            $query->where('difficulty', $difficulty);
+        }
+
+        if ($sort === 'popular') {
+            return $query->withCount('likes')->orderBy('likes_count', 'desc');
+        } else {
+            $query->orderBy('created_at', 'desc');
         }
 
         return $query;

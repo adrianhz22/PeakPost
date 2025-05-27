@@ -27,10 +27,7 @@ class PostController extends Controller
         $difficulty = $request->get('difficulty');
         $sort = $request->get('sort', 'desc');
 
-        $posts = Post::search($query, $sort)
-            ->fromProvince($province)
-            ->fromDifficulty($difficulty)
-            ->paginate(12);
+        $posts = Post::search($query, $sort, $province, $difficulty)->paginate(12);
 
         return view('home', compact('posts', 'query', 'sort', 'province', 'difficulty', 'provinces', 'difficulties'));
     }

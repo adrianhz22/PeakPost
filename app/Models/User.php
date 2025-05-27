@@ -15,7 +15,28 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
-    public function posts() : hasMany
+    public function scopeFilter($query, $filters)
+    {
+
+        if (!empty($filters['search'])) {
+            $query->where(function ($q) use ($filters) {
+                $q->where('name', 'like', '%' . $filters['search'] . '%')
+                    ->orWhere('email', 'like', '%' . $filters['search'] . '%');
+            });
+        }
+
+        if (!empty($filters['days'])) {
+            $query->where('created_at', '>=', now()->subDays($filters['days']));
+        }
+
+        if (!empty($filters['role'])) {
+            $query->role($filters['role']);
+        }
+
+        return $query;
+    }
+
+    public function posts(): hasMany
     {
         return $this->hasMany(Post::class);
     }
