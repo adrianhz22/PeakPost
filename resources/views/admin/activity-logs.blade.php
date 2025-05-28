@@ -3,14 +3,23 @@
 
     <div class="container mx-auto px-4 py-6">
 
-        <form method="GET" action="{{ route('admin.historial') }}" class="mb-6 flex justify-center">
-            <input type="date" name="date" value="{{ request('date') }}"
-                   class="border rounded p-2 shadow-sm mr-2">
-            <button type="submit"
-                    class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
-                Filtrar por fecha
-            </button>
-        </form>
+        <div class="flex justify-between items-center mb-6">
+            <form method="POST" action="{{ route('admin.logs.deleteLast') }}">
+                @csrf
+                <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm">
+                    Borrar últimos 50 logs
+                </button>
+            </form>
+
+            <form method="GET" action="{{ route('admin.historial') }}" class="flex">
+                <input type="date" name="date" value="{{ request('date') }}"
+                       class="border rounded p-2 shadow-sm mr-2">
+                <button type="submit"
+                        class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+                    Filtrar por fecha
+                </button>
+            </form>
+        </div>
 
         <div class="space-y-4">
             @forelse ($logs as $log)

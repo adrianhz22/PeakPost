@@ -57,6 +57,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/approved-posts', [AdminDashboardController::class, 'approvedPosts'])->name('admin.approvedPosts');
     Route::delete('/admin/destroy/{user}', [UserController::class, 'destroy'])->name('admin.destroy');
     Route::get('/admin/historial', [ActivityLogController::class, 'index'])->name('admin.historial');
+    Route::post('/admin/logs/delete-last', [ActivityLogController::class, 'deleteLastLogs'])->name('admin.logs.deleteLast');
+
 });
 
 Route::middleware(['auth', 'moderator'])->group(function () {
