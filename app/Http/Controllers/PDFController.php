@@ -13,6 +13,7 @@ class PDFController extends Controller
         $post = Post::findOrFail($id);
 
         $pdf = Pdf::loadView('pdfs.post', compact('post'));
+        $pdf->getDomPDF()->set_option("enable_php", true);
 
         return $pdf->download('post_' . $post->id . '.pdf');
     }

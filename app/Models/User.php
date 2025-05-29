@@ -41,6 +41,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function comments(): hasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function galleryImages(): hasMany
     {
         return $this->hasMany(GalleryImage::class);
