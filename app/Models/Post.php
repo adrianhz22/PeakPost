@@ -12,6 +12,32 @@ class Post extends Model
 {
     use hasFactory, Likeable;
 
+    protected $fillable = [
+        'title',
+        'slug',
+        'body',
+        'image',
+        'province',
+        'difficulty',
+        'longitude',
+        'altitude',
+        'duration',
+        'track',
+        'user_id',
+        'status',
+        'rejection_reason',
+    ];
+
+    public function user(): belongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function scopeSearch($query, $search = null, $sort = 'desc', $province = null, $difficulty = null)
     {
 
@@ -38,29 +64,14 @@ class Post extends Model
         return $query;
     }
 
-    public function user() : belongsTo
+    public function scopeApproved($query)
     {
-        return $this->belongsTo(User::class);
+        return $query->where('status', 'approved');
     }
 
-    public function comments(): HasMany
+    public function scopePending($query)
     {
-        return $this->hasMany(Comment::class);
+        return $query->where('status', 'pending');
     }
 
-    protected $fillable = [
-        'title',
-        'slug',
-        'body',
-        'image',
-        'province',
-        'difficulty',
-        'longitude',
-        'altitude',
-        'duration',
-        'track',
-        'user_id',
-        'status',
-        'rejection_reason',
-    ];
 }

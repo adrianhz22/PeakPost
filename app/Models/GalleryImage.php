@@ -13,4 +13,10 @@ class GalleryImage extends Model
         'status',
         'reject_reason',
     ];
+
+    public function scopePending($query)
+    {
+        return $query->where('status', 'pending');
+    }
+
 }

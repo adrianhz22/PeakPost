@@ -91,19 +91,19 @@ class AdminDashboardController extends Controller
 
     public function approvedPosts()
     {
-        $posts = Post::where('status', 'approved')->get();
+        $posts = Post::approved()->get();
         return view('admin.approvedPosts', compact('posts'));
     }
 
     public function posts()
     {
-        $posts = Post::where('status', 'pending')->get();
+        $posts = Post::pending()->get();
         return view('moderation.pending-posts', compact('posts'));
     }
 
     public function pendingImages()
     {
-        $images = GalleryImage::where('status', 'pending')->latest()->paginate(12);
+        $images = GalleryImage::pending()->latest()->paginate(12);
 
         return view('moderation.pending-images', compact('images'));
     }
