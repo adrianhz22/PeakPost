@@ -9,7 +9,7 @@
 
     <div x-show="formMode === 'create'" x-transition class="mt-4 bg-white shadow-md rounded-md p-6 max-w-2xl">
         <h2 class="text-lg font-semibold mb-4 text-gray-800">Crear nuevo post</h2>
-        <form wire:submit.prevent="createPost" class="space-y-4">
+        <form wire:submit.prevent="createPost" enctype="multipart/form-data" class="space-y-4">
             <div>
                 <label class="block text-sm font-medium text-gray-700">Título</label>
                 <input wire:model.defer="title" type="text"
@@ -18,20 +18,32 @@
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700">Contenido</label>
-                <textarea wire:model.defer="body"
-                          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
-                @error('body') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                <x-trix-editor
+                    name="body"
+                    wire:model.defer="body"
+                />
+                @error('body')
+                <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700">Provincia</label>
-                <input wire:model.defer="province" type="text"
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                <x-select
+                    name="province"
+                    label="Provincia"
+                    :options="['' => 'Selecciona una provincia'] + $provinces"
+                    wire:model.defer="province"
+                    required
+                />
                 @error('province') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700">Dificultad</label>
-                <input wire:model.defer="difficulty" type="text"
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                <x-select
+                    name="difficulty"
+                    label="Dificultad"
+                    :options="['' => 'Selecciona una dificultad'] + $difficulties"
+                    wire:model.defer="difficulty"
+                    required
+                />
                 @error('difficulty') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
             </div>
             <div>
@@ -50,18 +62,18 @@
                 <label class="block text-sm font-medium text-gray-700">Duración</label>
                 <div class="flex space-x-2">
                     <div class="flex-1">
-                        <input wire:model.defer="durationHours" type="number" min="0"
+                        <input wire:model.defer="duration_hours" type="number" min="0"
                                placeholder="Horas"
                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                     </div>
                     <div class="flex-1">
-                        <input wire:model.defer="durationMinutes" type="number" min="0" max="59"
+                        <input wire:model.defer="duration_minutes" type="number" min="0" max="59"
                                placeholder="Minutos"
                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                     </div>
                 </div>
-                @error('durationHours') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
-                @error('durationMinutes') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                @error('duration_hours') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                @error('duration_minutes') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
             </div>
 
             <div>
@@ -86,7 +98,7 @@
         <div x-show="formMode === 'edit'" x-transition
              class="mt-4 bg-yellow-50 border border-yellow-200 shadow-md rounded-md p-6 max-w-2xl mx-auto">
             <h2 class="text-lg font-semibold mb-4 text-yellow-800">Editar post</h2>
-            <form wire:submit.prevent="updatePost" class="space-y-4">
+            <form wire:submit.prevent="updatePost" enctype="multipart/form-data" class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Título</label>
                     <input wire:model.defer="title" type="text"
@@ -95,21 +107,29 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Contenido</label>
-                    <textarea wire:model.defer="body"
-                              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+                    <x-trix-editor name="body" wire:model.defer="body" />
                     @error('body') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Provincia</label>
-                    <input wire:model.defer="province" type="text"
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                    <x-select
+                        name="province"
+                        label="Provincia"
+                        :options="['' => 'Selecciona una provincia'] + $provinces"
+                        wire:model.defer="province"
+                        required
+                    />
                     @error('province') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Dificultad</label>
-                    <input wire:model.defer="difficulty" type="text"
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                    <x-select
+                        name="difficulty"
+                        label="Dificultad"
+                        :options="['' => 'Selecciona una dificultad'] + $difficulties"
+                        wire:model.defer="difficulty"
+                        required
+                    />
                     @error('difficulty') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Longitud</label>
@@ -125,10 +145,20 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Duración</label>
-                    <input wire:model.defer="time" type="text"
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                    @error('time') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                    <div class="flex space-x-2">
+                        <div class="flex-1">
+                            <input wire:model.defer="duration_hours" type="number" min="0" placeholder="Horas"
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        </div>
+                        <div class="flex-1">
+                            <input wire:model.defer="duration_minutes" type="number" min="0" max="59" placeholder="Minutos"
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        </div>
+                    </div>
+                    @error('duration_hours') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                    @error('duration_minutes') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
+
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Imagen</label>
                     <input wire:model="image" type="file"

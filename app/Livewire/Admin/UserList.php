@@ -53,6 +53,9 @@ class UserList extends Component
 
     public function updateUser()
     {
+
+        $this->validate(UserRequest::creationRules());
+
         $user = User::findOrFail($this->editingUserId);
 
         if ($this->password) {

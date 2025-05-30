@@ -15,20 +15,28 @@ class PostList extends Component
 
     use WithFileUploads, WithPagination;
 
-    public $title, $body, $image, $province, $difficulty, $longitude, $altitude, $durationHours, $durationMinutes, $track;
+    public $title, $body, $image, $province, $provinces = [], $difficulty, $difficulties = [], $longitude, $altitude, $duration_hours, $duration_minutes, $track;
     public $editingPostId = null;
+
+    public function mount()
+    {
+        $this->provinces = config('lists.provinces');
+        $this->province = old('province', '');
+        $this->difficulties = config('lists.difficulties');
+        $this->difficulty = old('difficulty', '');
+    }
 
     public function createPost()
     {
 
         $this->validate(PostRequest::creationRules());
 
-        $imagePath = $this->image->store('posts', 'public');
+        $imagePath = $this->image->store('posts/images/', 'public');
 
         $trackPath = null;
 
         if ($this->track) {
-            $trackPath = $this->track->store('tracks', 'public');
+            $trackPath = $this->track->store('posts/tracks/', 'public');
         }
 
         Post::create([
@@ -40,7 +48,7 @@ class PostList extends Component
             'difficulty' => $this->difficulty,
             'longitude' => $this->longitude,
             'altitude' => $this->altitude,
-            'duration' => ($this->durationHours * 60) + $this->durationMinutes,
+            'duration' => ($this->duration_hours * 60) + $this->duration_minutes,
             'track' => $trackPath,
             'user_id' => auth()->id(),
             'status' => 'pending',
@@ -61,8 +69,8 @@ class PostList extends Component
         $this->difficulty = $post->difficulty;
         $this->longitude = $post->longitude;
         $this->altitude = $post->altitude;
-        $this->durationHours = floor($post->duration / 60);
-        $this->durationMinutes = floor($post->duration % 60);
+        $this->duration_hours = floor($post->duration / 60);
+        $this->duration_minutes = floor($post->duration % 60);
         $this->image = $post->image;
         $this->track = $post->track;
     }
@@ -92,14 +100,14 @@ class PostList extends Component
         $post->difficulty = $this->difficulty;
         $post->longitude = $this->longitude;
         $post->altitude = $this->altitude;
-        $post->duration = ($this->durationHours * 60) + $this->durationMinutes;
+        $post->duration = ($this->duration_hours * 60) + $this->duration_minutes;
 
         if ($this->image instanceof UploadedFile) {
-            $post->image = 'storage/' . $this->image->store('posts', 'public');
+            $post->image = '/storage/' . $this->image->store('posts/images', 'public');
         }
 
         if ($this->track instanceof UploadedFile) {
-            $post->track = $this->track->store('tracks', 'public');
+            $post->track = '/storage/' . $this->track->store('posts/tracks', 'public');
         }
 
         $post->save();
@@ -111,7 +119,7 @@ class PostList extends Component
     {
         $this->reset([
             'title', 'body', 'image', 'province', 'difficulty',
-            'longitude', 'altitude', 'durationHours', 'durationMinutes', 'track', 'editingPostId'
+            'longitude', 'altitude', 'duration_hours', 'duration_minutes', 'track', 'editingPostId'
         ]);
     }
 
@@ -123,6 +131,7 @@ class PostList extends Component
         $post->delete();
 
     }
+
     public function render()
     {
         return view('livewire.admin.post-list', [

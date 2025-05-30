@@ -4,14 +4,25 @@
     'value' => '',
 ])
 
-<div class="mb-4">
+<div class="mb-4" wire:ignore x-data x-init="
+    const trixInput = document.getElementById('{{ $name }}');
+    $watch('$wire.{{ $attributes->wire('model')->value() }}', value => trixInput.value = value);
+    document.addEventListener('trix-change', () => {
+        $wire.set('{{ $attributes->wire('model')->value() }}', trixInput.value);
+    });
+">
     @if ($label)
         <label for="{{ $name }}" class="block text-gray-700 font-medium">
             {{ $label }}
         </label>
     @endif
 
-    <input id="{{ $name }}" type="hidden" name="{{ $name }}" value="{{ $value }}">
+    <input
+        id="{{ $name }}"
+        type="hidden"
+        name="{{ $name }}"
+        value="{{ $value }}"
+    >
 
     <trix-editor
         input="{{ $name }}"
