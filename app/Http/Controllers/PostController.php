@@ -82,7 +82,7 @@ class PostController extends Controller
             'track' => $trackPath,
         ]);
 
-        dispatch(new SendNewPostEmail($post, auth()->user()->email));
+        dispatch_sync(new SendNewPostEmail($post, auth()->user()->email));
         PostCreated::dispatch($post);
 
         return redirect('home')->with('success', 'Tu post se ha enviado correctamente y está siendo revisado, para ver su estado consulta tus posts.');

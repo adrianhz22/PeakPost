@@ -63,7 +63,7 @@ class AdminDashboardController extends Controller
             'description' => "El usuario " . Auth::user()->username . " ha aprobado un post."
         ]);
 
-        dispatch_sync(new SendApprovedPostEmail($post, $post->user));
+        dispatch(new SendApprovedPostEmail($post, $post->user));
 
         return redirect()->route('moderation.pending-posts');
     }
