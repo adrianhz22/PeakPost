@@ -34,10 +34,10 @@
                     class="appearance-none border rounded-lg h-12 pl-3 pr-10 w-full dark:bg-gray-200 dark:border-gray-300 text-gray-700"
                     onchange="this.form.submit()"
                 >
-                    <option value="">Todos</option>
-                    <option value="7" {{ request('days') == 7 ? 'selected' : '' }}>Últimos 7 días</option>
-                    <option value="30" {{ request('days') == 30 ? 'selected' : '' }}>Últimos 30 días</option>
-                    <option value="90" {{ request('days') == 90 ? 'selected' : '' }}>Últimos 90 días</option>
+                    <option value="">{{ __('Everyone') }}</option>
+                    <option value="7" {{ request('days') == 7 ? 'selected' : '' }}>{{ __('Last 7 days') }}</option>
+                    <option value="30" {{ request('days') == 30 ? 'selected' : '' }}>{{ __('Last 30 days') }}</option>
+                    <option value="90" {{ request('days') == 90 ? 'selected' : '' }}>{{ __('Last 90 days') }}</option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
                     <svg class="w-4 h-4 text-gray-600 dark:text-gray-800" fill="currentColor" viewBox="0 0 20 20">

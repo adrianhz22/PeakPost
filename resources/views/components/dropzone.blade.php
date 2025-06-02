@@ -13,7 +13,7 @@
         {{ $attributes->merge(['class' => 'dropzone border-dashed border-2 border-gray-300 rounded-lg p-6 text-center bg-gray-50 min-h-[200px] flex flex-col items-center justify-center cursor-pointer']) }}>
         <div class="dz-message text-gray-500 flex flex-col items-center">
             <i class="fas fa-upload text-3xl mb-2"></i>
-            <span class="text-sm">Arrastra una imagen aqui o haz clic para seleccionar</span>
+            <span class="text-sm">{{ __('Drag an image here or click to select') }}</span>
         </div>
     </label>
 

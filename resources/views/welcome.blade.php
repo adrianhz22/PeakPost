@@ -14,7 +14,7 @@
     <div class="absolute inset-0 bg-black bg-opacity-60"></div>
     <div class="relative flex flex-col justify-center items-center h-full text-center text-white px-6">
         <h1 class="text-5xl font-extrabold mb-4">{{ __('Welcome to') }} <span class="text-blue-400">PeakPost</span></h1>
-        <p class="text-lg text-gray-300 max-w-2xl">Descubre, comparte y documenta tus mejores aventuras en la montaña.</p>
+        <p class="text-lg text-gray-300 max-w-2xl">{{ __('Discover, share, and document your best adventures in the mountains.') }}</p>
         <div class="mt-8 space-x-4">
             <a href="{{ route('login') }}"
                class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition">
@@ -30,10 +30,9 @@
 
 <section class="py-16 bg-white text-gray-700">
     <div class="max-w-5xl mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">Sobre Nosotros</h2>
+        <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">{{ __('About Us') }}</h2>
         <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto">
-            PeakPost es una plataforma diseñada para los amantes de la montaña y la aventura. Comparte tus
-            experiencias, encuentra nuevas rutas y conecta con otros exploradores como tú.
+            {{ __('PeakPost is a platform designed for mountain and adventure lovers. Share your experiences, find new routes, and connect with other explorers like you.') }}
         </p>
     </div>
 </section>
@@ -42,24 +41,24 @@
     <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-3 gap-8">
 
         <div class="bg-white shadow-lg rounded-lg p-6 text-center">
-            <h3 class="text-2xl font-bold text-gray-800">Explora Nuevas Rutas</h3>
-            <p class="text-gray-600 mt-2">Encuentra senderos increíbles y aventúrate en nuevas experiencias.</p>
+            <h3 class="text-2xl font-bold text-gray-800">{{ __('Explore New Routes') }}</h3>
+            <p class="text-gray-600 mt-2">{{ __('Find incredible trails and venture into new experiences.') }}</p>
         </div>
 
         <div class="bg-white shadow-lg rounded-lg p-6 text-center">
-            <h3 class="text-2xl font-bold text-gray-800">Comparte tu Experiencia</h3>
-            <p class="text-gray-600 mt-2">Publica fotos y relatos de tus excursiones favoritas.</p>
+            <h3 class="text-2xl font-bold text-gray-800">{{ __('Share your experience') }}</h3>
+            <p class="text-gray-600 mt-2">{{ __('Post photos and stories of your favorite excursions.') }}</p>
         </div>
 
         <div class="bg-white shadow-lg rounded-lg p-6 text-center">
-            <h3 class="text-2xl font-bold text-gray-800">Conéctate con la Comunidad</h3>
-            <p class="text-gray-600 mt-2">Únete a otros aventureros y descubre nuevas historias.</p>
+            <h3 class="text-2xl font-bold text-gray-800">{{ __('Connect with the Community') }}</h3>
+            <p class="text-gray-600 mt-2">{{ __('Join other adventurers and discover new stories.') }}</p>
         </div>
     </div>
 </section>
 
 <footer class="py-8 bg-gray-900 text-white text-center">
-    <p class="text-gray-400">&copy; 2025 PeakPost. Todos los derechos reservados.</p>
+    <p class="text-gray-400">&copy; 2025 PeakPost. {{ __('All rights reserved.') }}</p>
 </footer>
 
 </body>

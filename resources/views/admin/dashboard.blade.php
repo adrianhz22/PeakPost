@@ -4,7 +4,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div class="bg-white rounded-2xl shadow-lg p-6 flex items-center justify-between">
             <div>
-                <h2 class="text-lg font-semibold text-gray-700">Total de Posts</h2>
+                <h2 class="text-lg font-semibold text-gray-700">{{ __('Total posts') }}</h2>
                 <p class="text-3xl font-bold text-blue-600 mt-2">{{ $totalPosts }}</p>
             </div>
             <div class="bg-blue-100 text-blue-600 p-4 rounded-full">
@@ -18,7 +18,7 @@
 
         <div class="bg-white rounded-2xl shadow-lg p-6 flex items-center justify-between">
             <div>
-                <h2 class="text-lg font-semibold text-gray-700">Posts Pendientes</h2>
+                <h2 class="text-lg font-semibold text-gray-700">{{ __('Pending posts') }}</h2>
                 <p class="text-3xl font-bold text-yellow-500 mt-2">{{ $pendingPosts }}</p>
             </div>
             <div class="bg-yellow-100 text-yellow-500 p-4 rounded-full">
@@ -32,7 +32,7 @@
 
         <div class="bg-white rounded-2xl shadow-lg p-6 flex items-center justify-between">
             <div>
-                <h2 class="text-lg font-semibold text-gray-700">Posts Rechazados</h2>
+                <h2 class="text-lg font-semibold text-gray-700">{{ __('Rejected posts') }}</h2>
                 <p class="text-3xl font-bold text-red-600 mt-2">{{ $rejectedPosts }}</p>
             </div>
             <div class="bg-red-100 text-red-600 p-4 rounded-full">
@@ -46,7 +46,7 @@
 
         <div class="bg-white rounded-2xl shadow-lg p-6 flex items-center justify-between">
             <div>
-                <h2 class="text-lg font-semibold text-gray-700">Total de Usuarios</h2>
+                <h2 class="text-lg font-semibold text-gray-700">{{ __('Total users') }}</h2>
                 <p class="text-3xl font-bold text-green-600 mt-2">{{ $totalUsers }}</p>
             </div>
             <div class="bg-green-100 text-green-600 p-4 rounded-full">
@@ -62,7 +62,7 @@
     </div>
 
     <div class="bg-white rounded-2xl shadow-lg p-6 mt-10">
-        <h2 class="text-xl font-semibold mb-4 text-center">Estado de los Posts</h2>
+        <h2 class="text-xl font-semibold mb-4 text-center">{{ __('Status of the posts') }}</h2>
         <canvas id="postsChart" height="100"></canvas>
     </div>
 

@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="container mx-auto mt-10 px-4">
-        <h1 class="text-3xl font-bold text-center mb-6">{{ __('Mis likes') }}</h1>
+        <h1 class="text-3xl font-bold text-center mb-6">{{ __('My likes') }}</h1>
 
         @if($likedPosts->count() > 0)
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -24,11 +24,11 @@
                      class="mx-auto w-60 h-auto">
 
                 <p class="text-gray-600 text-lg mb-4">
-                    No has dado like a ningún post aún. ¡Explora y da like a algunos!
+                    {{ __('You haven´t liked any posts yet. Explore and like some!') }}
                 </p>
                 <a href="{{ route('posts.index') }}"
                    class="bg-blue-500 text-white px-6 py-2 rounded-3xl hover:bg-blue-600 transition duration-300">
-                    Explorar posts
+                    {{ __('Explore posts') }}
                 </a>
             </div>
         @endif

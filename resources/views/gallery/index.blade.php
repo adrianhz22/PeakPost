@@ -1,10 +1,10 @@
 <x-app-layout>
     <div class="max-w-6xl mx-auto py-8 px-4">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">Galería de imágenes</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">{{ __('Image gallery') }}</h2>
 
         <button id="toggleFormBtn"
                 class="mb-4 text-sm bg-gray-100 text-gray-700 px-4 py-1.5 rounded hover:bg-gray-200 transition focus:outline-none">
-            + Subir imagen
+            {{ __('+ Upload image') }}
         </button>
 
         <form id="uploadForm"
@@ -18,7 +18,7 @@
                        class="text-sm border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-400 w-full sm:w-64">
                 <button type="submit"
                         class="bg-indigo-500 text-white text-sm px-4 py-1.5 rounded hover:bg-indigo-600 transition w-full sm:w-auto">
-                    Subir
+                    {{ __('Upload') }}
                 </button>
             </div>
         </form>

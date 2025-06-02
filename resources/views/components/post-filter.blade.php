@@ -33,22 +33,22 @@
                         @click="open = !open"
                         class="text-sm px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md shadow transition"
                     >
-                        <span x-show="!open">{{ __('Mostrar filtros') }}</span>
-                        <span x-show="open">{{ __('Ocultar filtros') }}</span>
+                        <span x-show="!open">{{ __('Show filters') }}</span>
+                        <span x-show="open">{{ __('Hide filters') }}</span>
                     </button>
                 </div>
             </div>
         </div>
 
         <div x-show="open" x-transition class="bg-white dark:bg-gray-100 p-6 rounded-lg shadow-md space-y-4">
-            <h2 class="text-xl font-semibold mb-2 text-gray-700">{{ __('Filtros') }}</h2>
+            <h2 class="text-xl font-semibold mb-2 text-gray-700">{{ __('Filters') }}</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <div>
                     <label for="province"
-                           class="block text-sm font-medium text-gray-600 mb-1">{{ __('Provincia') }}</label>
+                           class="block text-sm font-medium text-gray-600 mb-1">{{ __('Provinces') }}</label>
                     <select name="province" id="province"
                             class="w-full h-12 border rounded-lg px-4 pr-10 shadow-sm dark:bg-gray-200 dark:border-gray-300 dark:text-gray-800">
-                        <option value="">{{ __('Todas las provincias') }}</option>
+                        <option value="">{{ __('All the provinces') }}</option>
                         @foreach($provinces as $prov)
                             <option value="{{ $prov }}" @selected(request('province') === $prov)>{{ $prov }}</option>
                         @endforeach
@@ -57,10 +57,10 @@
 
                 <div>
                     <label for="difficulty"
-                           class="block text-sm font-medium text-gray-600 mb-1">{{ __('Dificultad') }}</label>
+                           class="block text-sm font-medium text-gray-600 mb-1">{{ __('Difficulty') }}</label>
                     <select name="difficulty" id="difficulty"
                             class="w-full h-12 border rounded-lg px-4 pr-10 shadow-sm dark:bg-gray-200 dark:border-gray-300 dark:text-gray-800">
-                        <option value="">{{ __('Todas las dificultades') }}</option>
+                        <option value="">{{ __('All the difficulties') }}</option>
                         @foreach($difficulties as $difficulty)
                             <option
                                 value="{{ $difficulty }}" @selected(request('difficulty') === $difficulty)>{{ $difficulty }}</option>
@@ -70,12 +70,12 @@
 
                 <div>
                     <label for="sort"
-                           class="block text-sm font-medium text-gray-600 mb-1">{{ __('Ordenar por') }}</label>
+                           class="block text-sm font-medium text-gray-600 mb-1">{{ __('Sort by') }}</label>
                     <select name="sort" id="sort"
                             class="w-full h-12 border rounded-lg px-4 pr-10 shadow-sm dark:bg-gray-200 dark:border-gray-300 dark:text-gray-800">
-                        <option value="desc" @selected(request('sort') === 'desc')>{{ __('Más recientes') }}</option>
+                        <option value="desc" @selected(request('sort') === 'desc')>{{ __('More recent') }}</option>
                         <option
-                            value="popular" @selected(request('sort') === 'popular')>{{ __('Más populares') }}</option>
+                            value="popular" @selected(request('sort') === 'popular')>{{ __('More popular') }}</option>
                     </select>
                 </div>
             </div>

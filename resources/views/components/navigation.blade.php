@@ -7,13 +7,13 @@
         <ul class="flex space-x-4 items-center">
 
             <li>
-                <a href="{{ route('home') }}" class="text-base font-medium hover:text-blue-400">Inicio</a>
+                <a href="{{ route('home') }}" class="text-base font-medium hover:text-blue-400">{{ __('Home') }}</a>
             </li>
             <li>
-                <a href="{{ route('gallery.index') }}" class="text-base font-medium hover:text-blue-400">Galeria</a>
+                <a href="{{ route('gallery.index') }}" class="text-base font-medium hover:text-blue-400">{{ __('Gallery') }}</a>
             </li>
             <li>
-                <a href="{{ route('users.index') }}" class="text-base font-medium hover:text-blue-400">Comunidad</a>
+                <a href="{{ route('users.index') }}" class="text-base font-medium hover:text-blue-400">{{ __('Community') }}</a>
             </li>
 
             @auth

@@ -2,7 +2,7 @@
     <div class="py-12">
         <div class="max-w-4xl mx-auto px-4">
             <div class="bg-white shadow-lg rounded-lg p-8">
-                <h1 class="text-2xl font-semibold mb-6 text-center">Buscar usuarios</h1>
+                <h1 class="text-2xl font-semibold mb-6 text-center">{{ __('Search users') }}</h1>
 
                 <form action="{{ route('users.index') }}" method="GET" class="mb-8">
                     <div class="flex gap-2">
@@ -15,7 +15,7 @@
                         >
                         <button type="submit"
                                 class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                            Buscar
+                            {{ __('Search') }}
                         </button>
                     </div>
                 </form>
@@ -40,7 +40,7 @@
                         {{ $users->withQueryString()->links() }}
                     </div>
                 @else
-                    <p class="text-gray-600 text-center">No se encontraron usuarios.</p>
+                    <p class="text-gray-600 text-center">{{ __('No users were found.') }}</p>
                 @endif
             </div>
         </div>

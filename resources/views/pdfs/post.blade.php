@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
-    <title>Descarga</title>
+    <title>{{ __('pdf.Download') }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <style>
-
         body {
             font-family: 'Roboto', Arial, sans-serif;
             margin: 30px 40px;
@@ -121,57 +120,55 @@
 
 <div class="header">
     <h1>{{ $post->title }}</h1>
-    <p>Información detallada sobre la ruta y recomendaciones para excursionistas</p>
+    <p>{{ __('pdf.Detailed information about the route and recommendations for hikers') }}</p>
 </div>
 
-<h2 class="section-title">Datos Generales</h2>
+<h2 class="section-title">{{ __('pdf.General Information') }}</h2>
 <table class="content-table">
     <tr>
-        <th>Ubicación</th>
+        <th>{{ __('pdf.Location') }}</th>
         <td>{{ $post->province }}</td>
     </tr>
     <tr>
-        <th>Longitud del recorrido</th>
+        <th>{{ __('pdf.Route Length') }}</th>
         <td>{{ $post->longitude }} km</td>
     </tr>
     <tr>
-        <th>Altitud máxima</th>
+        <th>{{ __('pdf.Maximum Altitude') }}</th>
         <td>{{ $post->altitude }} m</td>
     </tr>
     <tr>
-        <th>Tiempo estimado</th>
+        <th>{{ __('pdf.Estimated Time') }}</th>
         <td>
             {{ floor($post->duration / 60) > 0 ? floor($post->duration / 60) . ' h ' : '' }}
-            {{ $post->duration % 60 }} min
+            {{ $post->duration % 60 }} {{ __('pdf.min') }}
         </td>
     </tr>
     <tr>
-        <th>Nivel de dificultad</th>
+        <th>{{ __('pdf.Difficulty Level') }}</th>
         <td>{{ $post->difficulty }}</td>
     </tr>
 </table>
 
-<h2 class="section-title">Descripción de la Ruta</h2>
+<h2 class="section-title">{{ __('pdf.Route Description') }}</h2>
 <p class="description">{!! $post->body !!}</p>
 
-<h2 class="section-title">Recomendaciones</h2>
+<h2 class="section-title">{{ __('pdf.Recommendations') }}</h2>
 <ul class="recommendations">
-    <li>Usar ropa y calzado adecuados para senderismo en alta montaña.</li>
-    <li>Consultar la previsión meteorológica antes de la excursión.</li>
-    <li>Portar suficiente agua y alimentos energéticos.</li>
-    <li>Respetar el entorno natural y seguir las normativas del Parque Nacional.</li>
-    <li>En caso de niebla o mal tiempo, evitar continuar el ascenso.</li>
+    <li>{{ __('pdf.Wear appropriate clothing and footwear for high mountain hiking.') }}</li>
+    <li>{{ __('pdf.Check the weather forecast before the hike.') }}</li>
+    <li>{{ __('pdf.Carry enough water and energy food.') }}</li>
+    <li>{{ __('pdf.Respect the natural environment and follow National Park regulations.') }}</li>
+    <li>{{ __('pdf.Avoid continuing the ascent in case of fog or bad weather.') }}</li>
 </ul>
 
-<h2 class="section-title">Seguridad y Normativas</h2>
-<p class="safety">Para garantizar una excursión segura, se recomienda informar a alguien sobre la ruta antes de partir y
-    llevar un teléfono móvil con batería suficiente. Se aconseja ir acompañado y portar un botiquín básico. Es
-    importante conocer la previsión meteorológica, ya que las condiciones pueden cambiar rápidamente. En caso de
-    emergencia, contactar con los servicios de rescate llamando al 112 y, si es posible, proporcionar coordenadas
-    exactas de la ubicación.</p>
+<h2 class="section-title">{{ __('pdf.Safety and Regulations') }}</h2>
+<p class="safety">
+    {{ __('pdf.To ensure a safe hike, it is recommended to inform someone about your route before departure and carry a mobile phone with sufficient battery. It is advisable to go accompanied and carry a basic first aid kit. Knowing the weather forecast is important as conditions can change rapidly. In case of emergency, contact rescue services by calling 112 and, if possible, provide exact location coordinates.') }}
+</p>
 
 <div class="footer">
-    <p>Documento elaborado por {{ $post->user->name }} - PeakPost | Fecha: {{ date('d/m/Y') }}</p>
+    <p>{{ __('pdf.Document prepared by') }} {{ $post->user->name }} - PeakPost | {{ __('pdf.Date') }}: {{ date('d/m/Y') }}</p>
 </div>
 
 <script type="text/php">
@@ -187,3 +184,4 @@
 
 </body>
 </html>
+

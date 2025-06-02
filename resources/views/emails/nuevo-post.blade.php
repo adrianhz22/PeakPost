@@ -1,3 +1,3 @@
-<h1>¡Hemos recibido tu nuevo post!</h1>
-<p>Tu post está siendo revisado por nuestro equipo, mientras tanto puedes visualizar tu publicación en la sección de "Mis Posts".</p>
-<p>¡Gracias por tu paciencia montañer@!</p>
+<h1>{{ __('We have received your new post!') }}</h1>
+<p>{{ __('Your post is being reviewed by our team. Meanwhile, you can view your publication in the "My Posts" section.') }}</p>
+<p>{{ __('Thank you for your patience, mountaineer!') }}</p>

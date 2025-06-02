@@ -40,7 +40,7 @@
         <p>©2025 {{ __('All rights reserved.') }} PeakPost</p>
         <p>
             <a href="{{ route('terms.pdf') }}" class="text-blue-600 hover:underline">
-                Términos y Condiciones
+                {{ __('Terms and Conditions') }}
             </a>
         </p>
 

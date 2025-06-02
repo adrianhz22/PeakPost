@@ -8,7 +8,7 @@
             @csrf
             @method('PUT')
             @include('posts.form-fields', ['post' => $post])
-            <x-button>{{ __('Save changes') }}</x-button>
+            <x-button>{{ __('Save Changes') }}</x-button>
         </form>
 
         <div class="text-center mt-6">

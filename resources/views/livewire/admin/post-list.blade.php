@@ -3,21 +3,21 @@
 
     <button @click="formMode = formMode === 'create' ? null : 'create'; $wire.resetForm()"
             class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 mb-6">
-        <span x-show="formMode !== 'create'">Crear nuevo post</span>
-        <span x-show="formMode === 'create'">Cerrar formulario</span>
+        <span x-show="formMode !== 'create'">{{ __('Create new post') }}</span>
+        <span x-show="formMode === 'create'">{{ __('Close form') }}</span>
     </button>
 
     <div x-show="formMode === 'create'" x-transition class="mt-4 bg-white shadow-md rounded-md p-6 max-w-2xl">
-        <h2 class="text-lg font-semibold mb-4 text-gray-800">Crear nuevo post</h2>
+        <h2 class="text-lg font-semibold mb-4 text-gray-800">{{ __('Create new post') }}</h2>
         <form wire:submit.prevent="createPost" enctype="multipart/form-data" class="space-y-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700">Título</label>
+                <label class="block text-sm font-medium text-gray-700">{{ __('Title') }}</label>
                 <input wire:model.defer="title" type="text"
                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                 @error('title') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700">Contenido</label>
+                <label class="block text-sm font-medium text-gray-700">{{ __('Content') }}</label>
                 <x-trix-editor
                     name="body"
                     wire:model.defer="body"
@@ -30,7 +30,7 @@
                 <x-select
                     name="province"
                     label="Provincia"
-                    :options="['' => 'Selecciona una provincia'] + $provinces"
+                    :options="['' => __('Select a province')] + $provinces"
                     wire:model.defer="province"
                     required
                 />
@@ -40,26 +40,26 @@
                 <x-select
                     name="difficulty"
                     label="Dificultad"
-                    :options="['' => 'Selecciona una dificultad'] + $difficulties"
+                    :options="['' => __('Select a difficulty')] + $difficulties"
                     wire:model.defer="difficulty"
                     required
                 />
                 @error('difficulty') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700">Longitud</label>
+                <label class="block text-sm font-medium text-gray-700">{{ __('Longitude') }}</label>
                 <input wire:model.defer="longitude" type="number"
                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                 @error('longitude') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700">Altitud</label>
+                <label class="block text-sm font-medium text-gray-700">{{ __('Altitude') }}</label>
                 <input wire:model.defer="altitude" type="number"
                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                 @error('altitude') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700">Duración</label>
+                <label class="block text-sm font-medium text-gray-700">{{ __('Duration') }}</label>
                 <div class="flex space-x-2">
                     <div class="flex-1">
                         <input wire:model.defer="duration_hours" type="number" min="0"
@@ -77,19 +77,19 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700">Imagen</label>
+                <label class="block text-sm font-medium text-gray-700">{{ __('Image') }}</label>
                 <input wire:model="image" type="file"
                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                 @error('image') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700">Track</label>
+                <label class="block text-sm font-medium text-gray-700">{{ __('Track') }}</label>
                 <input wire:model="track" type="file"
                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                 @error('track') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
             </div>
             <button type="submit" class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
-                Crear post
+                {{ __('Create post') }}
             </button>
         </form>
     </div>
@@ -97,16 +97,16 @@
     @if($editingPostId)
         <div x-show="formMode === 'edit'" x-transition
              class="mt-4 bg-yellow-50 border border-yellow-200 shadow-md rounded-md p-6 max-w-2xl mx-auto">
-            <h2 class="text-lg font-semibold mb-4 text-yellow-800">Editar post</h2>
+            <h2 class="text-lg font-semibold mb-4 text-yellow-800">{{ __('Edit post') }}</h2>
             <form wire:submit.prevent="updatePost" enctype="multipart/form-data" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Título</label>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('Title') }}</label>
                     <input wire:model.defer="title" type="text"
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                     @error('title') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Contenido</label>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('Content') }}</label>
                     <x-trix-editor name="body" wire:model.defer="body" />
                     @error('body') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
@@ -114,7 +114,7 @@
                     <x-select
                         name="province"
                         label="Provincia"
-                        :options="['' => 'Selecciona una provincia'] + $provinces"
+                        :options="['' => __('Select a province')] + $provinces"
                         wire:model.defer="province"
                         required
                     />
@@ -124,7 +124,7 @@
                     <x-select
                         name="difficulty"
                         label="Dificultad"
-                        :options="['' => 'Selecciona una dificultad'] + $difficulties"
+                        :options="['' => __('Select a difficulty')] + $difficulties"
                         wire:model.defer="difficulty"
                         required
                     />
@@ -132,19 +132,19 @@
 
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Longitud</label>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('Longitude') }}</label>
                     <input wire:model.defer="longitude" type="number"
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                     @error('longitude') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Altitud</label>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('Altitude') }}</label>
                     <input wire:model.defer="altitude" type="number"
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                     @error('altitude') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Duración</label>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('Duration') }}</label>
                     <div class="flex space-x-2">
                         <div class="flex-1">
                             <input wire:model.defer="duration_hours" type="number" min="0" placeholder="Horas"
@@ -160,24 +160,24 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Imagen</label>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('Image') }}</label>
                     <input wire:model="image" type="file"
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                     @error('image') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Track</label>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('Track') }}</label>
                     <input wire:model="track" type="file"
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                     @error('track') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
                 <div class="flex space-x-2">
                     <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700">
-                        Actualizar post
+                        {{ __('Update post') }}
                     </button>
                     <button type="button" wire:click="resetForm" @click="formMode = null"
                             class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
-                        Cancelar
+                        {{ __('Cancel') }}
                     </button>
                 </div>
             </form>
@@ -194,8 +194,8 @@
                         {{ $post->title }}
                     </a>
                     <div class="text-gray-600 mt-2 flex items-center space-x-4">
-                        <p><strong>Autor:</strong> {{ $post->user->name }}</p>
-                        <p><strong>Fecha:</strong> {{ $post->created_at->format('d/m/Y') }}</p>
+                        <p><strong>{{ __('Author:') }}</strong> {{ $post->user->name }}</p>
+                        <p><strong>{{ __('Date:') }}</strong> {{ $post->created_at->format('d/m/Y') }}</p>
                     </div>
                     <p class="text-gray-700 mt-4">{!! Str::limit(strip_tags($post->body), 150) !!}</p>
 
@@ -211,11 +211,11 @@
                              class="absolute right-0 mt-2 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                             <button wire:click="editPost({{ $post->id }})" @click="formMode = 'edit'"
                                     class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                Editar
+                                {{ __('Edit') }}
                             </button>
                             <button wire:click="deletePost({{ $post->id }})"
                                     class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100">
-                                Eliminar
+                                {{ __('Delete') }}
                             </button>
                         </div>
                     </div>
@@ -227,7 +227,7 @@
         </div>
 
     @else
-        <p class="text-center text-gray-500">No hay posts disponibles.</p>
+        <p class="text-center text-gray-500">{{ __('There are no posts available.') }}</p>
     @endif
 
 </div>

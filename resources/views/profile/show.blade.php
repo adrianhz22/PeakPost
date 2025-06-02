@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mi perfil</title>
+    <title>{{ __('My profile') }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -35,27 +35,27 @@
         </form>
 
         <div class="flex-1">
-            <h1 class="text-3xl font-bold text-gray-800 mb-4">Mi perfil</h1>
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ __('My profile') }}</h1>
             <div class="space-y-3 text-gray-700 text-base">
-                <p><span class="font-semibold">Nombre completo:</span> {{ $user->name }} {{ $user->last_name }}</p>
-                <p><span class="font-semibold">Usuario:</span> {{ $user->username }}</p>
-                <p><span class="font-semibold">Correo:</span> {{ $user->email }}</p>
-                <p><span class="font-semibold">Miembro desde:</span> {{ $user->created_at->format('d/m/Y') }}</p>
-                <p><span class="font-semibold">Likes recibidos:</span> {{ $user->total_likes }}</p>
+                <p><span class="font-semibold">{{ __('Name:') }}</span> {{ $user->name }} {{ $user->last_name }}</p>
+                <p><span class="font-semibold">{{ __('Username:') }}</span> {{ $user->username }}</p>
+                <p><span class="font-semibold">{{ __('Email:') }}</span> {{ $user->email }}</p>
+                <p><span class="font-semibold">{{ __('Member since:') }}</span> {{ $user->created_at->format('d/m/Y') }}</p>
+                <p><span class="font-semibold">{{ __('Likes received:') }}</span> {{ $user->total_likes }}</p>
             </div>
 
             <div class="mt-6">
                 <a href="{{ route('profile.edit') }}"
                    class="inline-flex items-center px-5 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition shadow-sm">
                     <i data-lucide="settings" class="w-4 h-4 mr-2"></i>
-                    Editar perfil
+                    {{ __('Edit profile') }}
                 </a>
             </div>
         </div>
     </div>
 
     <div class="mt-10">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Logros desbloqueados</h2>
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">{{ __('Achievements unlocked') }}</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
             @foreach($allAchievements as $achievement)
                 <div class="bg-gray-50 p-4 rounded-lg shadow text-center hover:shadow-md transition">

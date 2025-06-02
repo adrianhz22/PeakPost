@@ -13,17 +13,17 @@
                     </div>
 
                     <h1 class="text-2xl font-semibold text-center text-gray-800 mt-4">
-                        Perfil de {{ $user->username }}
+                        {{ __('Profile of') }} {{ $user->username }}
                     </h1>
 
                     <div class="flex justify-center gap-12 mt-4 text-center">
                         <div>
-                            <p class="text-gray-600 text-sm">Seguidores</p>
+                            <p class="text-gray-600 text-sm">{{ __('Followers') }}</p>
                             <a href="{{ route('users.followers', $user) }}"
                                class="text-xl font-semibold text-blue-600">{{ $followersCount }}</a>
                         </div>
                         <div>
-                            <p class="text-gray-600 text-sm">Seguidos</p>
+                            <p class="text-gray-600 text-sm">{{ __('Followed') }}</p>
                             <a href="{{ route('users.following', $user) }}"
                                class="text-xl font-semibold text-blue-600">{{ $followingCount }}</a>
                         </div>
@@ -37,7 +37,7 @@
                                     @method('DELETE')
                                     <button type="submit"
                                             class="bg-red-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-red-600">
-                                        Dejar de seguir
+                                        {{ __('Unfollow') }}
                                     </button>
                                 </form>
                             @else
@@ -45,7 +45,7 @@
                                     @csrf
                                     <button type="submit"
                                             class="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-600">
-                                        Seguir
+                                        {{ __('Follow') }}
                                     </button>
                                 </form>
                             @endif
@@ -55,16 +55,16 @@
 
                 <div class="space-y-4 text-gray-700 mb-8 text-center">
                     <p class="text-lg font-medium text-gray-800">
-                        <span class="font-semibold">Se unió el:</span> {{ $user->created_at->format('d/m/Y') }}
+                        <span class="font-semibold">{{ __('Joined on:') }}</span> {{ $user->created_at->format('d/m/Y') }}
                     </p>
 
                     <p class="text-2xl font-bold text-blue-600 mt-4">
-                        <span class="font-semibold text-gray-800">Likes recibidos:</span> {{ $user->total_likes }}
+                        <span class="font-semibold text-gray-800">{{ __('Likes received:') }}</span> {{ $user->total_likes }}
                     </p>
                 </div>
 
                 <div class="mt-8">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Logros desbloqueados</h2>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ __('Achievements unlocked') }}</h2>
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                         @foreach($allAchievements as $achievement)
                             <div class="text-center bg-gray-50 p-4 rounded-lg shadow-md">
@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="mt-8">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Publicaciones</h2>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ __('Posts') }}</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         @foreach($posts as $post)
                             <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition duration-300">

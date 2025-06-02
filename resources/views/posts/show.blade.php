@@ -12,7 +12,7 @@
                              viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
                         </svg>
-                        Aprobar
+                        {{ __('Approve') }}
                     </button>
                 </form>
                 <button
@@ -22,7 +22,7 @@
                          viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
-                    Rechazar
+                    {{ __('Reject') }}
                 </button>
             </div>
         @endif
@@ -34,7 +34,7 @@
 
             @if($post->rejection_reason)
                 <div class="mt-4 mb-4 p-2 bg-red-100 border border-red-300 rounded">
-                    <strong>Motivo del rechazo:</strong> {{ $post->rejection_reason }}
+                    <strong>{{ __('Rejection reason:') }}</strong> {{ $post->rejection_reason }}
                 </div>
             @endif
 
@@ -282,7 +282,7 @@
     <div id="rejectionModal"
          class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-[1000] hidden">
         <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Motivo del rechazo</h2>
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ __('Rejection reason:') }}</h2>
 
             <form action="{{ route('moderation.reject', $post) }}" method="POST">
                 @csrf
@@ -296,11 +296,11 @@
                     <button type="button"
                             onclick="document.getElementById('rejectionModal').classList.add('hidden')"
                             class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition">
-                        Cancelar
+                        {{ __('Cancel') }}
                     </button>
                     <button type="submit"
                             class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-800 transition">
-                        Enviar rechazo
+                        {{ __('Send rejection') }}
                     </button>
                 </div>
             </form>

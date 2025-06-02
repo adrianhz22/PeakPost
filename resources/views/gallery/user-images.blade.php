@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="max-w-6xl mx-auto py-8 px-4">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Mis imágenes subidas</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">{{ __('My uploaded images') }}</h2>
 
         @if($images->count() > 0)
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -12,9 +12,9 @@
                         <p class="mt-1 text-sm font-medium text-gray-700 text-center">{{ $image->title }}</p>
 
                         @if($image->status === 'pending')
-                            <p class="text-xs text-yellow-500 text-center mt-1">En revisión</p>
+                            <p class="text-xs text-yellow-500 text-center mt-1">{{ __('Under review') }}</p>
                         @elseif($image->status === 'rejected')
-                            <p class="text-xs text-red-500 text-center mt-1">Rechazada</p>
+                            <p class="text-xs text-red-500 text-center mt-1">{{ __('Reject') }}</p>
                             @if($image->reject_reason)
                                 <p class="text-[11px] text-gray-500 text-center">{{ $image->reject_reason }}</p>
                             @endif
@@ -25,7 +25,7 @@
                             @method('DELETE')
                             <button type="submit"
                                     class="text-sm text-red-600 hover:underline">
-                                Eliminar
+                                {{ __('Delete') }}
                             </button>
                         </form>
 
@@ -41,11 +41,11 @@
                 <img src="{{ asset('assets/not-posts.png') }}" alt="Sin imágenes"
                      class="mx-auto w-60 h-auto mb-4">
                 <p class="text-gray-600 text-lg mb-4">
-                    Vaya... Aún no has subido imágenes. ¿Por qué no comenzar ahora?
+                    {{ __('Wow... You haven´t uploaded any images yet. Why not start now?') }}
                 </p>
                 <a href="{{ route('gallery.create') }}"
                    class="bg-indigo-500 text-white px-6 py-2 rounded-3xl hover:bg-indigo-600 transition duration-300">
-                    + Subir imagen
+                    {{ __('+ Upload image') }}
                 </a>
             </div>
         @endif

@@ -20,8 +20,8 @@
                             </a>
 
                             <div class="text-gray-600 mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm">
-                                <p><strong>{{ __('Author') }}</strong> {{ $post->user->name }}</p>
-                                <p><strong>{{ __('Date') }}</strong> {{ $post->created_at->format('d/m/Y') }}</p>
+                                <p><strong>{{ __('Author:') }}</strong> {{ $post->user->name }}</p>
+                                <p><strong>{{ __('Date:') }}</strong> {{ $post->created_at->format('d/m/Y') }}</p>
                             </div>
 
                             <p class="text-gray-700 mt-4 text-sm break-words">

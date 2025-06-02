@@ -9,45 +9,45 @@
     <div x-data="{ open: false }" class="mb-6">
         <button @click="open = !open"
                 class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700">
-            <span x-show="!open">Crear nuevo usuario</span>
-            <span x-show="open">Cerrar formulario</span>
+            <span x-show="!open">{{ __('Create new user') }}</span>
+            <span x-show="open">{{ __('Close form') }}</span>
         </button>
 
         @if($editingUserId)
             <div class="mt-6 bg-white shadow-md rounded-md p-6 max-w-2xl">
-                <h2 class="text-lg font-semibold mb-4 text-gray-800">Editar usuario</h2>
+                <h2 class="text-lg font-semibold mb-4 text-gray-800">{{ __('Edit user') }}</h2>
 
                 <form wire:submit.prevent="updateUser" class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Nombre</label>
+                        <label class="block text-sm font-medium text-gray-700">{{ __('Name') }}</label>
                         <input wire:model.defer="name" type="text"
                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                         @error('name') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Apellidos</label>
+                        <label class="block text-sm font-medium text-gray-700">{{ __('Last name') }}</label>
                         <input wire:model.defer="last_name" type="text"
                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                         @error('last_name') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Nombre de usuario</label>
+                        <label class="block text-sm font-medium text-gray-700">{{ __('Username') }}</label>
                         <input wire:model.defer="username" type="text"
                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                         @error('username') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Email</label>
+                        <label class="block text-sm font-medium text-gray-700">{{ __('Email') }}</label>
                         <input wire:model.defer="email" type="email"
                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                         @error('email') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Nueva contraseña (opcional)</label>
+                        <label class="block text-sm font-medium text-gray-700">{{ __('New password (optional)') }}</label>
                         <input wire:model.defer="password" type="password"
                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                         @error('password') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
@@ -56,11 +56,11 @@
                     <div class="flex space-x-4">
                         <button type="submit"
                                 class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
-                            Guardar cambios
+                            {{ __('Save changes') }}
                         </button>
                         <button wire:click="$set('editingUserId', null)"
                                 class="bg-gray-400 text-white px-4 py-2 rounded">
-                            Cancelar
+                            {{ __('Cancel') }}
                         </button>
                     </div>
                 </form>
@@ -68,39 +68,39 @@
         @endif
 
         <div x-show="open" x-transition class="mt-4 bg-white shadow-md rounded-md p-6 max-w-2xl">
-            <h2 class="text-lg font-semibold mb-4 text-gray-800">Crear nuevo usuario</h2>
+            <h2 class="text-lg font-semibold mb-4 text-gray-800">{{ __('Create new user') }}/h2>
 
             <form wire:submit.prevent="createUser" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Nombre</label>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('Name') }}</label>
                     <input wire:model.defer="name" type="text"
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                     @error('name') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Apellidos</label>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('Last name') }}</label>
                     <input wire:model.defer="last_name" type="text"
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                     @error('last_name') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Nombre de usuario</label>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('Username') }}</label>
                     <input wire:model.defer="username" type="text"
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                     @error('username') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Email</label>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('Email') }}</label>
                     <input wire:model.defer="email" type="email"
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                     @error('email') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Contraseña</label>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('Password') }}</label>
                     <input wire:model.defer="password" type="password"
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                     @error('password') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
@@ -108,7 +108,7 @@
 
                 <button type="submit"
                         class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
-                    Crear usuario
+                    {{ __('Create user') }}
                 </button>
             </form>
         </div>
@@ -147,7 +147,7 @@
                             <div class="inline-block text-left">
                                 <button x-on:click="menu = !menu" type="button"
                                         class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none">
-                                    <span class="sr-only">Open options</span>
+                                    <span class="sr-only">{{ __('Open options') }}</span>
                                     <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                          fill="currentColor" aria-hidden="true">
                                         <path
@@ -160,7 +160,7 @@
                                     <div>
                                         <a href="{{ route('users.show', $user->username) }}"
                                            class="text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 block px-4 py-2 text-sm">
-                                            {{ __('Detail') }}
+                                            {{ __('Details') }}
                                         </a>
                                     </div>
                                     <div>
@@ -172,7 +172,7 @@
                                     <div>
                                         <button wire:click="editUser({{ $user->id }})"
                                                 class="cursor-pointer text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 block px-4 py-2 text-sm">
-                                            {{ __('Editar') }}
+                                            {{ __('Edit') }}
                                         </button>
                                     </div>
                                 </div>

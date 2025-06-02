@@ -1,7 +1,7 @@
 <x-layouts.admin-layout title="Imágenes pendientes">
 
     <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">
-        Imágenes pendientes ({{ $images->count() }})
+        {{ __('Pending images') }} ({{ $images->count() }})
     </h1>
 
     @if($images->count() > 0)
@@ -24,7 +24,7 @@
                                      viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
                                 </svg>
-                                Aprobar
+                                {{ __('Approve') }}
                             </button>
                         </form>
 
@@ -35,7 +35,7 @@
                                  viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
-                            Rechazar
+                            {{ __('Reject') }}
                         </button>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                 <div id="rejectionModal{{ $image->id }}"
                      class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-[1000] hidden">
                     <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
-                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Motivo del rechazo</h2>
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ __('Rejection reason') }}</h2>
 
                         <form action="{{ route('moderation.images.reject', $image) }}" method="POST">
                             @csrf
@@ -57,11 +57,11 @@
                                 <button type="button"
                                         onclick="document.getElementById('rejectionModal{{ $image->id }}').classList.add('hidden')"
                                         class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition">
-                                    Cancelar
+                                    {{ __('Cancel') }}
                                 </button>
                                 <button type="submit"
                                         class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-800 transition">
-                                    Enviar rechazo
+                                    {{ __('Send rejection') }}
                                 </button>
                             </div>
                         </form>
@@ -74,7 +74,7 @@
             {{ $images->links() }}
         </div>
     @else
-        <p class="text-center text-gray-500">{{ __('No hay imagenes pendientes') }}</p>
+        <p class="text-center text-gray-500">{{ __('There are no pending images') }}</p>
     @endif
 
 </x-layouts.admin-layout>

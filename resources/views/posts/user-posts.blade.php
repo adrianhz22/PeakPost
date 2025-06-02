@@ -16,9 +16,9 @@
                             <p class="text-gray-600 mt-2">{!! Str::limit(strip_tags($post->body, 100)) !!}</p>
 
                             @if($post->status == 'pending')
-                                <p class="text-yellow-500 font-semibold mt-2">En revisión</p>
+                                <p class="text-yellow-500 font-semibold mt-2">{{ __('Under review') }}</p>
                             @elseif($post->status == 'rejected')
-                                <p class="text-red-500 font-semibold mt-2">Rechazado</p>
+                                <p class="text-red-500 font-semibold mt-2">{{ __('Reject') }}</p>
                             @endif
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                      class="mx-auto w-60 h-auto">
 
                 <p class="text-gray-600 text-lg mb-4">
-                    Vaya... Parece que aún no has publicado nada. ¡¿Por qué no comenzar ahora?!
+                    {{ __('Wow... It seems that you haven´t published anything yet. Why not start now?!') }}
                 </p>
                 <a href="{{ route('posts.create') }}"
                    class="bg-blue-500 text-white px-6 py-2 rounded-3xl hover:bg-blue-600 transition duration-300">

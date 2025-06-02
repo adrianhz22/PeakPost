@@ -1,5 +1,5 @@
 <x-layouts.admin-layout title="Registro de actividad">
-    <h1 class="text-3xl font-bold mb-6 text-center">Historial de actividad</h1>
+    <h1 class="text-3xl font-bold mb-6 text-center">{{ __('Activity history') }}</h1>
 
     <div class="container mx-auto px-4 py-6">
 
@@ -7,7 +7,7 @@
             <form method="POST" action="{{ route('admin.logs.deleteLast') }}">
                 @csrf
                 <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm">
-                    Borrar últimos 50 logs
+                    {{ __('Delete the last 50 logs') }}
                 </button>
             </form>
 
@@ -16,7 +16,7 @@
                        class="border rounded p-2 shadow-sm mr-2">
                 <button type="submit"
                         class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
-                    Filtrar por fecha
+                    {{ __('Filter by date') }}
                 </button>
             </form>
         </div>
@@ -45,7 +45,7 @@
                     </div>
                 </div>
             @empty
-                <p class="text-center text-gray-500">No hay registros para este día.</p>
+                <p class="text-center text-gray-500">{{ __('There are no records for this day.') }}</p>
             @endforelse
 
             <div class="mt-6">
