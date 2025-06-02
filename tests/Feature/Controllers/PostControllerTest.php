@@ -2,6 +2,7 @@
 
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 use Spatie\Permission\Models\Role;
 
 test('authenticated user can create a post', function () {
@@ -12,12 +13,13 @@ test('authenticated user can create a post', function () {
     $data = [
         'title' => 'Nuevo post',
         'body' => 'Este es un test de prueba para comprobar que todo funcione bien',
-        'image' => 'imagen.jpg',
+        'image' => UploadedFile::fake()->image('imagen.jpg'),
         'province' => 'Murcia',
         'difficulty' => 'Moderado',
         'longitude' => 12,
         'altitude' => 2791,
-        'time' => '02:37:13',
+        'duration_hours' => 3,
+        'duration_minutes' => 50
     ];
 
     $response = $this->post(route('posts.store'), $data);
@@ -36,12 +38,13 @@ test('user can update their post', function () {
     $data = [
         'title' => 'Titulo actualizado',
         'body' => 'Este es un test de prueba para comprobar que todo funcione bien',
-        'image' => 'imagen.jpg',
+        'image' => UploadedFile::fake()->image('imagen.jpg'),
         'province' => 'Murcia',
         'difficulty' => 'Moderado',
         'longitude' => 12,
         'altitude' => 2791,
-        'time' => '02:37:13',
+        'duration_hours' => 3,
+        'duration_minutes' => 50
     ];
 
     $response = $this->put(route('posts.update', $post), $data);
@@ -110,15 +113,17 @@ test('create a post using the API', function () {
     $post = [
         'title' => 'Titulo de prueba',
         'body' => 'Contenido de prueba este post esta creado para el test',
-        'image' => 'imagen.jpg',
+        'image' => UploadedFile::fake()->image('imagen.jpg'),
         'province' => 'Granada',
         'difficulty' => 'Moderado',
         'longitude' => 14,
         'altitude' => 2612,
+        'duration_hours' => 3,
+        'duration_minutes' => 50,
         'user_id' => $user->id,
     ];
 
-    $response = $this->postJson('/api/posts', $post);
+    $response = $this->post('/api/posts', $post, ['Accept' => 'application/json']);
 
     $response->assertStatus(201);
     $this->assertDatabaseHas('posts', ['title' => 'Titulo de prueba']);
@@ -149,7 +154,6 @@ test('show detail post using the API', function () {
 });
 
 test('update a post using the API', function () {
-
     $user = User::factory()->create();
     $this->actingAs($user);
 
@@ -158,14 +162,18 @@ test('update a post using the API', function () {
     $updatedPost = [
         'title' => 'Titulo de prueba',
         'body' => 'Contenido de prueba este post esta creado para el test',
-        'image' => 'imagen.jpg',
+        'image' => UploadedFile::fake()->image('imagen.jpg'),
         'province' => 'Granada',
         'difficulty' => 'Moderado',
         'longitude' => 14,
         'altitude' => 2612,
+        'duration_hours' => 3,
+        'duration_minutes' => 50,
     ];
 
-    $response = $this->putJson("/api/posts/{$post->id}", $updatedPost);
+    $response = $this->patch("/api/posts/{$post->id}", $updatedPost, [
+        'Accept' => 'application/json',
+    ]);
 
     $response->assertStatus(200);
     $this->assertDatabaseHas('posts', ['id' => $post->id, 'title' => 'Titulo de prueba']);

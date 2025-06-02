@@ -56,7 +56,7 @@
                     <div class="flex space-x-4">
                         <button type="submit"
                                 class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
-                            {{ __('Save changes') }}
+                            {{ __('Save Changes') }}
                         </button>
                         <button wire:click="$set('editingUserId', null)"
                                 class="bg-gray-400 text-white px-4 py-2 rounded">
@@ -68,7 +68,7 @@
         @endif
 
         <div x-show="open" x-transition class="mt-4 bg-white shadow-md rounded-md p-6 max-w-2xl">
-            <h2 class="text-lg font-semibold mb-4 text-gray-800">{{ __('Create new user') }}/h2>
+            <h2 class="text-lg font-semibold mb-4 text-gray-800">{{ __('Create new user') }}</h2>
 
             <form wire:submit.prevent="createUser" class="space-y-4">
                 <div>

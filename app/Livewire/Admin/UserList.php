@@ -53,14 +53,9 @@ class UserList extends Component
 
     public function updateUser()
     {
-
-        $this->validate(UserRequest::creationRules());
+        $this->validate(UserRequest::updateRules($this->editingUserId));
 
         $user = User::findOrFail($this->editingUserId);
-
-        if ($this->password) {
-            $user->password = Hash::make($this->password);
-        }
 
         $user->update([
             'name' => $this->name,
@@ -69,8 +64,14 @@ class UserList extends Component
             'email' => $this->email,
         ]);
 
+        if ($this->password) {
+            $user->password = Hash::make($this->password);
+            $user->save();
+        }
+
         $this->editingUserId = null;
     }
+
 
     public function render()
     {

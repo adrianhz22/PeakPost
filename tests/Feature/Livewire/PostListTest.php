@@ -20,7 +20,8 @@ it('can create a post', function () {
         ->set('difficulty', 'Moderado')
         ->set('longitude', '23.56')
         ->set('altitude', '1234')
-        ->set('time', '04:17:40')
+        ->set('duration_hours', '12')
+        ->set('duration_minutes', '40')
         ->set('image', $image)
         ->call('createPost')
         ->assertHasNoErrors();

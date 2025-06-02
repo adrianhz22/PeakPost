@@ -19,6 +19,12 @@ class PostRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+
+    public function rules() : array
+    {
+        return self::creationRules();
+    }
+
     public static function creationRules(): array
     {
         return [

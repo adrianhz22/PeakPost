@@ -34,7 +34,7 @@ test('moderators can access pending-show', function () {
 
     $post = Post::factory()->create();
 
-    $response = $this->actingAs($moderator)->get(route('moderation.pending-show', $post));
+    $response = $this->actingAs($moderator)->get(route('moderation.show', $post));
 
     $response->assertStatus(200);
 });

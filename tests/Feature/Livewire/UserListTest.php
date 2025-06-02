@@ -21,24 +21,28 @@ it('can create a user', function () {
 });
 
 it('can update a user', function () {
-
     $user = User::factory()->create([
+        'name' => 'Test',
+        'last_name' => 'User',
         'username' => 'testuser',
         'email' => 'test@example.com',
     ]);
 
     Livewire::test(UserList::class)
         ->call('editUser', $user->id)
+        ->set('name', $user->name)
+        ->set('last_name', $user->last_name)
         ->set('username', 'nuevo_usuario')
         ->set('email', 'nuevo@email.com')
-        ->call('updateUser');
+        ->call('updateUser')
+        ->assertHasNoErrors();
 
-    $this->assertDatabaseHas('users', [
-        'id' => $user->id,
-        'username' => 'nuevo_usuario',
-        'email' => 'nuevo@email.com',
-    ]);
+    $user->refresh();
+
+    $this->assertEquals('nuevo_usuario', $user->username);
+    $this->assertEquals('nuevo@email.com', $user->email);
 });
+
 
 it('can delete a user', function () {
 

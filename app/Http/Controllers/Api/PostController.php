@@ -50,23 +50,39 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
+        $imagePath = null;
+        $trackPath = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('posts/images', 'public');
+        }
+
+        if ($request->hasFile('track')) {
+            $trackPath = $request->file('track')->store('posts/tracks', 'public');
+        }
+
+        $hours = (int)$request->input('duration_hours', 0);
+        $minutes = (int)$request->input('duration_minutes', 0);
+        $totalDuration = ($hours * 60) + $minutes;
+
         $post = Post::create([
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'body' => $request->body,
-            'image' => $request->image,
+            'image' => $imagePath,
             'province' => $request->province,
             'difficulty' => $request->difficulty,
             'longitude' => $request->longitude,
             'altitude' => $request->altitude,
-            'time' => $request->time,
-            'track' => $request->track,
+            'duration' => $totalDuration,
+            'track' => $trackPath,
             'user_id' => auth()->id(),
             'status' => 'pending',
         ]);
 
         return response()->json($post, 201);
     }
+
 
     /**
      * @OA\Get(
@@ -120,7 +136,31 @@ class PostController extends Controller
     public function update(PostRequest $request, Post $post)
     {
         $this->authorize('update', $post);
-        $post->update($request->all());
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('posts/images', 'public');
+            $post->image = $imagePath;
+        }
+
+        if ($request->hasFile('track')) {
+            $trackPath = $request->file('track')->store('posts/tracks', 'public');
+            $post->track = $trackPath;
+        }
+
+        $hours = (int)$request->input('duration_hours', 0);
+        $minutes = (int)$request->input('duration_minutes', 0);
+        $totalDuration = ($hours * 60) + $minutes;
+
+        $post->title = $request->title;
+        $post->slug = Str::slug($request->title);
+        $post->body = $request->body;
+        $post->province = $request->province;
+        $post->difficulty = $request->difficulty;
+        $post->longitude = $request->longitude;
+        $post->altitude = $request->altitude;
+        $post->duration = $totalDuration;
+
+        $post->save();
 
         return response()->json($post, 200);
     }

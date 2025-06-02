@@ -36,9 +36,9 @@ class WeeklyStats extends Command
         $newComments = Comment::where('created_at', '>=', $sinceDate)->count();
 
         $this->info("Statistics from the last 7 days:");
-        $this->line("New users:     $newUsers");
-        $this->line("New posts:     $newPosts");
-        $this->line("New comments:  $newComments");
+        $this->line("New users: $newUsers");
+        $this->line("New posts: $newPosts");
+        $this->line("New comments: $newComments");
 
         $this->info('Statistics generated correctly.');
     }

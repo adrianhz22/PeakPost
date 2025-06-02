@@ -8,14 +8,14 @@ test('Post request has expected validation rules', function () {
 
     $expectedRules = [
         'title' => 'required|string|min:10',
-        'slug' => 'nullable|string',
         'body' => 'required|string|min:50',
-        'image' => 'required|string',
+        'image' => 'required|image',
         'province' => 'required|string',
         'difficulty' => 'required|string',
         'longitude' => 'required|numeric',
         'altitude' => 'nullable|numeric',
-        'time' => 'nullable|date-format:H:i:s',
+        'duration_hours' => 'required|integer|min:0',
+        'duration_minutes' => 'required|integer|min:0|max:59',
         'track' => 'nullable|file|mimes:xml,kml',
     ];
 

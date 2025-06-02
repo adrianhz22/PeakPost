@@ -40,4 +40,15 @@ class UserRequest extends FormRequest
             'password' => 'required|string|min:8',
         ];
     }
+
+    public static function updateRules(int $id): array
+    {
+        return [
+            'name' => 'required|string|min:3|max:20',
+            'last_name' => 'nullable|string|min:3|max:40',
+            'username' => 'required|string|min:3|max:20|unique:users,username,' . $id,
+            'email' => 'required|email|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8',
+        ];
+    }
 }
