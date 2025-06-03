@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendApprovedPostEmail;
+use App\Jobs\SendRejectedPostEmail;
 use App\Models\ActivityLog;
 use App\Models\GalleryImage;
 use App\Models\Post;
@@ -85,6 +86,8 @@ class AdminDashboardController extends Controller
             'action' => 'Post rechazado',
             'description' => "El usuario " . Auth::user()->username . " ha rechazado un post."
         ]);
+
+        dispatch(new SendRejectedPostEmail($post, $post->user));
 
         return redirect()->route('moderation.pending-posts');
     }
