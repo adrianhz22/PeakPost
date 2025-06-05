@@ -21,13 +21,11 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|min:3|max:20',
-            'last_name' => 'nullable|string|min:3|max:40',
-            'username' => 'required|string|min:3|max:20|unique:users,username',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
-        ];
+        if ($this->isMethod('put') || $this->isMethod('patch')) {
+            return self::updateRules($this->route('user')->id ?? 0);
+        }
+
+        return self::creationRules();
     }
 
     public static function creationRules(): array

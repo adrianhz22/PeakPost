@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -83,7 +84,6 @@ class PostController extends Controller
         return response()->json($post, 201);
     }
 
-
     /**
      * @OA\Get(
      *     path="/api/posts/{id}",
@@ -134,33 +134,40 @@ class PostController extends Controller
      * )
      */
     public function update(PostRequest $request, Post $post)
+
     {
         $this->authorize('update', $post);
 
+        $request->validate(PostRequest::updateRules());
+
+        $imagePath = $post->image;
+        $trackPath = $post->track;
+
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('posts/images', 'public');
-            $post->image = $imagePath;
         }
 
         if ($request->hasFile('track')) {
             $trackPath = $request->file('track')->store('posts/tracks', 'public');
-            $post->track = $trackPath;
         }
 
-        $hours = (int)$request->input('duration_hours', 0);
-        $minutes = (int)$request->input('duration_minutes', 0);
+        $hours = (int) $request->input('duration_hours', 0);
+        $minutes = (int) $request->input('duration_minutes', 0);
         $totalDuration = ($hours * 60) + $minutes;
 
-        $post->title = $request->title;
-        $post->slug = Str::slug($request->title);
-        $post->body = $request->body;
-        $post->province = $request->province;
-        $post->difficulty = $request->difficulty;
-        $post->longitude = $request->longitude;
-        $post->altitude = $request->altitude;
-        $post->duration = $totalDuration;
-
-        $post->save();
+        $post->fill([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'body' => $request->body,
+            'image' => $imagePath,
+            'province' => $request->province,
+            'difficulty' => $request->difficulty,
+            'longitude' => $request->longitude,
+            'altitude' => $request->altitude,
+            'duration' => $totalDuration,
+            'track' => $trackPath,
+            'status' => 'pending',
+        ])->save();
 
         return response()->json($post, 200);
     }

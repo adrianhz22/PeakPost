@@ -22,6 +22,10 @@ class PostRequest extends FormRequest
 
     public function rules() : array
     {
+        if ($this->isMethod('put') || $this->isMethod('patch')) {
+            return self::updateRules();
+        }
+
         return self::creationRules();
     }
 
