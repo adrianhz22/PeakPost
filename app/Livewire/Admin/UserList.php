@@ -72,6 +72,15 @@ class UserList extends Component
         $this->editingUserId = null;
     }
 
+    public function resetForm()
+    {
+        $this->name = '';
+        $this->last_name = '';
+        $this->username = '';
+        $this->email = '';
+        $this->password = '';
+        $this->editingUserId = null;
+    }
 
     public function render()
     {

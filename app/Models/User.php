@@ -44,14 +44,6 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * Override route key.
-     */
-    public function getRouteKeyName()
-    {
-        return 'username';
-    }
-
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);

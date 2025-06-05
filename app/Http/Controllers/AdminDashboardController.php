@@ -144,4 +144,22 @@ class AdminDashboardController extends Controller
         return redirect()->route('moderation.pending-images');
     }
 
+    public function assignRole(User $user)
+    {
+        if (!$user->hasRole('moderator')) {
+            $user->assignRole('moderator');
+        }
+
+        return redirect()->back();
+    }
+
+    public function removeRole(User $user)
+    {
+        if ($user->hasRole('moderator')) {
+            $user->removeRole('moderator');
+        }
+
+        return redirect()->back();
+    }
+
 }
