@@ -39,7 +39,7 @@ class NewPostMailable extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.nuevo-post',
+            view: 'emails.new-post',
         );
     }
 

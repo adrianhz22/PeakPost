@@ -11,7 +11,7 @@
                 </button>
             </form>
 
-            <form method="GET" action="{{ route('admin.historial') }}" class="flex">
+            <form method="GET" action="{{ route('admin.activity-log') }}" class="flex">
                 <input type="date" name="date" value="{{ request('date') }}"
                        class="border rounded p-2 shadow-sm mr-2">
                 <button type="submit"

@@ -26,7 +26,7 @@ class ActivityLogController extends Controller
 
         Artisan::call('logs:delete-last');
 
-        return redirect()->route('admin.historial');
+        return redirect()->route('admin.activity-log');
     }
 
 }

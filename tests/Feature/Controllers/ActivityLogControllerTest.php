@@ -11,7 +11,7 @@ it('admin can access activity log', function () {
 
     $this->actingAs($user);
 
-    $response = $this->get(route('admin.historial'));
+    $response = $this->get(route('admin.activity-log'));
 
     $response->assertStatus(200);
 
