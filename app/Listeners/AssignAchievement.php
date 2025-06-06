@@ -34,9 +34,16 @@ class AssignAchievement
             if ($postCount >= $numberPosts) {
                 $achievement = Achievement::where('name', $nameAchievement)->first();
 
-                if (!$user->achievements()->where('achievement_id', $achievement->id)->exists()) {
+                if (
+                    $achievement &&
+                    !$user->achievements()->where('achievement_id', $achievement->id)->exists()
+                ) {
+                    $achievedAt = now();
+                    $days = $user->created_at->diffInDays($achievedAt);
+
                     $user->achievements()->attach($achievement->id, [
-                        'achieved_at' => now(),
+                        'achieved_at' => $achievedAt,
+                        'days_for_achievement' => $days,
                     ]);
                 }
             }
