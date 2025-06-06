@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\StoreUserRequest;
 
-test('User request has expected validation rules', function () {
+test('User store request has expected validation rules', function () {
 
-    $userRequest = new UserRequest();
+    $userRequest = new StoreUserRequest();
 
     $expectedRules = [
         'name' => 'required|string|min:3|max:20',

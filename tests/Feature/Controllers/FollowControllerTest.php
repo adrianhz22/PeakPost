@@ -16,20 +16,16 @@ it('a user can follow another user', function () {
 
 it('a user can unfollow another user', function () {
 
-    $user1 = User::factory()->create();
-    $user2 = User::factory()->create();
+    $follower = User::factory()->create();
+    $followed = User::factory()->create();
 
-    $user1->follow($user2);
+    $follower->following()->attach($followed->id);
 
-    $this->assertDatabaseHas('follows', [
-        'follower_id' => $user1->id,
-        'followed_id' => $user2->id,
-    ]);
-
-    $this->actingAs($user1)->delete(route('unfollow', $user2));
+    $this->actingAs($follower)
+        ->delete(route('unfollow', $followed));
 
     $this->assertDatabaseMissing('follows', [
-        'follower_id' => $user1->id,
-        'followed_id' => $user2->id,
+        'follower_id' => $follower->id,
+        'followed_id' => $followed->id,
     ]);
 });

@@ -42,7 +42,7 @@ test('an admin can delete users', function () {
 
     $userDelete = User::factory()->create();
 
-    $this->deleteJson("/api/users/{$userDelete->username}")
+    $this->deleteJson("/api/users/{$userDelete->id}")
         ->assertStatus(200);
 
     $this->assertDatabaseMissing('users', ['id' => $userDelete->id]);
@@ -55,7 +55,7 @@ test('show detail user using the API', function () {
 
     $user = User::factory()->create();
 
-    $this->getJson("/api/users/{$user->username}")
+    $this->getJson("/api/users/{$user->id}")
         ->assertStatus(200);
 });
 
@@ -66,7 +66,7 @@ test('update a user using the API', function () {
 
     $user = User::factory()->create();
 
-    $this->putJson("/api/users/{$user->username}", [
+    $this->putJson("/api/users/{$user->id}", [
         'name' => 'Ejemplo',
         'last_name' => 'Ejemplo Ejemplo',
         'username' => 'ejemplo_',

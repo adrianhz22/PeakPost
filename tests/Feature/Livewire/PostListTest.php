@@ -4,6 +4,7 @@ use App\Livewire\Admin\PostList;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 
 it('can create a post', function () {
@@ -35,20 +36,41 @@ it('can create a post', function () {
 
 it('can update a post', function () {
 
+    Storage::fake('public');
+
     $user = User::factory()->create();
     $this->actingAs($user);
 
     $post = Post::factory()->create([
         'title' => 'Titulo original',
         'province' => 'Albacete',
+        'body' => 'Contenido de prueba para comprobar que se puede actualizar un post.',
+        'difficulty' => 'Dificil',
+        'longitude' => 2,
+        'altitude' => 150,
+        'duration' => 90,
+        'image' => '/storage/posts/images/foto.jpg',
+        'track' => '/storage/posts/tracks/track.kml',
         'user_id' => $user->id,
     ]);
+
+    $image = UploadedFile::fake()->image('foto.jpg');
+    $track = UploadedFile::fake()->create('track.kml');
 
     Livewire::test(PostList::class)
         ->call('editPost', $post->id)
         ->set('title', 'Titulo actualizado')
         ->set('province', 'Murcia')
-        ->call('updatePost');
+        ->set('body', 'Contenido de prueba para comprobar que se puede actualizar un post.')
+        ->set('difficulty', 'Facil')
+        ->set('longitude', 2)
+        ->set('altitude', 150)
+        ->set('duration_hours', 2)
+        ->set('duration_minutes', 15)
+        ->set('image', $image)
+        ->set('track', $track)
+        ->call('updatePost')
+        ->assertHasNoErrors();
 
     $this->assertDatabaseHas('posts', [
         'id' => $post->id,
