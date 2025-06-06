@@ -2,24 +2,57 @@
 
 namespace App\Livewire\Admin;
 
-use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
-use App\Models\User;
 use Livewire\WithPagination;
+use App\Models\User;
 
 class UserList extends Component
 {
     use WithPagination;
 
     public $search = '';
+    public $days = null;
+    public $role = null;
+
     public $name, $last_name, $username, $email, $password;
     public $editingUserId = null;
-    public $days = null;
+
+    protected $rules = [];
+
+    public function mount()
+    {
+        $this->setCreationRules();
+    }
+
+    protected function setCreationRules()
+    {
+        $this->rules = [
+            'name' => 'required|string|min:3|max:20',
+            'last_name' => 'nullable|string|min:3|max:40',
+            'username' => 'required|string|min:3|max:20|unique:users,username',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8',
+        ];
+    }
+
+    protected function setUpdateRules()
+    {
+        $userId = $this->editingUserId ?? 0;
+
+        $this->rules = [
+            'name' => 'required|string|min:3|max:20',
+            'last_name' => 'nullable|string|min:3|max:40',
+            'username' => "required|string|min:3|max:20|unique:users,username,{$userId}",
+            'email' => "required|email|unique:users,email,{$userId}",
+            'password' => 'nullable|string|min:8',
+        ];
+    }
 
     public function createUser()
     {
-        $this->validate(UserRequest::creationRules());
+        $this->setCreationRules();
+        $this->validate();
 
         User::create([
             'name' => $this->name,
@@ -29,14 +62,7 @@ class UserList extends Component
             'password' => Hash::make($this->password),
         ]);
 
-        $this->reset();
-    }
-
-    public function deleteUser($userId)
-    {
-        $user = User::findOrFail($userId);
-        $user->delete();
-
+        $this->resetForm();
     }
 
     public function editUser($userId)
@@ -49,11 +75,14 @@ class UserList extends Component
         $this->username = $user->username;
         $this->email = $user->email;
         $this->password = null;
+
+        $this->setUpdateRules();
     }
 
     public function updateUser()
     {
-        $this->validate(UserRequest::updateRules($this->editingUserId));
+        $this->setUpdateRules();
+        $this->validate();
 
         $user = User::findOrFail($this->editingUserId);
 
@@ -70,24 +99,27 @@ class UserList extends Component
         }
 
         $this->editingUserId = null;
+        $this->resetForm();
+    }
+
+    public function deleteUser($userId)
+    {
+        $user = User::findOrFail($userId);
+        $user->delete();
     }
 
     public function resetForm()
     {
-        $this->name = '';
-        $this->last_name = '';
-        $this->username = '';
-        $this->email = '';
-        $this->password = '';
-        $this->editingUserId = null;
+        $this->reset(['name', 'last_name', 'username', 'email', 'password', 'editingUserId']);
+        $this->setCreationRules();
     }
 
     public function render()
     {
         $filters = [
-            'search' => request('search'),
-            'days' => request('days'),
-            'role' => request('role')
+            'search' => $this->search,
+            'days' => $this->days,
+            'role' => $this->role,
         ];
 
         $users = User::filter($filters)->get();
@@ -96,5 +128,4 @@ class UserList extends Component
             'users' => $users,
         ]);
     }
-
 }

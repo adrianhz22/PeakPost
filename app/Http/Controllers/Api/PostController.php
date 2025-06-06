@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PostRequest;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -49,37 +49,14 @@ class PostController extends Controller
      *     )
      * )
      */
-    public function store(PostRequest $request)
+    public function store(StorePostRequest $request)
     {
-        $imagePath = null;
-        $trackPath = null;
+        $data = $this->processData($request);
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('posts/images', 'public');
-        }
+        $data['user_id'] = auth()->id();
+        $data['status'] = 'pending';
 
-        if ($request->hasFile('track')) {
-            $trackPath = $request->file('track')->store('posts/tracks', 'public');
-        }
-
-        $hours = (int)$request->input('duration_hours', 0);
-        $minutes = (int)$request->input('duration_minutes', 0);
-        $totalDuration = ($hours * 60) + $minutes;
-
-        $post = Post::create([
-            'title' => $request->title,
-            'slug' => Str::slug($request->title),
-            'body' => $request->body,
-            'image' => $imagePath,
-            'province' => $request->province,
-            'difficulty' => $request->difficulty,
-            'longitude' => $request->longitude,
-            'altitude' => $request->altitude,
-            'duration' => $totalDuration,
-            'track' => $trackPath,
-            'user_id' => auth()->id(),
-            'status' => 'pending',
-        ]);
+        $post = Post::create($data);
 
         return response()->json($post, 201);
     }
@@ -133,41 +110,15 @@ class PostController extends Controller
      *     )
      * )
      */
-    public function update(PostRequest $request, Post $post)
-
+    public function update(UpdatePostRequest $request, Post $post)
     {
         $this->authorize('update', $post);
 
-        $request->validate(PostRequest::updateRules());
+        $data = $this->processData($request, $post);
 
-        $imagePath = $post->image;
-        $trackPath = $post->track;
+        $data['status'] = 'pending';
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('posts/images', 'public');
-        }
-
-        if ($request->hasFile('track')) {
-            $trackPath = $request->file('track')->store('posts/tracks', 'public');
-        }
-
-        $hours = (int) $request->input('duration_hours', 0);
-        $minutes = (int) $request->input('duration_minutes', 0);
-        $totalDuration = ($hours * 60) + $minutes;
-
-        $post->fill([
-            'title' => $request->title,
-            'slug' => Str::slug($request->title),
-            'body' => $request->body,
-            'image' => $imagePath,
-            'province' => $request->province,
-            'difficulty' => $request->difficulty,
-            'longitude' => $request->longitude,
-            'altitude' => $request->altitude,
-            'duration' => $totalDuration,
-            'track' => $trackPath,
-            'status' => 'pending',
-        ])->save();
+        $post->fill($data)->save();
 
         return response()->json($post, 200);
     }
@@ -202,5 +153,37 @@ class PostController extends Controller
         $post->delete();
 
         return response()->json(['message' => 'Post eliminado'], 200);
+    }
+
+    private function processData($request, Post $post = null): array
+    {
+        $validated = $request->validated();
+
+        $imagePath = $post?->image ?? null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('posts/images', 'public');
+        }
+
+        $trackPath = $post?->track ?? null;
+        if ($request->hasFile('track')) {
+            $trackPath = $request->file('track')->store('posts/tracks', 'public');
+        }
+
+        $hours = (int)$request->input('duration_hours', 0);
+        $minutes = (int)$request->input('duration_minutes', 0);
+        $totalDuration = ($hours * 60) + $minutes;
+
+        return [
+            'title' => $validated['title'],
+            'slug' => Str::slug($validated['title']),
+            'body' => $validated['body'],
+            'image' => $imagePath,
+            'province' => $validated['province'],
+            'difficulty' => $validated['difficulty'],
+            'longitude' => $validated['longitude'],
+            'altitude' => $validated['altitude'],
+            'duration' => $totalDuration,
+            'track' => $trackPath,
+        ];
     }
 }

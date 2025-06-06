@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostRequest extends FormRequest
+class StorePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,38 +19,12 @@ class PostRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-
-    public function rules() : array
-    {
-        if ($this->isMethod('put') || $this->isMethod('patch')) {
-            return self::updateRules();
-        }
-
-        return self::creationRules();
-    }
-
-    public static function creationRules(): array
+    public function rules(): array
     {
         return [
             'title' => 'required|string|min:10',
             'body' => 'required|string|min:50',
             'image' => 'required|image',
-            'province' => 'required|string',
-            'difficulty' => 'required|string',
-            'longitude' => 'required|numeric',
-            'altitude' => 'nullable|numeric',
-            'duration_hours' => 'required|integer|min:0',
-            'duration_minutes' => 'required|integer|min:0|max:59',
-            'track' => 'nullable|file|mimes:xml,kml',
-        ];
-    }
-
-    public static function updateRules(): array
-    {
-        return [
-            'title' => 'required|string|min:10',
-            'body' => 'required|string|min:50',
-            'image' => 'nullable|image',
             'province' => 'required|string',
             'difficulty' => 'required|string',
             'longitude' => 'required|numeric',

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -45,16 +45,13 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function store(UserRequest $request)
+    public function store(StoreUserRequest $request)
     {
+        $data = $request->validated();
 
-        $user = User::create([
-            'name' => $request->name,
-            'last_name' => $request->last_name,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $data['password'] = Hash::make($data['password']);
+
+        $user = User::create($data);
 
         return response()->json($user, 201);
     }
@@ -94,16 +91,17 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
+        $data = $request->validated();
 
-        $validated = $request->validated();
-
-        if ($request->has('password')) {
-            $user->password = Hash::make($request->password);
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
         }
 
-        $user->update($validated);
+        $user->update($data);
 
         return response()->json($user, 200);
     }

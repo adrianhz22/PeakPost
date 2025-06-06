@@ -15,7 +15,7 @@ class GalleryImage extends Model
         'path',
         'title',
         'status',
-        'reject_reason',
+        'rejection_reason',
     ];
 
     public function user()

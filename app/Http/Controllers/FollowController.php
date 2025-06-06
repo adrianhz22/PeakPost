@@ -8,13 +8,19 @@ class FollowController extends Controller
 {
     public function follow(User $user)
     {
-        auth()->user()->follow($user);
+        $currentUser = auth()->user();
+
+        if ($currentUser->id !== $user->id && !$currentUser->following()->where('followed_id', $user->id)->exists()) {
+            $currentUser->following()->attach($user->id);
+        }
+
         return back();
     }
 
     public function unfollow(User $user)
     {
-        auth()->user()->unfollow($user);
+        auth()->user()->following()->detach($user->id);
+
         return back();
     }
 }

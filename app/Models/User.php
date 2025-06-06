@@ -100,18 +100,6 @@ class User extends Authenticatable
         return $query;
     }
 
-    public function follow(User $user)
-    {
-        if (!$this->isFollowing($user)) {
-            $this->following()->attach($user->id);
-        }
-    }
-
-    public function unfollow(User $user)
-    {
-        $this->following()->detach($user->id);
-    }
-
     public function isFollowing(User $user)
     {
         return $this->following()->where('followed_id', $user->id)->exists();
