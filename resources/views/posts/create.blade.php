@@ -7,7 +7,7 @@
         <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @include('posts.form-fields')
-            <x-button>{{ __('Publish') }}</x-button>
+            <x-form.button>{{ __('Publish') }}</x-form.button>
         </form>
 
         <div class="text-center mt-6">

@@ -18,8 +18,8 @@ class RolesSeeder extends Seeder
         $admin = Role::firstOrCreate(['name' => 'admin']);
         $mod = Role::firstOrCreate(['name' => 'moderator']);
 
-        $permissionAdmin = Permission::create(['name' => 'has all the permissions']);
-        $permissionMod = Permission::create(['name' => 'review posts']);
+        $permissionAdmin = Permission::firstOrCreate(['name' => 'has all the permissions']);
+        $permissionMod = Permission::firstOrCreate(['name' => 'review posts']);
 
         $admin->givePermissionTo($permissionAdmin);
         $mod->givePermissionTo($permissionMod);
@@ -41,9 +41,6 @@ class RolesSeeder extends Seeder
             'email' => 'mod@mod.com',
             'password' => bcrypt('moderator123')
         ]);
-
-        $adminUser->assignRole($admin);
-        $modUser->assignRole($mod);
 
         $adminUser->assignRole($admin);
         $modUser->assignRole($mod);

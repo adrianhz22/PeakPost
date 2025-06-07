@@ -18,7 +18,7 @@
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700">{{ __('Content') }}</label>
-                <x-trix-editor
+                <x-form.trix-editor
                     name="body"
                     wire:model.defer="body"
                 />
@@ -27,7 +27,7 @@
                 @enderror
             </div>
             <div>
-                <x-select
+                <x-form.select
                     name="province"
                     label="Provincia"
                     :options="['' => __('Select a province')] + $provinces"
@@ -37,7 +37,7 @@
                 @error('province') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
             </div>
             <div>
-                <x-select
+                <x-form.select
                     name="difficulty"
                     label="Dificultad"
                     :options="['' => __('Select a difficulty')] + $difficulties"
@@ -107,11 +107,11 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">{{ __('Content') }}</label>
-                    <x-trix-editor name="body" wire:model.defer="body" />
+                    <x-form.trix-editor name="body" wire:model.defer="body" />
                     @error('body') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <x-select
+                    <x-form.select
                         name="province"
                         label="Provincia"
                         :options="['' => __('Select a province')] + $provinces"
@@ -121,7 +121,7 @@
                     @error('province') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <x-select
+                    <x-form.select
                         name="difficulty"
                         label="Dificultad"
                         :options="['' => __('Select a difficulty')] + $difficulties"

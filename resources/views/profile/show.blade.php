@@ -11,7 +11,7 @@
 
 <body class="bg-gray-100 text-gray-900">
 
-<x-navigation/>
+@include('partials.navigation')
 
 <div class="max-w-4xl mx-auto mt-12 p-8 bg-white shadow-lg rounded-2xl">
     <div class="flex flex-col md:flex-row items-center md:items-start gap-8">

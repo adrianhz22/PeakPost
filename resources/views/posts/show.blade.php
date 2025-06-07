@@ -40,29 +40,7 @@
 
             <p class="text-gray-700 leading-relaxed text-lg">{!! $post->body !!}</p>
 
-            <div
-                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6 text-lg bg-gray-100 p-6 rounded-lg shadow-md">
-                <div>
-                    <p class="font-semibold text-gray-800">{{ __('Province') }}</p>
-                    <p class="text-gray-600">{{ $post->province }}</p>
-                </div>
-                <div>
-                    <p class="font-semibold text-gray-800">{{ __('Difficulty') }}</p>
-                    <p class="text-gray-600">{{ $post->difficulty }}</p>
-                </div>
-                <div>
-                    <p class="font-semibold text-gray-800">{{ __('Longitude') }}</p>
-                    <p class="text-gray-600">{{ $post->longitude }} km</p>
-                </div>
-                <div>
-                    <p class="font-semibold text-gray-800">{{ __('Altitude') }}</p>
-                    <p class="text-gray-600">{{ $post->altitude }} m</p>
-                </div>
-                <div>
-                    <p class="font-semibold text-gray-800">{{ __('Duration') }}</p>
-                    <p class="text-gray-600">{{ floor($post->duration / 60) }}h {{ $post->duration % 60 }}m</p>
-                </div>
-            </div>
+            @include('partials.attributes')
 
             @if($post->track)
                 <div class="mt-6">
@@ -72,26 +50,7 @@
             @endif
 
             <div class="mt-6 flex justify-between items-center">
-                <div class="flex space-x-4">
-                    @can('update', $post)
-                        <a href="{{ route('posts.edit', $post->id) }}"
-                           class="flex items-center bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition duration-200 ease-in-out">
-                            <i class="fas fa-pencil-alt mr-2"></i> {{ __('Edit') }}
-                        </a>
-                    @endcan
-                    @can('delete', $post)
-                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
-                              id="deleteForm-{{ $post->id }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button"
-                                    onclick="confirmDelete({{ $post->id }})"
-                                    class="flex items-center bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-red-700 transition duration-200 ease-in-out">
-                                <i class="fas fa-trash-alt mr-2"></i> {{ __('Delete') }}
-                            </button>
-                        </form>
-                    @endcan
-                </div>
+                @include('partials.mod-buttons')
 
                 <a href="{{ route('post.pdf', $post->id) }}"
                    class="flex items-center space-x-2 text-gray-700 hover:text-red-600 transition duration-200 ease-in-out mt-4 md:mt-0">
@@ -120,161 +79,7 @@
 
             <div class="space-y-4">
                 @foreach ($post->comments->where('parent_id', null) as $comment)
-                    <div class="bg-gray-100 p-4 rounded-lg shadow mb-4"
-                         x-data="{ menu: false, editMode: false }">
-                        <div class="flex items-center justify-between relative">
-                            <div class="flex items-center space-x-2">
-                                <img
-                                    src="{{ $comment->user->profile_photo ? asset($comment->user->profile_photo) : asset('assets/default-photo.jpg') }}"
-                                    alt="Profile"
-                                    class="w-8 h-8 rounded-full object-cover border border-gray-300 aspect-square"
-                                >
-                                <a href="{{ route('users.show', $comment->user) }}">
-                                    {{ $comment->user->username }}
-                                </a>
-                                <span class="text-sm text-gray-500">{{ $comment->created_at->format('d/m/Y') }}</span>
-                            </div>
-
-                            <div class="relative">
-                                <button @click="menu = !menu"
-                                        class="text-gray-500 hover:text-gray-700 focus:outline-none">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </button>
-
-                                <div x-show="menu" @click.away="menu = false" x-cloak
-                                     class="absolute right-0 top-full mt-2 w-40 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-50">
-                                    @can('update', $comment)
-                                        <button @click="editMode = true; menu = false"
-                                                class="w-full px-4 py-2 text-left">
-                                            {{ __('Edit') }}
-                                        </button>
-                                    @endcan
-
-                                    @can('delete', $comment)
-                                        <button type="submit" form="deleteForm-{{ $comment->id }}"
-                                                class="w-full px-4 py-2 text-left">
-                                            {{ __('Delete') }}
-                                        </button>
-                                        <form id="deleteForm-{{ $comment->id }}"
-                                              action="{{ route('comments.destroy', $comment->id) }}" method="POST"
-                                              class="hidden">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                    @endcan
-                                </div>
-                            </div>
-                        </div>
-
-                        <div x-show="editMode" x-transition class="mt-2">
-                            <form action="{{ route('comments.update', $comment->id) }}" method="POST">
-                                @csrf @method('PUT')
-                                <textarea name="content" rows="3"
-                                          class="w-full p-3 border rounded focus:ring focus:ring-blue-300"
-                                          required>{{ $comment->content }}</textarea>
-                                <button type="submit"
-                                        class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                                    {{ __('Save Changes') }}
-                                </button>
-                            </form>
-                        </div>
-
-                        <div x-show="!editMode" class="mt-2">
-                            <p>{{ $comment->content }}</p>
-                        </div>
-
-                        <div class="mt-2" x-data="{ showReplyForm: false }">
-                            <button @click="showReplyForm = !showReplyForm"
-                                    class="text-blue-500 hover:underline font-medium">
-                                {{ __('Reply') }}
-                            </button>
-
-                            <form x-show="showReplyForm" x-cloak action="{{ route('comments.store', $post) }}"
-                                  method="POST" class="mt-2">
-                                @csrf
-                                <input type="hidden" name="parent_id" value="{{ $comment->id }}">
-                                <textarea name="content" rows="2"
-                                          class="w-full p-2 border rounded focus:ring focus:ring-blue-300"
-                                          placeholder="{{ __('Write a reply...') }}" required></textarea>
-                                <button type="submit"
-                                        class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                                    {{ __('Reply') }}
-                                </button>
-                            </form>
-                        </div>
-
-                        @if($comment->replies->count())
-                            <div class="ml-4 mt-4 space-y-2">
-                                @foreach ($comment->replies as $reply)
-                                    <div class="bg-gray-200 p-3 rounded relative"
-                                         x-data="{ menu: false, editMode: false }">
-                                        <div class="flex items-center justify-between">
-                                            <div class="flex items-center space-x-2">
-                                                <img
-                                                    src="{{ $reply->user->profile_photo ? asset($reply->user->profile_photo) : asset('assets/default-photo.jpg') }}"
-                                                    alt="Profile"
-                                                    class="w-8 h-8 rounded-full object-cover border border-gray-300 aspect-square"
-                                                >
-                                                <a href="{{ route('users.show', $reply->user) }}">
-                                                    {{ $reply->user->username }}
-                                                </a>
-                                                <span
-                                                    class="text-sm text-gray-500 ml-2">{{ $reply->created_at->format('d/m/Y') }}</span>
-                                            </div>
-
-                                            <div class="relative">
-                                                <button @click="menu = !menu"
-                                                        class="text-gray-500 hover:text-gray-700 focus:outline-none">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </button>
-
-                                                <div x-show="menu" @click.away="menu = false" x-cloak
-                                                     class="absolute right-0 top-full mt-2 w-40 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-50">
-                                                    @can('update', $comment)
-                                                        <button @click="editMode = true; menu = false"
-                                                                class="w-full px-4 py-2 text-left">
-                                                            {{ __('Edit') }}
-                                                        </button>
-                                                    @endcan
-
-                                                    @can('delete', $comment)
-                                                        <button type="submit" form="deleteForm-{{ $comment->id }}"
-                                                                class="w-full px-4 py-2 text-left">
-                                                            {{ __('Delete') }}
-                                                        </button>
-                                                        <form id="deleteForm-{{ $comment->id }}"
-                                                              action="{{ route('comments.destroy', $comment->id) }}"
-                                                              method="POST" class="hidden">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                        </form>
-                                                    @endcan
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div x-show="editMode" x-transition class="mt-2">
-                                            <form action="{{ route('comments.update', $reply->id) }}" method="POST">
-                                                @csrf @method('PUT')
-                                                <textarea name="content" rows="2"
-                                                          class="w-full p-2 border rounded focus:ring focus:ring-blue-300"
-                                                          required>{{ $reply->content }}</textarea>
-                                                <button type="submit"
-                                                        class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                                                    {{ __('Save Changes') }}
-                                                </button>
-                                            </form>
-                                        </div>
-
-                                        <div x-show="!editMode" class="mt-1">
-                                            {{ $reply->content }}
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endif
-                    </div>
+                    @include('partials.comment')
                 @endforeach
             </div>
         </div>
@@ -309,25 +114,6 @@
 
     @include('components.confirm-delete')
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var map = L.map('map').setView([37.95, -1.09], 13);
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(map);
-
-            var trackUrl = "{{ asset($post->track) }}";
-
-            omnivore.kml(trackUrl)
-                .on('ready', function () {
-                    map.fitBounds(this.getBounds());
-                })
-                .addTo(map)
-                .on('error', function (e) {
-                    console.error('Error cargando el KML: ', e);
-                });
-        });
-    </script>
+    @include('components.map-script')
 
 </x-app-layout>

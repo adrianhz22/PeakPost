@@ -8,7 +8,7 @@
     <div class="container mx-auto px-6 py-2">
         <h1 class="text-4xl font-semibold text-center mb-8">{{ __('Home') }}</h1>
 
-        <x-post-filter :action="route('home')" :provinces="$provinces" :difficulties="$difficulties" />
+        <x-filters.post-filter :action="route('home')" :provinces="$provinces" :difficulties="$difficulties" />
 
         <div class="flex justify-center my-10">
             <a href="{{ route('posts.create') }}"

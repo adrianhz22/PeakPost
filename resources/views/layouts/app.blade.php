@@ -30,7 +30,8 @@
 </head>
 <body class="font-sans antialiased">
 <div class="min-h-screen bg-gray-100">
-    <x-navigation/>
+
+    @include('partials.navigation')
 
     <main class="container mx-auto px-4 py-8">
         {{ $slot }}

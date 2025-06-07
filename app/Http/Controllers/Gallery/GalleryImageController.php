@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Gallery;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ImageRequest;
 use App\Models\GalleryImage;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class GalleryImageController extends Controller

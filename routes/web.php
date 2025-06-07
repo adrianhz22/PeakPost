@@ -1,14 +1,17 @@
 <?php
 
-use App\Http\Controllers\ActivityLogController;
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\FollowController;
-use App\Http\Controllers\GalleryImageController;
-use App\Http\Controllers\PDFController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Gallery\GalleryImageController;
+use App\Http\Controllers\Moderation\ActivityLogController;
+use App\Http\Controllers\Moderation\AdminDashboardController;
+use App\Http\Controllers\Moderation\ImageModerationController;
+use App\Http\Controllers\Moderation\PostModerationController;
+use App\Http\Controllers\Moderation\UserModerationController;
+use App\Http\Controllers\PDF\PDFController;
+use App\Http\Controllers\Post\CommentController;
+use App\Http\Controllers\Post\PostController;
+use App\Http\Controllers\User\FollowController;
+use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -57,24 +60,24 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/users', [AdminDashboardController::class, 'users'])->name('admin.users');
-    Route::get('/admin/approved-posts', [AdminDashboardController::class, 'approvedPosts'])->name('admin.approvedPosts');
+    Route::get('/admin/users', [UserModerationController::class, 'users'])->name('admin.users');
+    Route::get('/admin/approved-posts', [PostModerationController::class, 'approvedPosts'])->name('admin.approvedPosts');
     Route::delete('/admin/destroy/{user}', [UserController::class, 'destroy'])->name('admin.destroy');
     Route::get('/admin/activity-log', [ActivityLogController::class, 'index'])->name('admin.activity-log');
     Route::post('/admin/logs/delete-last', [ActivityLogController::class, 'deleteLastLogs'])->name('admin.logs.deleteLast');
-    Route::post('/admin/users/{user}/assign-role', [AdminDashboardController::class, 'assignRole'])->name('admin.users.assignRole');
-    Route::post('/admin/users/{user}/remove-role', [AdminDashboardController::class, 'removeRole'])->name('admin.users.removeRole');
+    Route::post('/admin/users/{user}/assign-role', [UserModerationController::class, 'assignRole'])->name('admin.users.assignRole');
+    Route::post('/admin/users/{user}/remove-role', [UserModerationController::class, 'removeRole'])->name('admin.users.removeRole');
 });
 
 Route::middleware(['auth', 'moderator'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
-    Route::get('/mod/pending', [AdminDashboardController::class, 'showPendingPosts'])->name('moderation.pending-posts');
-    Route::get('/mod/pending/{post}', [PostController::class, 'show'])->name('moderation.show');
-    Route::put('/mod/pending/{post}/approve', [AdminDashboardController::class, 'approve'])->name('moderation.approve');
-    Route::patch('/mod/pending/{post}/reject', [AdminDashboardController::class, 'reject'])->name('moderation.reject');
+    Route::get('/mod/pending', [PostModerationController::class, 'showPendingPosts'])->name('moderation.pending-posts');
+    Route::get('/mod/pending/{post}', [PostModerationController::class, 'showPendingPost'])->name('moderation.show');
+    Route::put('/mod/pending/{post}/approve', [PostModerationController::class, 'approve'])->name('moderation.approve');
+    Route::patch('/mod/pending/{post}/reject', [PostModerationController::class, 'reject'])->name('moderation.reject');
 
-    Route::get('/pending-images', [AdminDashboardController::class, 'pendingImages'])->name('moderation.pending-images');
-    Route::put('/images/{image}/approve', [AdminDashboardController::class, 'approveImage'])->name('moderation.images.approve');
-    Route::patch('/images/{image}/reject', [AdminDashboardController::class, 'rejectImage'])->name('moderation.images.reject');
+    Route::get('/pending-images', [ImageModerationController::class, 'pendingImages'])->name('moderation.pending-images');
+    Route::put('/images/{image}/approve', [ImageModerationController::class, 'approveImage'])->name('moderation.images.approve');
+    Route::patch('/images/{image}/reject', [ImageModerationController::class, 'rejectImage'])->name('moderation.images.reject');
 });
