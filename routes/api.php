@@ -9,8 +9,7 @@ Route::post('users', [UserController::class, 'store']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('posts', PostController::class);
-    Route::get('/comments', [CommentController::class, 'index']);
-    Route::get('/comments/{comment}', [CommentController::class, 'show']);
+    Route::apiResource('comments', CommentController::class);
 });
 
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
