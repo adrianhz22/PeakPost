@@ -43,9 +43,9 @@
                         <a href="{{ route('posts.user-posts') }}"
                            class="block px-4 py-2 hover:bg-gray-200">{{ __('My posts') }}</a>
                         <a href="{{ route('gallery.user-images') }}"
-                           class="block px-4 py-2 hover:bg-gray-200">{{ __('My images') }}</a>
+                           class="block px-4 py-2 hover:bg-gray-200">{{ __('My gallery') }}</a>
                         <a href="{{ route('posts.liked') }}"
-                           class="block px-4 py-2 hover:bg-gray-200">{{ __('My likes') }}</a>
+                           class="block px-4 py-2 hover:bg-gray-200">{{ __('Favorites') }}</a>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit"

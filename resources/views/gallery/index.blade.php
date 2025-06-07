@@ -14,7 +14,7 @@
             <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0">
                 <input type="file" name="image" required
                        class="text-sm border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-400 w-full sm:w-auto">
-                <input type="text" name="title" placeholder="Título de la imagen" required
+                <input type="text" name="title" placeholder="{{ __('Title of the image') }}" required
                        class="text-sm border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-400 w-full sm:w-64">
                 <button type="submit"
                         class="bg-indigo-500 text-white text-sm px-4 py-1.5 rounded hover:bg-indigo-600 transition w-full sm:w-auto">

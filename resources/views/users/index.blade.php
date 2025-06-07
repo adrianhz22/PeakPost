@@ -10,7 +10,7 @@
                             type="text"
                             name="search"
                             value="{{ $search }}"
-                            placeholder="Buscar por nombre o username"
+                            placeholder="{{ __('Search by name or username') }}"
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                         <button type="submit"

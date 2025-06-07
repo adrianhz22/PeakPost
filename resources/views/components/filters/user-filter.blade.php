@@ -7,7 +7,7 @@
                 type="text"
                 wire:model.debounce.500ms="search"
                 class="w-full border h-12 pl-4 pr-10 rounded-lg shadow-sm dark:text-gray-800 dark:border-gray-300 dark:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Buscar por nombre o email"
+                placeholder="{{ __('Search by name or email') }}"
                 autocomplete="off"
             >
             <button type="button" wire:click="$refresh" class="absolute top-1/2 right-3 -translate-y-1/2">
@@ -26,7 +26,6 @@
         </div>
     </div>
 
-    {{-- El resto igual --}}
     <div class="flex flex-col sm:flex-row gap-4">
         <div class="relative w-full sm:w-auto">
             <select
@@ -51,7 +50,7 @@
                 wire:model="role"
                 class="appearance-none border rounded-lg h-12 pl-3 pr-10 w-full dark:bg-gray-200 dark:border-gray-300 text-gray-700"
             >
-                <option value="">{{ __('Todos los roles') }}</option>
+                <option value="">{{ __('All roles') }}</option>
                 @foreach(\Spatie\Permission\Models\Role::all() as $role)
                     <option value="{{ $role->name }}">{{ ucfirst($role->name) }}</option>
                 @endforeach
@@ -65,4 +64,3 @@
         </div>
     </div>
 </div>
-

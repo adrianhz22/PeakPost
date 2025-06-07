@@ -14,9 +14,9 @@
                         @if($image->status === 'pending')
                             <p class="text-xs text-yellow-500 text-center mt-1">{{ __('Under review') }}</p>
                         @elseif($image->status === 'rejected')
-                            <p class="text-xs text-red-500 text-center mt-1">{{ __('Reject') }}</p>
-                            @if($image->reject_reason)
-                                <p class="text-[11px] text-gray-500 text-center">{{ $image->reject_reason }}</p>
+                            <p class="text-xs text-red-500 text-center mt-1">{{ __('Rejected') }}</p>
+                            @if($image->rejection_reason)
+                                <p class="text-[11px] text-red-500 text-center">{{ $image->rejection_reason }}</p>
                             @endif
                         @endif
                         <form action="{{ route('gallery.destroy', $image->id) }}" method="POST"
@@ -43,7 +43,7 @@
                 <p class="text-gray-600 text-lg mb-4">
                     {{ __('Wow... You haven´t uploaded any images yet. Why not start now?') }}
                 </p>
-                <a href="{{ route('gallery.create') }}"
+                <a href="{{ route('gallery.store') }}"
                    class="bg-indigo-500 text-white px-6 py-2 rounded-3xl hover:bg-indigo-600 transition duration-300">
                     {{ __('+ Upload image') }}
                 </a>
