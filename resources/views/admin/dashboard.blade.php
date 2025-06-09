@@ -66,33 +66,6 @@
         <canvas id="postsChart" height="100"></canvas>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const ctx = document.getElementById('postsChart').getContext('2d');
-        const postsChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: {!! json_encode($chartData['labels']) !!},
-                datasets: [{
-                    label: 'Cantidad de Posts',
-                    data: {!! json_encode($chartData['data']) !!},
-                    backgroundColor: ['#34d399', '#fbbf24', '#f87171'],
-                    borderRadius: 6,
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {display: false}
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {stepSize: 1}
-                    }
-                }
-            }
-        });
-    </script>
+    <x-scripts.posts-chart-script :labels="$chartData['labels']" :data="$chartData['data']" />
 
 </x-layouts.admin-layout>

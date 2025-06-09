@@ -45,11 +45,13 @@
         <x-form.input-label for="longitude" :value="__('Longitude')"/>
         <x-form.input id="longitude" name="longitude" type="number" :value="old('longitude', $post->longitude ?? '')"
                  required/>
+        <x-form.input-error :messages="$errors->get('longitude')" class="mt-2"/>
     </div>
 
     <div>
         <x-form.input-label for="altitude" :value="__('Altitude')"/>
         <x-form.input id="altitude" name="altitude" type="number" :value="old('altitude', $post->altitude ?? '')"/>
+        <x-form.input-error :messages="$errors->get('altitude')" class="mt-2"/>
     </div>
 </div>
 
