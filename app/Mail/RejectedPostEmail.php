@@ -39,7 +39,7 @@ class RejectedPostEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.approved-post',
+            view: 'emails.rejected-post',
         );
     }
 
