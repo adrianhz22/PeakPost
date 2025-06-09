@@ -24,11 +24,11 @@
         <div class="space-y-4">
             @forelse ($logs as $log)
                 <div class="flex justify-between items-center p-3 mb-3 text-base font-medium border rounded-lg shadow-md
-                    @if (in_array($log->action, ['Usuario eliminado', 'Comentario eliminado', 'Post eliminado', 'Post rechazado']))
+                    @if (in_array($log->action, ['Usuario eliminado', 'Comentario eliminado', 'Post eliminado', 'Post rechazado', 'Imagen eliminada', 'Imagen rechazada']))
                         text-red-700 border-red-300 bg-red-100
                     @elseif (in_array($log->action, ['Post actualizado', 'Usuario actualizado']))
                         text-yellow-700 border-yellow-300 bg-yellow-100
-                    @elseif (in_array($log->action, ['Usuario registrado', 'Nuevo comentario', 'Nuevo post creado', 'Post aprobado', 'Imagen aprobada']))
+                    @elseif (in_array($log->action, ['Usuario registrado', 'Nuevo comentario', 'Nuevo post creado', 'Post aprobado', 'Imagen aprobada', 'Imagen subida', 'Usuario creado']))
                         text-green-700 border-green-300 bg-green-100
                     @else
                         text-gray-700 border-gray-300 bg-gray-100

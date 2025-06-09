@@ -103,16 +103,6 @@ class PostController extends Controller
 
     }
 
-    public function userLikedPosts()
-    {
-
-        $user = Auth::user();
-        $likedPosts = $user->likedPosts()->paginate(12);
-
-        return view('posts.my-likes', compact('likedPosts'));
-
-    }
-
     public function uploadTrixImage(Request $request)
     {
         $request->validate([

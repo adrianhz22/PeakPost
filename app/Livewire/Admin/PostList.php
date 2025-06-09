@@ -13,6 +13,10 @@ class PostList extends Component
 {
     use WithFileUploads, WithPagination;
 
+    public $existingImage = null;
+    public $existingTrack = null;
+
+
     public $title, $body, $image, $province, $provinces = [], $difficulty, $difficulties = [], $longitude, $altitude, $duration_hours, $duration_minutes, $track;
     public $editingPostId = null;
 
@@ -92,9 +96,13 @@ class PostList extends Component
         $this->longitude = $post->longitude;
         $this->altitude = $post->altitude;
         $this->duration_hours = floor($post->duration / 60);
-        $this->duration_minutes = floor($post->duration % 60);
-        $this->image = $post->image;
-        $this->track = $post->track;
+        $this->duration_minutes = $post->duration % 60;
+
+        $this->image = null;
+        $this->track = null;
+
+        $this->existingImage = $post->image;
+        $this->existingTrack = $post->track;
 
         $this->setUpdateRules();
     }
@@ -116,7 +124,8 @@ class PostList extends Component
     {
         $this->reset([
             'title', 'body', 'image', 'province', 'difficulty',
-            'longitude', 'altitude', 'duration_hours', 'duration_minutes', 'track', 'editingPostId'
+            'longitude', 'altitude', 'duration_hours', 'duration_minutes',
+            'track', 'editingPostId', 'existingImage', 'existingTrack'
         ]);
 
         $this->setCreationRules();
@@ -135,11 +144,11 @@ class PostList extends Component
     {
         $imagePath = $this->image instanceof UploadedFile
             ? '/storage/' . $this->image->store('posts/images', 'public')
-            : $this->image;
+            : $this->existingImage;
 
         $trackPath = $this->track instanceof UploadedFile
             ? '/storage/' . $this->track->store('posts/tracks', 'public')
-            : $this->track;
+            : $this->existingTrack;
 
         return [
             'title' => $this->title,
@@ -156,6 +165,7 @@ class PostList extends Component
             'status' => 'pending',
         ];
     }
+
 
     public function render()
     {

@@ -17,9 +17,10 @@ class AchievementFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->word(),
+            'name' => $this->faker->word(),
             'description' => $this->faker->sentence(),
-            'image' => 'achievements/' . $this->faker->uuid . '.jpg',
+            'image' => 'achievements/' . $this->faker->uuid() . '.jpg',
         ];
     }
 }
+

@@ -108,21 +108,17 @@
 
                             <div x-show="menu" @click.away="menu = false" x-cloak
                                  class="absolute right-0 top-full mt-2 w-40 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-50">
-                                @can('update', $comment)
-                                    <button @click="editMode = true; menu = false"
-                                            class="w-full px-4 py-2 text-left">
+                                @can('update', $reply)
+                                    <button @click="editMode = true; menu = false" class="w-full px-4 py-2 text-left">
                                         {{ __('Edit') }}
                                     </button>
                                 @endcan
 
-                                @can('delete', $comment)
-                                    <button type="submit" form="deleteForm-{{ $comment->id }}"
-                                            class="w-full px-4 py-2 text-left">
+                                @can('delete', $reply)
+                                    <button type="submit" form="deleteForm-{{ $reply->id }}" class="w-full px-4 py-2 text-left">
                                         {{ __('Delete') }}
                                     </button>
-                                    <form id="deleteForm-{{ $comment->id }}"
-                                          action="{{ route('comments.destroy', $comment->id) }}"
-                                          method="POST" class="hidden">
+                                    <form id="deleteForm-{{ $reply->id }}" action="{{ route('comments.destroy', $reply->id) }}" method="POST" class="hidden">
                                         @csrf
                                         @method('DELETE')
                                     </form>

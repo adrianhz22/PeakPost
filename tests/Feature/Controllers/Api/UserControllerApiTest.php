@@ -26,6 +26,8 @@ test('create a user successfully', function () {
         'username' => 'ejemplo_',
         'email' => 'ejemplo@example.com',
         'password' => 'ejemplo123',
+        'accepted_terms_at' => now(),
+        'terms' => true,
     ];
 
     $response = $this->postJson('/api/users', $userData);

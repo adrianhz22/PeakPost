@@ -3,16 +3,15 @@
 namespace App\Jobs;
 
 use App\Mail\NewPostMailable;
-use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
 class SendNewPostEmail
 {
-    use Dispatchable, SerializesModels;
+    use SerializesModels;
 
     protected $post;
-    protected $user;
+    protected $userEmail;
 
     /**
      * Create a new job instance.
@@ -20,7 +19,7 @@ class SendNewPostEmail
     public function __construct($post, $userEmail)
     {
         $this->post = $post;
-        $this->user = $userEmail;
+        $this->userEmail = $userEmail;
     }
 
     /**
@@ -28,6 +27,7 @@ class SendNewPostEmail
      */
     public function handle(): void
     {
-        Mail::to($this->user)->send(new NewPostMailable($this->post));
+        Mail::to($this->userEmail)->send(new NewPostMailable($this->post));
     }
 }
+

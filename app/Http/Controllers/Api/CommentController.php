@@ -41,7 +41,9 @@ class CommentController extends Controller
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="ID del comentario"
+     *         description="ID del comentario",
+     *         required=true,
+     *         @OA\Schema(type="integer", example=1)
      *     ),
      *     @OA\Response(
      *         response=200,
@@ -95,7 +97,9 @@ class CommentController extends Controller
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="ID del comentario"
+     *         description="ID del comentario",
+     *         required=true,
+     *         @OA\Schema(type="integer", example=1)
      *     ),
      *     @OA\Response(
      *         response=200,
@@ -132,7 +136,9 @@ class CommentController extends Controller
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="ID del comentario"
+     *         description="ID del comentario",
+     *         required=true,
+     *         @OA\Schema(type="integer", example=1)
      *     ),
      *     @OA\Response(
      *         response=204,

@@ -3,13 +3,14 @@
 namespace App\Jobs;
 
 use App\Mail\ApprovedPostEmail;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
 class SendApprovedPostEmail implements ShouldQueue
 {
-    use Queueable;
+    use Queueable, SerializesModels;
 
     protected $post;
     protected $user;
@@ -31,3 +32,4 @@ class SendApprovedPostEmail implements ShouldQueue
         Mail::to($this->user->email)->send(new ApprovedPostEmail($this->post));
     }
 }
+

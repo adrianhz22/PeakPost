@@ -8,6 +8,7 @@ use App\Http\Controllers\Moderation\PostModerationController;
 use App\Http\Controllers\Moderation\UserModerationController;
 use App\Http\Controllers\PDF\PDFController;
 use App\Http\Controllers\Post\CommentController;
+use App\Http\Controllers\Post\LikeController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\User\FollowController;
 use App\Http\Controllers\User\ProfileController;
@@ -38,7 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
 
     Route::get('/posts/my-posts', [PostController::class, 'userPosts'])->name('posts.user-posts');
-    Route::get('/my-likes', [PostController::class, 'userLikedPosts'])->name('posts.liked');
+    Route::get('/my-likes', [LikeController::class, 'userLikedPosts'])->name('posts.liked');
     Route::get('/post/{id}/pdf', [PDFController::class, 'downloadPDF'])->name('post.pdf');
     Route::post('/trix-image', [PostController::class, 'uploadTrixImage'])->name('trix.image');
     Route::resource('posts', PostController::class)->names('posts')->parameters(['posts' => 'post']);

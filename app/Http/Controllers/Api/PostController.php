@@ -52,10 +52,6 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $data = $this->processData($request);
-
-        $data['user_id'] = auth()->id();
-        $data['status'] = 'pending';
-
         $post = Post::create($data);
 
         return response()->json($post, 201);
@@ -67,10 +63,12 @@ class PostController extends Controller
      *     tags={"Posts"},
      *     summary="Obtener un post por ID",
      *     @OA\Parameter(
-     *          name="id",
-     *          in="path",
-     *          description="ID del post"
-     *      ),
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID del post",
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response="200",
      *         description="Post encontrado"
@@ -92,10 +90,12 @@ class PostController extends Controller
      *     tags={"Posts"},
      *     summary="Actualizar un post",
      *     @OA\Parameter(
-     *          name="id",
-     *          in="path",
-     *          description="ID del post"
-     *      ),
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID del post",
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response="200",
      *         description="Post actualizado"
@@ -115,9 +115,6 @@ class PostController extends Controller
         $this->authorize('update', $post);
 
         $data = $this->processData($request, $post);
-
-        $data['status'] = 'pending';
-
         $post->fill($data)->save();
 
         return response()->json($post, 200);
@@ -129,10 +126,12 @@ class PostController extends Controller
      *     tags={"Posts"},
      *     summary="Eliminar un post",
      *     @OA\Parameter(
-     *          name="id",
-     *          in="path",
-     *          description="ID del post"
-     *      ),
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID del post",
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response="200",
      *         description="Post eliminado"
@@ -155,35 +154,38 @@ class PostController extends Controller
         return response()->json(['message' => 'Post eliminado'], 200);
     }
 
+
     private function processData($request, Post $post = null): array
     {
-        $validated = $request->validated();
+        $data = $request->validated();
 
-        $imagePath = $post?->image ?? null;
+        $data['image'] = $post?->image ?? null;
+        $data['track'] = $post?->track ?? null;
+
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('posts/images', 'public');
+            $data['image'] = $request->file('image')->store('posts/images', 'public');
         }
 
-        $trackPath = $post?->track ?? null;
         if ($request->hasFile('track')) {
-            $trackPath = $request->file('track')->store('posts/tracks', 'public');
+            $data['track'] = $request->file('track')->store('posts/tracks', 'public');
         }
 
         $hours = (int)$request->input('duration_hours', 0);
         $minutes = (int)$request->input('duration_minutes', 0);
-        $totalDuration = ($hours * 60) + $minutes;
+        $data['duration'] = ($hours * 60) + $minutes;
 
-        return [
-            'title' => $validated['title'],
-            'slug' => Str::slug($validated['title']),
-            'body' => $validated['body'],
-            'image' => $imagePath,
-            'province' => $validated['province'],
-            'difficulty' => $validated['difficulty'],
-            'longitude' => $validated['longitude'],
-            'altitude' => $validated['altitude'],
-            'duration' => $totalDuration,
-            'track' => $trackPath,
-        ];
+        $data['slug'] = Str::slug($data['title']);
+        $data['status'] = 'pending';
+
+        if (!$post) {
+            $data['user_id'] = auth()->id();
+        }
+
+        if ($post) {
+            $data['rejection_reason'] = null;
+        }
+
+        return $data;
     }
+
 }

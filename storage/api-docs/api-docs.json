@@ -21,6 +21,21 @@
                         "description": "No autenticado"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Crear comentario",
+                "operationId": "c6ce2c222c8502aadd6a287105e49307",
+                "responses": {
+                    "201": {
+                        "description": "Comentario creado"
+                    },
+                    "422": {
+                        "description": "Datos inválidos"
+                    }
+                }
             }
         },
         "/api/comments/{id}": {
@@ -34,12 +49,77 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID del comentario"
+                        "description": "ID del comentario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "Comentario encontrado"
+                    },
+                    "404": {
+                        "description": "Comentario no encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Actualizar comentario",
+                "operationId": "17f16fb86b3722d33c54e6d165a02c80",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del comentario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Comentario actualizado"
+                    },
+                    "403": {
+                        "description": "No autorizado"
+                    },
+                    "404": {
+                        "description": "Comentario no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Eliminar comentario",
+                "operationId": "b683c30a239aa780ffc7e9b219e90811",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del comentario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Comentario eliminado"
+                    },
+                    "403": {
+                        "description": "No autorizado"
                     },
                     "404": {
                         "description": "Comentario no encontrado"
@@ -90,7 +170,11 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID del post"
+                        "description": "ID del post",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
@@ -112,7 +196,11 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID del post"
+                        "description": "ID del post",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
@@ -137,7 +225,11 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID del post"
+                        "description": "ID del post",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
@@ -192,6 +284,18 @@
                 ],
                 "summary": "Mostrar un usuario especifico",
                 "operationId": "6f51bd5fa2dddcd25e44cfa53dcbd10a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Usuario encontrado"
@@ -207,6 +311,18 @@
                 ],
                 "summary": "Actualizar un usuario",
                 "operationId": "070e37fc9aff78ae73860751bc990ed3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Usuario actualizado"
@@ -222,6 +338,18 @@
                 ],
                 "summary": "Eliminar un usuario",
                 "operationId": "0b4133ed462528a5e648b88ead11e929",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Usuario eliminado"

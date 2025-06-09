@@ -61,6 +61,13 @@ class UserController extends Controller
      *     path="/api/users/{id}",
      *     tags={"Users"},
      *     summary="Mostrar un usuario especifico",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID del usuario",
+     *         required=true,
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
      *     @OA\Response(
      *         response="200",
      *         description="Usuario encontrado"
@@ -81,6 +88,13 @@ class UserController extends Controller
      *     path="/api/users/{id}",
      *     tags={"Users"},
      *     summary="Actualizar un usuario",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID del usuario",
+     *         required=true,
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
      *     @OA\Response(
      *         response="200",
      *         description="Usuario actualizado"
@@ -111,6 +125,13 @@ class UserController extends Controller
      *     path="/api/users/{id}",
      *     tags={"Users"},
      *     summary="Eliminar un usuario",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID del usuario",
+     *         required=true,
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
      *     @OA\Response(
      *         response="200",
      *         description="Usuario eliminado"

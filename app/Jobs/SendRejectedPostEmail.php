@@ -2,15 +2,15 @@
 
 namespace App\Jobs;
 
-use App\Mail\ApprovedPostEmail;
 use App\Mail\RejectedPostEmail;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
 class SendRejectedPostEmail implements ShouldQueue
 {
-    use Queueable;
+    use Queueable, SerializesModels;
 
     protected $post;
     protected $user;
