@@ -36,8 +36,8 @@ class PostList extends Component
             'image' => 'required|image',
             'province' => 'required|string',
             'difficulty' => 'required|string',
-            'longitude' => 'required|numeric',
-            'altitude' => 'nullable|numeric',
+            'longitude' => 'required|numeric|min:0|max:10000',
+            'altitude' => 'nullable|numeric|min:0|max:10000',
             'duration_hours' => 'required|integer|min:0',
             'duration_minutes' => 'required|integer|min:0|max:59',
             'track' => 'nullable|file|mimes:xml,kml',
@@ -52,8 +52,8 @@ class PostList extends Component
             'image' => 'nullable|image',
             'province' => 'required|string',
             'difficulty' => 'required|string',
-            'longitude' => 'required|numeric',
-            'altitude' => 'nullable|numeric',
+            'longitude' => 'required|numeric|min:0|max:10000',
+            'altitude' => 'nullable|numeric|min:0|max:10000',
             'duration_hours' => 'required|integer|min:0',
             'duration_minutes' => 'required|integer|min:0|max:59',
             'track' => 'nullable|file|mimes:xml,kml',
@@ -82,6 +82,7 @@ class PostList extends Component
     public function editPost($postId)
     {
         $post = Post::findOrFail($postId);
+        $this->authorize('update', $post);
 
         $this->editingPostId = $post->id;
         $this->title = $post->title;
@@ -104,6 +105,8 @@ class PostList extends Component
         $this->validate();
 
         $post = Post::findOrFail($this->editingPostId);
+        $this->authorize('update', $post);
+
         $post->fill($this->preparePostData())->save();
 
         $this->resetForm();
@@ -122,6 +125,9 @@ class PostList extends Component
     public function deletePost($postId)
     {
         $post = Post::findOrFail($postId);
+
+        $this->authorize('delete', $post);
+
         $post->delete();
     }
 
